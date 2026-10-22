@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 
 import { contact, quoteForm, site } from "@/content/site";
 
@@ -64,6 +64,31 @@ export function QuoteForm() {
   const [errors, setErrors] = useState<Errors>({});
   const [sent, setSent] = useState(false);
   const [waHref, setWaHref] = useState<string | null>(null);
+
+  /**
+   * O catálogo avisa aqui qual produto gerou o "Pedir amostra".
+   *
+   * O botão da ficha dispara `plaswill:produto` com o nome do item, e o select
+   * já chega preenchido. A alternativa era mandar o produto na URL e reler no
+   * formulário: funciona, mas quebraria o salto de âncora em navegação de
+   * página inteira para um movimento que é dentro da mesma tela.
+   *
+   * `CustomEvent` e não contexto do React porque os dois componentes vivem em
+   * ramos diferentes da árvore da página, e criar um provider acima do `<main>`
+   * para transportar uma string seria mais estrutura do que o problema pede.
+   */
+  useEffect(() => {
+    const onProduct = (event: Event) => {
+      const name = (event as CustomEvent<string>).detail;
+      if (typeof name !== "string") return;
+
+      setValues((current) => ({ ...current, product: name }));
+      setErrors((current) => ({ ...current, product: undefined }));
+    };
+
+    window.addEventListener("plaswill:produto", onProduct);
+    return () => window.removeEventListener("plaswill:produto", onProduct);
+  }, []);
 
   function update<K extends keyof Values>(key: K, value: string) {
     setValues((current) => ({ ...current, [key]: value }));

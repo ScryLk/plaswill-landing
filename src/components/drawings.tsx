@@ -174,7 +174,7 @@ function Plate({ children, label }: { children: ReactNode; label: string }) {
 }
 
 /* ------------------------------------------------------------------ */
-/* FT-01 — filme stretch                                              */
+/* PR-01 — filme stretch                                              */
 /* ------------------------------------------------------------------ */
 
 function StretchDrawing() {
@@ -229,7 +229,7 @@ function StretchDrawing() {
 }
 
 /* ------------------------------------------------------------------ */
-/* FT-02 — plástico bolha                                             */
+/* PR-03 — plástico bolha                                             */
 /* ------------------------------------------------------------------ */
 
 function BubbleDrawing() {
@@ -274,7 +274,7 @@ function BubbleDrawing() {
 }
 
 /* ------------------------------------------------------------------ */
-/* FT-03 — sacaria e linha agrícola                                   */
+/* PR-12 — sacos para silagem                                   */
 /* ------------------------------------------------------------------ */
 
 function SilageDrawing() {
@@ -315,7 +315,7 @@ function SilageDrawing() {
 }
 
 /* ------------------------------------------------------------------ */
-/* FT-04 — linha hospitalar                                           */
+/* PR-10 e PR-11 — lixo infectante e lixo tóxico                                           */
 /* ------------------------------------------------------------------ */
 
 function HospitalDrawing() {
@@ -369,7 +369,7 @@ function HospitalDrawing() {
 }
 
 /* ------------------------------------------------------------------ */
-/* FT-05 — polietileno reciclado (PCR)                                */
+/* PCR — seção 06, materiais e meio ambiente                                */
 /* ------------------------------------------------------------------ */
 
 function PcrDrawing() {
@@ -438,20 +438,184 @@ function PcrDrawing() {
 }
 
 /* ------------------------------------------------------------------ */
+/* PR-02 — filme stretch rolinho                                      */
+/* ------------------------------------------------------------------ */
+
+function RollDrawing() {
+  /* quatro eixos de seção, para a bobina ler como corte e não como círculo */
+  const spokes = [0, 45, 90, 135].map((deg) => {
+    const rad = (deg * Math.PI) / 180;
+    return {
+      deg,
+      x1: 132 + Math.cos(rad) * 26,
+      y1: 152 + Math.sin(rad) * 26,
+      x2: 132 + Math.cos(rad) * 58,
+      y2: 152 + Math.sin(rad) * 58,
+    };
+  });
+
+  return (
+    <Plate label="Bobina de filme stretch rolinho em corte, com o núcleo de papelão ao centro e a lâmina de filme saindo tangente">
+      {/* núcleo de papelão */}
+      <circle className="draft-line-strong" cx={132} cy={152} r={72} />
+      <circle className="draft-line" cx={132} cy={152} r={58} />
+      <circle className="draft-line" cx={132} cy={152} r={26} />
+      <circle className="draft-line-dashed" cx={132} cy={152} r={17} />
+      {spokes.map((s) => (
+        <line
+          key={s.deg}
+          className="draft-line-dashed"
+          x1={s.x1}
+          y1={s.y1}
+          x2={s.x2}
+          y2={s.y2}
+        />
+      ))}
+      <Hatch x={56} y={152} width={14} step={7} height={30} />
+      <Hatch x={194} y={152} width={14} step={7} height={30} />
+
+      {/* lâmina saindo tangente ao topo da bobina */}
+      <path className="draft-line-strong" d="M 194 116 L 420 82" />
+      <path className="draft-line" d="M 194 128 L 420 94" />
+      <Callout x1={352} y1={77} x2={392} y2={44} label="aplicação manual" anchor="end" />
+
+      <DimV y1={80} y2={224} x={28} label="bobina" />
+      <Callout x1={132} y1={152} x2={96} y2={248} label="núcleo" />
+    </Plate>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/* PR-04 — capas de fardos                                            */
+/* ------------------------------------------------------------------ */
+
+function FardoDrawing() {
+  return (
+    <Plate label="Fardo enfardado visto em perspectiva, com a capa plástica envolvendo o volume e as amarrações no sentido longitudinal">
+      {/* volume do fardo: frente e topo, em perspectiva isométrica simples */}
+      <path
+        className="draft-line-strong"
+        d="M 120 194 L 120 122 L 340 122 L 340 194 Z"
+      />
+      <path className="draft-line-strong" d="M 120 122 L 162 88 L 382 88 L 340 122" />
+      <path className="draft-line-strong" d="M 382 88 L 382 160 L 340 194" />
+
+      {/* capa: contorno deslocado, indicando o filme por fora do volume */}
+      <path className="draft-line-dashed" d="M 112 200 L 112 116 L 340 116" />
+      <path className="draft-line-dashed" d="M 348 190 L 348 116 L 390 82" />
+
+      {/* amarrações longitudinais */}
+      {[170, 232, 294].map((x) => (
+        <line
+          key={x}
+          className="draft-line"
+          x1={x}
+          y1={122}
+          x2={x}
+          y2={194}
+        />
+      ))}
+
+      <DimH x1={120} x2={340} y={226} label="sob medida" />
+      <Callout x1={382} y1={88} x2={414} y2={50} label="capa soldada" anchor="end" />
+      <Callout x1={232} y1={194} x2={204} y2={256} label="incolor ou canela" />
+      <Hatch x={120} y={194} width={16} step={7} height={14} />
+    </Plate>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/* PR-05 a PR-09 — prancha de saco, assunto declarado                     */
+/* ------------------------------------------------------------------ */
+
+function BagDrawing({ subject }: { subject: string }) {
+  return (
+    <Plate
+      label={`Prancha técnica de ${subject}: saco plástico com boca aberta, corpo reto e solda de fundo`}
+    >
+      {/* corpo do saco */}
+      <path className="draft-line-strong" d="M 152 78 L 152 214" />
+      <path className="draft-line-strong" d="M 348 78 L 348 214" />
+
+      {/* boca aberta: as duas abas viram para fora */}
+      <path className="draft-line" d="M 152 78 L 138 62" />
+      <path className="draft-line" d="M 348 78 L 362 62" />
+      <path className="draft-line-dashed" d="M 138 62 L 362 62" />
+
+      {/* sanfona lateral */}
+      <path className="draft-line-dashed" d="M 196 96 L 196 214" />
+      <path className="draft-line-dashed" d="M 304 96 L 304 214" />
+
+      {/* solda de fundo */}
+      <line className="draft-line-strong" x1={152} y1={214} x2={348} y2={214} />
+      <Hatch x={168} y={214} width={164} step={9} height={9} />
+
+      <DimH x1={152} x2={348} y={252} label="largura" />
+      <DimV y1={78} y2={214} x={382} label="comprimento" />
+      <Callout x1={268} y1={214} x2={300} y2={272} label="solda de fundo" anchor="end" />
+      <Callout x1={348} y1={78} x2={404} y2={44} label="boca aberta" anchor="end" />
+    </Plate>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/* PR-13 e PR-14 — lona preta e lençol descartável                       */
+/* ------------------------------------------------------------------ */
+
+function SheetDrawing({ subject }: { subject: string }) {
+  return (
+    <Plate
+      label={`Prancha técnica de ${subject}: folha plástica estendida, com as dobras de bordo e a espessura em corte`}
+    >
+      {/* folha em perspectiva */}
+      <path className="draft-line-strong" d="M 92 196 L 176 96 L 428 96 L 344 196 Z" />
+
+      {/* dobras de bordo */}
+      <path className="draft-line-dashed" d="M 92 196 L 110 214 L 362 214 L 344 196" />
+      <path className="draft-line" d="M 176 96 L 194 114 L 446 114 L 428 96" />
+
+      {/* ondulação do plástico sobre a folha */}
+      {[0, 1, 2, 3].map((i) => (
+        <path
+          key={i}
+          className="draft-line-dashed"
+          d={`M ${140 + i * 62} 176 Q ${152 + i * 62} 148 ${164 + i * 62} 176`}
+        />
+      ))}
+
+      {/* espessura em corte, no canto */}
+      <Hatch x={110} y={214} width={16} step={7} height={12} />
+      <DimH x1={176} x2={428} y={72} label="largura" />
+      <DimV y1={96} y2={196} x={460} label="comprimento" />
+      <Callout x1={344} y1={196} x2={300} y2={262} label="espessura" anchor="end" />
+    </Plate>
+  );
+}
+
+/* ------------------------------------------------------------------ */
 /* Registro                                                           */
 /* ------------------------------------------------------------------ */
 
-const DRAWINGS: Record<DrawingId, () => ReactElement> = {
+const DRAWINGS: Record<DrawingId, (props: { subject: string }) => ReactElement> = {
   stretch: StretchDrawing,
+  roll: RollDrawing,
   bubble: BubbleDrawing,
+  fardo: FardoDrawing,
+  bag: BagDrawing,
+  sheet: SheetDrawing,
   silage: SilageDrawing,
   hospital: HospitalDrawing,
   pcr: PcrDrawing,
 };
 
-export function ProductDrawing({ id }: { id: DrawingId }) {
+/**
+ * A prancha de cada produto. `subject` é o nome do item e entra só no texto
+ * alternativo: as quatro pranchas de saco compartilham o mesmo desenho, mas
+ * quem lê com leitor de tela ouve o produto certo em cada linha.
+ */
+export function ProductDrawing({ id, subject }: { id: DrawingId; subject: string }) {
   const Drawing = DRAWINGS[id];
-  return <Drawing />;
+  return <Drawing subject={subject} />;
 }
 
 /* ------------------------------------------------------------------ */
