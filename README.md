@@ -2,7 +2,7 @@
 
 Landing page institucional e comercial da Plaswill, construída sobre a mecânica do sistema de design extraído da antimetal.com (documentado em `referencias/antimetal-design-system.md`) e sobre os dados verificados do dossiê corporativo (`dossie_contexto_plaswill.md`).
 
-**Status: versão aprovada no protótipo implementada; projeto não publicado.** A página do Next.js foi convergida para a versão aprovada em 19/10 (`design/prototipo-plaswill.html`): abertura em duas colunas no desktop — título à esquerda, campo de grânulos à direita sangrando até a borda da janela — e empilhada no mobile, catálogo em tabela/lista com ficha que abre na própria linha, estrutura em prancha técnica ao lado das etapas, segmentos em coluna e barra fixa de conversão no mobile.
+**Status: publicada como prévia em `https://site.plaswill.tech`; o domínio comercial não foi tocado.** A página do Next.js foi convergida para a versão aprovada em 19/10 (`design/prototipo-plaswill.html`): abertura em duas colunas no desktop — título à esquerda, campo de grânulos à direita sangrando até a borda da janela — e empilhada no mobile, catálogo em tabela/lista com ficha que abre na própria linha, estrutura em prancha técnica ao lado das etapas, segmentos em coluna e barra fixa de conversão no mobile.
 
 **Build executado com sucesso em 21/10**, offline: 9 rotas estáticas, página inicial com 214 B e 120 kB de JS no primeiro carregamento. As três famílias tipográficas são servidas pelo próprio projeto (`src/app/fonts/`), então o build não depende de rede. O servidor de produção foi iniciado e todas as rotas, fontes, CSS e JS responderam 200.
 
@@ -22,15 +22,16 @@ Por isso a landing não foi instalada "junto": ela é um **projeto Compose separ
 
 **O detalhe que ia quebrar o build.** `pnpm-workspace.yaml` listava só `arm64` em `supportedArchitectures`, herança de um projeto nascido no Mac e cujo sandbox de build também é arm64. A VPS é **x64**, e sem x64 na lista o `pnpm install` baixa o binário nativo errado do SWC — o `next build` então falha no meio da compilação com um erro que não parece ser de arquitetura. Corrigido; o lockfile já registrava as duas, então o `--frozen-lockfile` continua válido.
 
-**Publicar uma alteração.**
+**O servidor é um clone do repositório.** Até 22/10 a pasta `/opt/plaswill-site` era uma cópia extraída de `.tar`; agora é um clone de `main` (`git fetch` + `reset --hard`), acompanhando o remoto. Publicar passou a ser puxar e reconstruir:
 
 ```bash
-# da máquina local, com acesso por chave
-tar --exclude=node_modules --exclude=.next --exclude=.git -czf /tmp/site.tgz .
-scp /tmp/site.tgz root@179.199.151.3:/tmp/
-ssh root@179.199.151.3 'tar -xzf /tmp/site.tgz -C /opt/plaswill-site \
-  && cd /opt/plaswill-site/deploy && docker compose up -d --build'
+ssh root@179.199.151.3 'cd /opt/plaswill-site && git pull --ff-only \
+  && cd deploy && docker compose up -d --build'
 ```
+
+Duas notas sobre isso. A primeira: o `tar` preservava o dono original dos arquivos, e o git recusa operar numa pasta cujo dono não é o usuário — o `chown -R root:root /opt/plaswill-site` resolveu, e um clone feito pelo próprio git não tem esse problema. A segunda: o build **não** é automático no push. Quem puxa é uma pessoa, de propósito — o `main` deste repositório pode receber um commit e o site continua no ar com a versão anterior até alguém rodar os dois comandos acima.
+
+**Rollback.** `cd /opt/plaswill-site/deploy && docker compose down` tira o site do ar; no Caddy, comentar o bloco `site.plaswill.tech` e recarregar (`docker exec -w /etc/caddy plaswill-caddy-1 caddy reload --config /etc/caddy/Caddyfile`). O backup do Caddyfile anterior à mudança está em `/opt/plaswill/caddy/Caddyfile.bak-20261022-080402`. Para voltar a uma versão anterior do site sem tocar em configuração: `git reset --hard <commit>` e reconstruir.
 
 **Rollback.** `cd /opt/plaswill-site/deploy && docker compose down` tira o site do ar; no Caddy, comentar o bloco `site.plaswill.tech` e recarregar (`docker exec -w /etc/caddy plaswill-caddy-1 caddy reload --config /etc/caddy/Caddyfile`). O backup do Caddyfile anterior à mudança está em `/opt/plaswill/caddy/Caddyfile.bak-20261022-080402`.
 
