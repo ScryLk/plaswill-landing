@@ -1,0 +1,42 @@
+# Serviço da landing na VPS (srv2045098 / 179.199.151.3).
+#
+# Projeto Compose **separado** do `/opt/plaswill`: aquele é o back-office
+# (Nextcloud, GED, indicadores, banco) e não deve ser reerguido por causa de
+# uma alteração no site. Aqui só entra o site, e o único ponto de contato com a
+# stack existente é a rede externa `plaswill_plaswill-net` — é por ela que o
+# Caddy do outro projeto alcança o container pelo nome.
+#
+#   cd /opt/plaswill-site && docker compose up -d --build
+#
+# A landing não publica porta no host: quem fala com a internet é o Caddy.
+
+services:
+  site:
+    build:
+      context: ..
+      dockerfile: Dockerfile
+    image: plaswill-site:latest
+    container_name: plaswill-site
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      PORT: "3000"
+      HOSTNAME: 0.0.0.0
+    # O Next não guarda estado: só o processo em memória.
+    read_only: true
+    tmpfs:
+      - /tmp
+    security_opt:
+      - no-new-privileges:true
+    networks:
+      - plaswill-net
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+networks:
+  plaswill-net:
+    external: true
+    name: plaswill_plaswill-net

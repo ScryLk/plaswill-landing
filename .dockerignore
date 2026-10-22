@@ -1,0 +1,26 @@
+# O que não entra no contexto do build.
+#
+# Sem este arquivo, o `COPY . .` do Dockerfile levaria `node_modules` (centenas
+# de MB, e da arquitetura errada), `.next` e o `.git` para dentro da imagem —
+# três coisas que ou são recriadas no build, ou não pertencem a ela.
+
+node_modules
+.next
+.git
+.gitignore
+.pnpm-store
+
+# Material de referência e capturas: não são usados em tempo de execução.
+design
+referencias
+dossie_contexto_plaswill.md
+README.md
+
+# Credenciais e ambiente local — nunca entram numa imagem.
+.env
+.env.*
+!.env.example
+
+.DS_Store
+*.log
+tsconfig.tsbuildinfo

@@ -1,11 +1,18 @@
 packages:
   - '.'
 
+# O projeto nasceu no Mac (darwin/arm64) e o sandbox de build também é arm64 —
+# por isso a lista original tinha só essa arquitetura. A VPS é linux/x64, e sem
+# x64 aqui o `pnpm install` baixa os binários nativos errados: o `next build`
+# então falha lá, e falha tarde, no meio da compilação, com um erro de SWC que
+# não parece ter relação com arquitetura. Incluir x64 custa alguns MB de
+# node_modules e faz o mesmo lockfile servir aos três ambientes.
 supportedArchitectures:
   os:
     - darwin
     - linux
   cpu:
     - arm64
+    - x64
   libc:
     - glibc

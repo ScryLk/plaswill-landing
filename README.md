@@ -10,6 +10,34 @@ Landing page institucional e comercial da Plaswill, construída sobre a mecânic
 
 ---
 
+## Publicação — prévia na VPS
+
+A landing está no ar em **https://site.plaswill.tech**, como prévia. O domínio `plaswill.com.br` **não** foi tocado: o site atual continua onde estava.
+
+**Onde ela roda.** VPS da Hostinger, `179.199.151.3` (`srv2045098`), Ubuntu 26.04, 4 vCPU e 15 GB. Essa máquina **não** é uma caixa limpa de nginx e Node: é um host Docker com o back-office da Plaswill rodando em `/opt/plaswill` — Nextcloud/GED, indicadores, MariaDB, Redis, Elasticsearch, treze containers. Quem responde em 80/443 é o **Caddy** desse projeto, e não há nginx nem Node instalados no host.
+
+Por isso a landing não foi instalada "junto": ela é um **projeto Compose separado**, em `/opt/plaswill-site`, que se conecta à rede externa `plaswill_plaswill-net` para o Caddy alcançá-la pelo nome. O único ponto de contato com a stack existente é uma entrada acrescentada no fim do `Caddyfile` — nada mais do back-office foi alterado, e `ged.plaswill.tech` e `indicadores.plaswill.tech` seguem respondendo.
+
+**A imagem.** `Dockerfile` em três estágios (dependências → build → execução), com `output: "standalone"` no `next.config.ts`: a imagem final não leva pnpm, código-fonte nem ferramenta de build, roda como usuário sem privilégio e com o sistema de arquivos somente leitura. Nada escuta no host — o único caminho é `Caddy → plaswill-site:3000`.
+
+**O detalhe que ia quebrar o build.** `pnpm-workspace.yaml` listava só `arm64` em `supportedArchitectures`, herança de um projeto nascido no Mac e cujo sandbox de build também é arm64. A VPS é **x64**, e sem x64 na lista o `pnpm install` baixa o binário nativo errado do SWC — o `next build` então falha no meio da compilação com um erro que não parece ser de arquitetura. Corrigido; o lockfile já registrava as duas, então o `--frozen-lockfile` continua válido.
+
+**Publicar uma alteração.**
+
+```bash
+# da máquina local, com acesso por chave
+tar --exclude=node_modules --exclude=.next --exclude=.git -czf /tmp/site.tgz .
+scp /tmp/site.tgz root@179.199.151.3:/tmp/
+ssh root@179.199.151.3 'tar -xzf /tmp/site.tgz -C /opt/plaswill-site \
+  && cd /opt/plaswill-site/deploy && docker compose up -d --build'
+```
+
+**Rollback.** `cd /opt/plaswill-site/deploy && docker compose down` tira o site do ar; no Caddy, comentar o bloco `site.plaswill.tech` e recarregar (`docker exec -w /etc/caddy plaswill-caddy-1 caddy reload --config /etc/caddy/Caddyfile`). O backup do Caddyfile anterior à mudança está em `/opt/plaswill/caddy/Caddyfile.bak-20261022-080402`.
+
+**O que não está resolvido nesta prévia.** O certificado é emitido por HTTP-01 do próprio Caddy, o que funciona porque o DNS de `*.plaswill.tech` já aponta para a VPS — um wildcard, o que também significa que **qualquer** subdomínio novo resolve para lá e ganha certificado. Não há firewall do sistema ativo (`ufw` está inativo); a proteção é a do provedor. E não há pipeline: a publicação é manual, pelos comandos acima.
+
+---
+
 ## Como rodar
 
 Requisitos: **Node 20.9 ou superior** (o projeto pede isso em `engines`). Internet só é necessária na instalação; o build roda offline, porque as fontes estão versionadas em `src/app/fonts/` e carregadas com `next/font/local`.
