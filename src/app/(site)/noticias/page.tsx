@@ -47,7 +47,14 @@ export default function NoticiasPage() {
             <li key={post.slug}>
               <Reveal delay={index * 30}>
                 <article className="news-row">
-                  <Link className="news-row__link" href={`/noticias/${post.slug}`}>
+                  <Link
+                    className={
+                      post.cover
+                        ? "news-row__link"
+                        : "news-row__link news-row__link--no-media"
+                    }
+                    href={`/noticias/${post.slug}`}
+                  >
                     {post.cover ? (
                       <span className="news-row__media">
                         <Image
@@ -58,11 +65,7 @@ export default function NoticiasPage() {
                           className="news-row__img"
                         />
                       </span>
-                    ) : (
-                      /* Sem capa publicável, o espaço vira margem — não vira
-                         retângulo cinza com ícone de imagem quebrada. */
-                      <span className="news-row__media news-row__media--empty" aria-hidden="true" />
-                    )}
+                    ) : null}
 
                     <span className="news-row__body">
                       <time className="t-code c-tertiary" dateTime={post.date}>

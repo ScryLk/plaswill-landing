@@ -443,7 +443,7 @@ o que foi recusado e por quê, e o que ficou pendente — está em
   O post sobre saúde mental ficou **sem capa**: a imagem destacada no WordPress
   é uma foto da comemoração dos 19 anos.
 - **Nada foi ampliado.** As imagens saem em AVIF no tamanho original, ou
-  reduzidas quando passavam de 900 px (produtos) e 1400 px (capas).
+  reduzidas quando passavam de 900 px.
 - **Os originais ficam em `acervo/originais/`**, fora de `/public`, e o
   WordPress não foi tocado.
 
@@ -478,6 +478,7 @@ Estes pontos dependem de decisão ou autorização de vocês. Estão aqui e não
 21. **Saco para pedra sem foto.** A única imagem disponível é uma provável ilustração gerada e foi recusada. O card mostra a prancha técnica. Falta foto autorizada do saco com pedra.
 22. **Capa do post de saúde mental.** No WordPress, a imagem destacada desse post é uma foto dos 19 anos, sem relação com o assunto. A capa foi omitida; escolher a imagem certa e reativá-la em `src/content/news.ts`.
 23. **"Notícias" não está no menu.** A seção existe na home e o arquivo tem URL própria, mas o item não entrou na navegação principal: sete itens em 1024 px arriscam quebrar a barra, e não houve conferência visual neste ambiente.
+24. **O otimizador de imagem não roda na prévia.** O build standalone não leva o `sharp`, então `/_next/image` devolve o arquivo original inteiro em vez de gerar o tamanho pedido. Medido na prévia: cada capa de notícia baixava entre 96 KB e 515 KB para um espaço de 240 px. As capas foram reduzidas para 900 px, o que alivia, mas o certo é acrescentar `sharp` às dependências e recompilar a imagem Docker; a partir daí o Next volta a servir AVIF/WebP no tamanho correto para todas as fotos, inclusive as de produto.
 
 ---
 
