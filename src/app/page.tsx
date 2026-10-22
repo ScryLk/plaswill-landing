@@ -4,6 +4,7 @@ import { Differentials } from "@/components/Differentials";
 import { Faq } from "@/components/Faq";
 import { Footer } from "@/components/Footer";
 import { Materials } from "@/components/Materials";
+import { News } from "@/components/News";
 import { Products } from "@/components/Products";
 import { Segments } from "@/components/Segments";
 import { Structure } from "@/components/Structure";
@@ -90,6 +91,12 @@ export default function HomePage() {
         <Materials />
         <hr className="rule" />
         <Segments />
+        <hr className="rule" />
+        {/* Notícias depois dos segmentos e antes do FAQ: é conteúdo
+            institucional, não comercial. Quem está decidindo compra lê até
+            segmentos e segue para a dúvida; quem está avaliando a empresa
+            encontra aqui o que ela tem feito. */}
+        <News />
         <hr className="rule" />
         <Faq />
         <Contact />
