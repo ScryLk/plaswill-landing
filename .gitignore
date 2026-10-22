@@ -34,7 +34,9 @@ next-env.d.ts
 referencias/antimetal/
 
 # capturas do protótipo de estado: ~1,1 MB cada, geradas por design/prototipo-estado.py
+# e design/snapshot.py — reproduzíveis com um comando
 design/abertura-rodando.html
+design/home-rodando.html
 design/abertura-compacto.html
 design/abertura-hover.html
 

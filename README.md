@@ -4,9 +4,9 @@ Landing page institucional e comercial da Plaswill, construída sobre a mecânic
 
 **Status: versão aprovada no protótipo implementada; projeto não publicado.** A página do Next.js foi convergida para a versão aprovada em 19/10 (`design/prototipo-plaswill.html`): abertura em duas colunas no desktop — título à esquerda, campo de grânulos à direita sangrando até a borda da janela — e empilhada no mobile, catálogo em tabela/lista com ficha que abre na própria linha, estrutura em prancha técnica ao lado das etapas, segmentos em coluna e barra fixa de conversão no mobile.
 
-**Build executado com sucesso em 19/10 e reconferido em 20/10**, offline: 8 rotas estáticas (a `/abertura` entrou na lista), página inicial com 6,32 kB e 113 kB de JS no primeiro carregamento. As três famílias tipográficas são servidas pelo próprio projeto (`src/app/fonts/`), então o build não depende de rede. O servidor de produção foi iniciado e todas as rotas, fontes, CSS e JS responderam 200.
+**Build executado com sucesso em 21/10**, offline: 9 rotas estáticas, página inicial com 214 B e 120 kB de JS no primeiro carregamento. As três famílias tipográficas são servidas pelo próprio projeto (`src/app/fonts/`), então o build não depende de rede. O servidor de produção foi iniciado e todas as rotas, fontes, CSS e JS responderam 200.
 
-A **`/abertura`** é uma página nova e fechada em si mesma: navbar fixa, abertura de tela cheia e faixa de clientes, sem rodapé. Ela tem seção própria neste documento.
+**A abertura virou a home em 21/10.** A home agora é a abertura — navbar de vidro, hero de tela cheia, faixa de clientes — seguida do corpo comercial aprovado. A landing anterior está inteira em `/institucional`, com `noindex`, como referência e caminho de volta; a abertura isolada continua em `/abertura`, também `noindex`, para revisão. As duas rotas têm seção própria neste documento.
 
 ---
 
@@ -46,13 +46,14 @@ As fontes são declaradas uma vez em `src/app/layout.tsx` com `next/font/local`:
 | Texto, produto, especificação, FAQ, clientes, contatos | `src/content/site.ts` — **todo o conteúdo comercial está aqui** |
 | Cor, tipografia, espaçamento, forma | `src/app/globals.css` — bloco `:root`, no topo |
 | Estrutura de uma seção | `src/components/<Seção>.tsx` |
-| Ordem das seções na página | `src/app/page.tsx` |
+| Ordem das seções na home | `src/app/page.tsx` |
+| A landing anterior (referência e rollback) | `src/app/(site)/institucional/page.tsx` |
 | Desenhos técnicos | `src/components/drawings.tsx` |
 | Logotipo oficial | basta copiar o arquivo em `/public/brand/` — ver `public/brand/LEIA-ME.md` |
 | Protótipo e wireframes aprovados | `design/` (referência visual, não entra no build) |
 | Conferir o cabeçalho | `design/cabecalho.html` (rota compilada) e `design/prototipo.html` (protótipo) — as cópias saem de `design/snapshot.py` e `design/prototipo-estado.py`, cada um com `--compacto` e `--hover`; o protótipo tem ainda `--minimizado`, que confere a saída das laterais |
 | Título, descrição e Open Graph | `src/content/site.ts` (objeto `seo`) e `src/app/layout.tsx` |
-| Dados estruturados (JSON-LD) | `src/app/(site)/page.tsx`, função `structuredData()` |
+| Dados estruturados (JSON-LD) | `src/lib/structured-data.ts`, função `structuredData()` — usada pela home e por `/institucional` |
 | Texto da abertura (aviso, clientes, CTA) | `src/content/site.ts`, objetos `abertura` e `aberturaNav` |
 | Estrutura e estilo da abertura | `src/components/abertura/` e `src/app/abertura/abertura.css` |
 | Tokens de cor e fonte do Tailwind | `tailwind.config.ts` |
@@ -79,9 +80,51 @@ A separação é deliberada: nenhum texto comercial está dentro de componente. 
 
 ---
 
+## A home: a abertura mais o corpo comercial
+
+**O que mudou em 21/10.** A abertura era uma rota fechada em si mesma e a home era a landing inteira. Agora a abertura abre o site e o corpo comercial aprovado vem logo abaixo, nesta ordem:
+
+```
+navbar de vidro · hero de tela cheia · faixa de clientes (dentro do hero)
+faixa de conversão
+produtos · sobre · diferenciais · estrutura · segmentos · FAQ · contato
+rodapé
+```
+
+**A conta do lugar de cada rota.**
+
+| rota | o que é | indexação |
+| --- | --- | --- |
+| `/` | a abertura seguida do corpo comercial — `src/app/page.tsx` | indexada, canônica |
+| `/institucional` | a landing anterior, inteira — rollback e comparação | `noindex, nofollow` |
+| `/abertura` | a abertura sozinha, sem o corpo abaixo — revisão | `noindex, nofollow`, canônica aponta para `/` |
+| `/politica-de-privacidade` | inalterada | indexada |
+
+**A home mora fora de `(site)`.** O grupo `(site)` aplica uma casca fixa — a navbar da landing, o `<main>` e o rodapé — a tudo que está dentro dele. A abertura tem navegação própria, então a home monta a própria casca: `<a class="skip-link">`, `AberturaNav`, `<main id="conteudo">` e `Footer`. `/institucional` e a política continuam no grupo, com a casca antiga. Consequência prática: se um dia a navbar da landing voltar a ser a única navegação do site, é só mover `page.tsx` de volta para dentro do grupo e apagar a casca explícita.
+
+**Três blocos da landing não entraram na home**, cada um por um motivo:
+
+- `Hero` — repetiria título e foto que a abertura já apresenta na primeira tela;
+- `Clients` — os quinze nomes já correm na faixa dentro do hero da abertura. Duas listas de clientes na mesma página era redundância, não reforço;
+- `StickyCta` — existia porque a landing antiga não tinha nenhum CTA fixo. A pílula da abertura fica na tela em todos os estados de rolagem, com o botão comercial dentro dela, e a faixa de conversão vem antes dos produtos. Uma terceira chamada fixa competiria com a navbar em vez de ajudar.
+
+**O `preflight` do Tailwind foi desligado.** Era o único ponto de atrito real da fusão. Enquanto `abertura.css` só era carregada em `/abertura`, o reset do Tailwind não alcançava nada além da abertura; trazida a folha para a home, ele passaria a valer também para as seções da landing, que sempre viveram do reset escrito à mão em `globals.css`. `tailwind.config.ts` agora tem `corePlugins: { preflight: false }`. A única dependência real do preflight era `border-style: solid` em todo elemento, que as utilitárias `border-*` pressupõem — o único elemento afetado (a cápsula do aviso comercial, em `AberturaHero`) passou a declarar `border-solid` explicitamente.
+
+**A prova de que a landing não mudou.** O bundle de CSS da landing saiu **byte a byte idêntico** antes e depois (`4c8a74819d78309c.css`, 24.227 bytes nos dois lados). No bundle da abertura saíram os 36 seletores do preflight e entrou um: `.border-solid`. Além disso, as 46 classes de `abertura.css` e as 167 de `globals.css` não têm **nenhum** nome em comum — medido, não estimado — então mesmo com as duas folhas carregadas juntas não há regra que se cruze.
+
+**A emenda visual.** A faixa de conversão é branca (`--surface`) sobre o `#EDF1F3` da página, com fio no topo: a troca de tom é o que separa a abertura do corpo comercial, e por isso não há `<hr>` depois dela. Da faixa em diante a página segue o ritmo da landing, com as hairline tracejadas entre as seções.
+
+**Ganho de navegação que veio junto.** Os links da navbar da abertura sempre apontaram para `/#produtos`, `/#estrutura`, `/#segmentos` e `/#orcamento`. Enquanto a abertura era uma rota isolada, eles saíam da página; agora que o corpo comercial está em `/`, eles resolvem na própria home.
+
+**Como conferir sem navegador.** `design/snapshot.py 4326 --home` gera `design/home-rodando.html`, uma captura autocontida da home compilada (CSS, fontes e imagens embutidos, sem JavaScript) — o mesmo mecanismo dos estados do cabeçalho, agora com a rota escolhida por argumento. O `scroll-padding-top: 6rem` de `globals.css` foi herdado pela home, então os quatro âncoras param abaixo da navbar fixa em vez de atrás dela.
+
+**Rollback.** Desfazer a fusão são três passos: mover `src/app/(site)/institucional/page.tsx` de volta para `src/app/(site)/page.tsx`, apagar `src/app/page.tsx` e restaurar o bloco de metadados antigo em `src/app/abertura/layout.tsx`. Nada em `src/content/site.ts` mudou, então o conteúdo comercial não corre risco nenhum no caminho de volta.
+
+---
+
 ## A rota `/abertura`
 
-Uma página fechada em si mesma, em `http://localhost:3000/abertura`. Nasceu de um spec de referência (a landing do Palomar Labs) que pede três coisas e mais nada: **navbar fixa, abertura de tela cheia e faixa de clientes**. Nada abaixo disso — sem rodapé, sem segunda seção, sem botão no corpo do hero.
+A abertura em `http://localhost:3000/abertura`, hoje só como revisão isolada — ela é a primeira tela da home desde 21/10, e esta rota existe para olhá-la sozinha. Nasceu de um spec de referência (a landing do Palomar Labs) que pede três coisas e mais nada: **navbar fixa, abertura de tela cheia e faixa de clientes**, sem rodapé, sem segunda seção, sem botão no corpo do hero. Tudo o que está descrito nesta seção vale igual para a home, que importa os mesmos componentes.
 
 **Estrutura.** Três cápsulas de vidro flutuando sobre o conteúdo, na construção da referência do Antimetal (lida do arquivo salvo em `referencias/antimetal/Antimetal.html`, não de memória): navegação à esquerda, assinatura no eixo da página, contato à direita. No celular as duas laterais somem e sobra a assinatura mais um hambúrguer dentro de outra cápsula, que vira X e abre um painel de tela cheia. O corpo traz o aviso comercial em cápsula, o título e, na coluna da direita a partir de `md`, a **fachada da sede**. A faixa `Fornecedor homologado de` traz **quinze nomes** de cliente em carrossel.
 

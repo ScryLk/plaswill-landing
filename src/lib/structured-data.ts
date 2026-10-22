@@ -1,21 +1,18 @@
-import { About } from "@/components/About";
-import { Clients } from "@/components/Clients";
-import { Contact } from "@/components/Contact";
-import { Differentials } from "@/components/Differentials";
-import { Faq } from "@/components/Faq";
-import { Hero } from "@/components/Hero";
-import { Products } from "@/components/Products";
-import { Segments } from "@/components/Segments";
-import { StickyCta } from "@/components/StickyCta";
-import { Structure } from "@/components/Structure";
 import { faq, products, seo, site, structure } from "@/content/site";
 
 /**
- * Dados estruturados: organização com endereço e canais verificados,
+ * Dados estruturados da home: organização com endereço e canais verificados,
  * catálogo de oferta e as perguntas frequentes da própria página.
- * Nada aqui é inventado — tudo sai de src/content/site.ts.
+ *
+ * Nada aqui é inventado — tudo sai de `src/content/site.ts`, que é o arquivo
+ * onde os dados oficiais da empresa ficam registrados. Se um dado não está lá,
+ * ele não aparece no JSON-LD.
+ *
+ * Mora em `lib` desde 21/10, quando a abertura virou a home: as duas páginas
+ * (a home nova e a landing anterior, preservada em `/institucional`) descrevem
+ * a mesma empresa, e manter duas cópias garantiria que uma ficasse para trás.
  */
-function structuredData() {
+export function structuredData() {
   const url = seo.siteUrl;
 
   return {
@@ -106,33 +103,4 @@ function structuredData() {
       },
     ],
   };
-}
-
-export default function HomePage() {
-  return (
-    <>
-      <script
-        type="application/ld+json"
-        // O conteúdo vem de um objeto tipado do próprio projeto, sem entrada de usuário.
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData()) }}
-      />
-      <Hero />
-      <hr className="rule" />
-      <About />
-      <hr className="rule" />
-      <Products />
-      <hr className="rule" />
-      <Differentials />
-      <hr className="rule" />
-      <Structure />
-      <hr className="rule" />
-      <Segments />
-      <hr className="rule" />
-      <Clients />
-      <hr className="rule" />
-      <Faq />
-      <Contact />
-      <StickyCta />
-    </>
-  );
 }

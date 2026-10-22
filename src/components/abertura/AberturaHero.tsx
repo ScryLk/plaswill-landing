@@ -77,7 +77,7 @@ export function AberturaHero({
         <div className="flex shrink-0 flex-col items-start pt-28 md:pt-36">
           {/* Aviso comercial */}
           <a
-            className="mb-5 inline-flex animate-fade-up items-center gap-2 rounded-full border border-brand-slate/15 bg-white/60 px-4 py-2 stagger-3 backdrop-blur-sm transition-colors hover:bg-white/80 md:mb-6"
+            className="mb-5 inline-flex animate-fade-up items-center gap-2 rounded-full border border-solid border-brand-slate/15 bg-white/60 px-4 py-2 stagger-3 backdrop-blur-sm transition-colors hover:bg-white/80 md:mb-6"
             href={abertura.pillHref}
           >
             {/* `whitespace-nowrap`: o aviso é curto de propósito, e quebrar em

@@ -23,6 +23,12 @@ Dois estados do cabeçalho não existem em repouso e saem por modo próprio:
     python3 design/snapshot.py 4326 --compacto   # cápsula central encolhida
     python3 design/snapshot.py 4326 --hover      # o nome ao lado da marca
 
+E a home — a abertura seguida do corpo comercial — sai com `--home`, em
+`design/home-rodando.html`. É o que permite olhar para a emenda entre a faixa
+de conversão e as seções da landing sem um navegador à mão:
+
+    python3 design/snapshot.py 4326 --home
+
 Requer Tailwind instalado (`pnpm add -D tailwindcss@^3.4 postcss autoprefixer`),
 senão o CSS sai sem utilitárias e a captura mostra a página sem layout.
 
@@ -49,8 +55,16 @@ BASE = f"http://127.0.0.1:{PORT}"
 #   --hover     o nome revelado ao lado da marca (depende do ponteiro em cima)
 COMPACTO = "--compacto" in sys.argv
 HOVER = "--hover" in sys.argv
+HOME = "--home" in sys.argv
+
+# A rota capturada. `/abertura` é a abertura isolada; `/` é a home, que desde
+# 21/10 é a abertura com o corpo comercial embaixo.
+ROTA = "/" if HOME else "/abertura"
+
 SAIDA = pathlib.Path(
-    "design/abertura-hover.html"
+    "design/home-rodando.html"
+    if HOME
+    else "design/abertura-hover.html"
     if HOVER
     else "design/abertura-compacto.html"
     if COMPACTO
@@ -64,7 +78,7 @@ def get(url: str) -> bytes:
 
 
 def main() -> None:
-    html = get("/abertura").decode("utf-8")
+    html = get(ROTA).decode("utf-8")
 
     # 1. CSS inline, com as fontes embutidas
     fontes = 0
@@ -182,7 +196,7 @@ def main() -> None:
         '<p style="position:fixed;left:12px;bottom:12px;z-index:9999;margin:0;'
         "font:11px/1.4 ui-monospace,monospace;letter-spacing:.06em;text-transform:uppercase;"
         "color:#334155;background:rgba(255,255,255,.9);border:1px dashed rgba(51,65,85,.35);"
-        f'padding:6px 10px">rota /abertura compilada · sem javascript · {estado}</p>'
+        f'padding:6px 10px">rota {ROTA} compilada · sem javascript · {estado}</p>'
     )
     html = html.replace("</body>", aviso + "</body>", 1)
 

@@ -4,24 +4,30 @@ import type { ReactNode } from "react";
 import "./abertura.css";
 
 /**
- * Casca da abertura. Ela é importada aqui — e não no layout raiz — justamente
- * para o Tailwind e o preflight ficarem presos a esta rota: a landing aprovada
- * continua no sistema de tokens de `globals.css`.
+ * Casca de `/abertura` — hoje apenas a revisão isolada da primeira tela.
  *
- * `robots: noindex` enquanto a página for um estudo: ela não é linkada de
- * lugar nenhum e não deve competir com a home nos mecanismos de busca. Quando
- * a abertura virar a página inicial, é este bloco que muda.
+ * Desde 21/10 a abertura é a home (`src/app/page.tsx`), que importa esta mesma
+ * folha. A rota continua no ar para revisar a abertura sozinha, sem o corpo
+ * comercial abaixo, e por isso segue `noindex`.
+ *
+ * O `preflight` do Tailwind está desligado em `tailwind.config.ts`: enquanto a
+ * folha era exclusiva desta rota, o reset dele não incomodava; ao chegar à
+ * home, ele alcançaria as seções da landing. Nesta rota, o reset que vale é o
+ * de `globals.css`, o mesmo do site inteiro.
+ *
+ * O canônico aponta para `/`, e não para si mesma: o conteúdo é o mesmo da
+ * primeira tela da home, e uma URL secundária não deve reivindicar o conteúdo.
  */
 export const metadata: Metadata = {
-  title: "Abertura",
+  title: "Abertura — revisão",
   description:
-    "Estudo de abertura de tela cheia para a Plaswill — página em avaliação, ainda não publicada.",
-  alternates: { canonical: "/abertura" },
+    "Revisão isolada da abertura de tela cheia da Plaswill. Esta rota não é indexada.",
+  alternates: { canonical: "/" },
   openGraph: {
     url: "/abertura",
-    title: "Abertura",
+    title: "Abertura — revisão",
     description:
-      "Estudo de abertura de tela cheia para a Plaswill — página em avaliação, ainda não publicada.",
+      "Revisão isolada da abertura de tela cheia da Plaswill. Esta rota não é indexada.",
   },
   robots: { index: false, follow: false },
 };

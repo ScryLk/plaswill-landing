@@ -30,9 +30,33 @@
  */
 const config = {
   content: [
+    "./src/app/page.tsx",
     "./src/app/abertura/**/*.{ts,tsx}",
     "./src/components/abertura/**/*.{ts,tsx}",
   ],
+
+  /**
+   * `preflight: false` — o reset do Tailwind **não** entra.
+   *
+   * Até 21/10 esta folha só era carregada em `/abertura`, que nunca teve mais
+   * do que a abertura na tela. Ao trazer a mesma folha para a home, o preflight
+   * passaria a valer também para as seções da landing aprovada, que sempre
+   * viveram do reset escrito à mão em `src/app/globals.css`. Desligá-lo mantém
+   * a landing exatamente como está — e o reset à mão já cobre o que o preflight
+   * faria: `box-sizing`, margens zeradas, `img/svg/video` em bloco, controles
+   * de formulário sem fundo nem borda.
+   *
+   * A única dependência real do preflight era `border-style: solid`, que ele
+   * aplica em todo elemento para as utilitárias `border-*` funcionarem. O
+   * elemento afetado (a cápsula do aviso comercial, em `AberturaHero`) passou
+   * a declarar `border-solid` explicitamente. Com isso a folha não deve nada
+   * ao preflight, e um `border` futuro sem `border-solid` fica visível como
+   * defeito em vez de silencioso.
+   */
+  corePlugins: {
+    preflight: false,
+  },
+
   theme: {
     extend: {
       colors: {
