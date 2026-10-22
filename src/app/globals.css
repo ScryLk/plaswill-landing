@@ -1623,6 +1623,120 @@ ol {
   }
 }
 
+/* --- Catálogo: índice de categorias e cabeçalho de grupo ------------ */
+
+/* O índice é feito de âncoras, não de filtros: nada na página fica escondido
+   de quem usa leitor de tela, de quem imprime ou de quem chega por busca. */
+.prod-index {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 2.25rem;
+}
+
+.prod-index__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.5rem 0.95rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-pill);
+  color: var(--fg-2);
+  text-decoration: none;
+  transition:
+    border-color 200ms var(--ease-ui),
+    background-color 200ms var(--ease-ui);
+}
+
+.prod-index__item:hover,
+.prod-index__item:focus-visible {
+  border-color: var(--line-strong);
+  background: var(--surface);
+}
+
+.prod-cat {
+  display: grid;
+  grid-template-columns: 5.5rem minmax(0, 1fr) auto;
+  gap: 1.5rem;
+  align-items: start;
+  padding: 2.75rem 0 0.9rem;
+  /* O cabeçalho da navbar é fixo: sem isto a âncora para embaixo dele. */
+  scroll-margin-top: 7rem;
+}
+
+.prod-cat__code,
+.prod-cat__count {
+  padding-top: 0.4rem;
+  white-space: nowrap;
+}
+
+@media (max-width: 47.99rem) {
+  .prod-cat {
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 0.9rem;
+    padding-top: 2rem;
+  }
+  .prod-cat__count {
+    display: none;
+  }
+  .prod-index {
+    gap: 0.4rem;
+  }
+  .prod-index__item {
+    padding: 0.45rem 0.75rem;
+  }
+  .prod-index__item > :last-child {
+    display: none;
+  }
+}
+
+/* --- Materiais e meio ambiente ------------------------------------- */
+
+.materials-grid {
+  display: grid;
+  gap: 2.5rem;
+}
+
+@media (min-width: 64rem) {
+  .materials-grid {
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+    gap: 4rem;
+    align-items: start;
+  }
+}
+
+.materials-note {
+  display: grid;
+  gap: 1rem;
+  justify-items: start;
+  padding: 1.75rem;
+  border: 1px dashed var(--line-dash);
+  background: var(--draft);
+}
+
+.materials-pending {
+  display: grid;
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.materials-pending li {
+  position: relative;
+  padding-left: 1.15rem;
+}
+
+.materials-pending li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.62em;
+  width: 0.45rem;
+  height: 1px;
+  background: var(--line-strong);
+}
+
 /* --- Estrutura: prancha + etapas ----------------------------------- */
 
 .struct-grid {

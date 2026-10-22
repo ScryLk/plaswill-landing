@@ -3,6 +3,7 @@ import { Contact } from "@/components/Contact";
 import { Differentials } from "@/components/Differentials";
 import { Faq } from "@/components/Faq";
 import { Footer } from "@/components/Footer";
+import { Materials } from "@/components/Materials";
 import { Products } from "@/components/Products";
 import { Segments } from "@/components/Segments";
 import { Structure } from "@/components/Structure";
@@ -80,11 +81,13 @@ export default function HomePage() {
 
         <Products />
         <hr className="rule" />
-        <About />
-        <hr className="rule" />
         <Differentials />
         <hr className="rule" />
+        <About />
+        <hr className="rule" />
         <Structure />
+        <hr className="rule" />
+        <Materials />
         <hr className="rule" />
         <Segments />
         <hr className="rule" />

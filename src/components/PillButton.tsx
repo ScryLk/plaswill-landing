@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import type { MouseEvent, ReactNode } from "react";
 
 import { RegistrationMarks, type Corner } from "@/components/marks";
 
@@ -15,7 +15,13 @@ type CommonProps = {
 type AnchorProps = CommonProps & {
   href: string;
   type?: never;
-  onClick?: never;
+  /**
+   * Um link pode precisar reagir ao clique sem deixar de ser link: a âncora
+   * continua valendo para quem abre em nova aba, copia o endereço ou navega sem
+   * JavaScript, e o `onClick` só acrescenta um efeito colateral — hoje, avisar
+   * o formulário de qual produto veio o pedido de amostra.
+   */
+  onClick?: (event: MouseEvent<HTMLAnchorElement>) => void;
   disabled?: never;
 };
 
@@ -53,6 +59,7 @@ export function PillButton(props: AnchorProps | ButtonProps) {
       <a
         className={classes(variant, block, className)}
         href={props.href}
+        onClick={props.onClick}
         {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
       >
         <span>{children}</span>

@@ -352,6 +352,81 @@ Conferida por medida nas duas larguras, com a sonda descrita acima. Em 1024px de
 
 ---
 
+## Catálogo completo e revisão editorial — 22/10
+
+Branch `dev/catalogo-completo`. A auditoria que originou estas mudanças está em
+[`AUDITORIA.md`](AUDITORIA.md); aqui fica só o que mudou no código e por quê.
+
+**O problema que motivou tudo.** O site em plaswill.com.br publica **quatorze**
+produtos, cada um com página própria. Esta landing mostrava **cinco linhas**.
+Nove produtos comercializados não tinham endereço na página — "saco para pedra",
+"lençol descartável", "lona preta", "sacaria para lenha" e mais cinco.
+
+**O catálogo.** `products` em `src/content/site.ts` foi de 5 para **14 itens**,
+agrupados por cinco categorias em `productCategories`. Os cards ganharam o campo
+`category`; a tabela da seção 02 passou a ter um cabeçalho de grupo por
+categoria e um índice de âncoras no topo. O índice é feito de `<a href="#cat-…">`
+comuns: não há estado de filtro, nada fica escondido de leitor de tela, de
+impressão ou de buscador.
+
+**O PCR saiu do catálogo.** Ele era apresentado como a quinta linha comercial
+(`FT-05`), mas o site institucional não vende PCR: as quatorze páginas de produto
+dele não incluem o item, e o texto da empresa diz que o reciclado entra "conforme
+a necessidade do cliente". Reciclado é matéria-prima, não produto de catálogo. O
+conteúdo virou a seção `06 — Materiais e meio ambiente`, com o processo de
+recuperação descrito e uma lista explícita do que a empresa ainda não pode
+afirmar (percentual, certificação, equivalência técnica).
+
+**A numeração das seções estava errada.** A página renderizava 02, 01, 03, 04,
+05, 07, 08: "Quem somos" aparecia depois de produtos carregando o número 01, e o
+06 não existia desde que a faixa de clientes saiu da home. A ordem agora é
+02 · 03 · 04 · 05 · 06 · 07 · 08 · 09 e corresponde à ordem renderizada.
+
+**A ordem mudou de propósito.** Produtos → Diferenciais → A Plaswill → Estrutura
+→ Materiais → Segmentos → FAQ → Contato. Numa landing industrial o visitante
+precisa saber o que é feito e por que importa antes de quem faz; a seção
+institucional desceu de segunda para quarta posição e não perdeu conteúdo.
+
+**O tom.** Diferenciais e FAQ estavam escritos como réplica a um concorrente —
+"pedido mínimo abusivo", "micragem enganosa", "atendimento desumanizado",
+"convertedores distantes fecham 5 toneladas e pedem 30 dias". Os títulos viraram
+diferenciais declarados e as comparações com terceiros saíram. Também saiu a
+frase "o resultado mecânico do PCR é equivalente ao da resina virgem": o próprio
+item 2 desta lista diz que equivalência exige ensaio, e o texto não pode fazer
+por ensaio.
+
+**O catálogo em PDF voltou.** O site institucional tem um botão "Baixe Aqui" para
+um PDF no Google Drive, e a landing anterior não tinha o link. Agora o cabeçalho
+da seção 02 oferece o download (`catalog` em `src/content/site.ts`). É o mesmo
+documento, não uma cópia — **REVISAR** se a lista dele bate com os quatorze
+produtos daqui, e considerar hospedar o arquivo em `public/` em vez de depender
+de link de terceiro.
+
+**O hero.** O `h1` passou a ser "Embalagens que protegem produtos e acompanham o
+ritmo do seu negócio." A frase da micragem não foi descartada — a substância dela
+é o terceiro diferencial e a nota do rodapé. Como `h1` ela falhava em identificar
+a empresa para quem chega de fora, e afirmava uma garantia operacional.
+
+**Pedir amostra preenche o formulário.** O botão da ficha dispara o evento
+`plaswill:produto` com o nome do item, e o `QuoteForm` escuta e preenche o campo
+"Produto de interesse". Antes o visitante tinha de reencontrar o produto num
+select de quinze opções.
+
+**O que ficou de fora de propósito.** O cabeçalho: ao rolar 220px no desktop as
+duas cápsulas laterais somem e a navegação fica inacessível até voltar ao topo.
+Está diagnosticado em `AUDITORIA.md` §7.3 com três caminhos de risco crescente, e
+não foi alterado porque não há como verificar visualmente acima de 768px neste
+ambiente — mexer sem poder olhar trocaria um defeito conhecido por um
+desconhecido.
+
+**Verificação desta rodada.** `pnpm typecheck` sem erros e `pnpm build` com as 9
+rotas estáticas, 123 kB no primeiro carregamento. No HTML servido: 14 produtos
+(`PR-01`…`PR-14`), 5 categorias, seções numeradas de 02 a 09 na ordem certa e
+nenhuma ocorrência dos termos de ataque que saíram. **Não** houve conferência em
+navegador: capturas em 360, 390, 768, 1024 e 1440px continuam pendentes.
+
+---
+
 ## Revisar antes de publicar
 
 Estes pontos dependem de decisão ou autorização de vocês. Estão aqui e não no código de propósito.
@@ -374,6 +449,8 @@ Estes pontos dependem de decisão ou autorização de vocês. Estão aqui e não
 14. **O chevron de "Produtos" não abre nada.** Ele aponta para `/#produtos` e mantém o desenho da referência, que também não tem submenu. Ou o item passa a abrir um painel de categorias, ou o chevron sai.
 15. **Licença dos efeitos da naocodei.** Quatro efeitos da vitrine (`naocodei.com/free-code/`) foram adotados em 21/10: revelar palavra por palavra, máscara que revela, botão elástico e luz que segue o cursor. A página se apresenta como código livre, mas **não há texto de licença no HTML** — e eles foram reescritos em CSS, não copiados. Ainda assim, confirmar os termos antes de publicar.
 16. **Símbolo da marca — a pergunta é de branding, não de código.** A pílula central hoje mostra o logotipo inteiro, tanto cheia quanto encolhida. Com um símbolo isolado ela mostraria símbolo + nome, como na referência, e no estado encolhido viraria o **círculo de 56px só com o símbolo** — que é o que o Antimetal faz e o que o Plaswill não pode fazer hoje. Isso não é decisão técnica: significa que a Plaswill passaria a ter **duas assinaturas** em circulação — o bloco fechado amarelo (rodapé, landing) e a combinação símbolo + nome em tipografia (barra da abertura). Ou a marca adota um símbolo de verdade e ele vale em toda parte, ou a barra fica com o bloco fechado. Ver `public/brand/LEIA-ME.md`.
+17. **O WhatsApp da landing não é o do site atual.** Aqui é `(55) 98427-5963` (`wa.me/5555984275963`); em plaswill.com.br os botões apontam para `wa.me/5555996034140`, e o telefone publicado lá é `(55) 99603-4140`. Os dois não podem estar certos, e publicar o número errado custa o contato comercial inteiro. Corrigir é uma linha em `site.whatsapp`, mas a escolha é da empresa.
+18. **O bairro diverge.** O site atual diz "Esperança"; a landing diz "Distrito Industrial", com CEP 98280-000, que o site atual não publica. Confirmar antes de publicar — endereço errado em dado estruturado é pior que endereço ausente.
 
 ---
 
