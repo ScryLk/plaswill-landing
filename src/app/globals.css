@@ -1969,7 +1969,9 @@ ol {
   aspect-ratio: 4 / 3;
   margin-bottom: 0.75rem;
   overflow: hidden;
-  background: var(--surface);
+  /* Tom, não branco puro: enquanto a foto não pinta, a moldura parece uma
+     imagem carregando, e não um espaço quebrado. */
+  background: var(--ice);
   border: 1px solid var(--line);
 }
 
@@ -2036,13 +2038,16 @@ ol {
   display: block;
   aspect-ratio: 4 / 3;
   overflow: hidden;
-  background: var(--surface);
+  background: var(--ice);
   border: 1px solid var(--line);
 }
 
-.news-row__media--empty {
-  background: none;
-  border: 0;
+/* Sem capa, o texto começa na margem: não fica uma coluna vazia fingindo
+   imagem que não existe. */
+.news-row__link.news-row__link--no-media {
+  /* Duas classes para vencer as colunas definidas nas media queries abaixo,
+     sem depender da ordem do arquivo. */
+  grid-template-columns: minmax(0, 1fr) 1.5rem;
 }
 
 .news-row__img {

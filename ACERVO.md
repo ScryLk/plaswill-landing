@@ -21,7 +21,8 @@ para leitura humana.
   retrato) separou as duas.
 - **Nenhuma imagem foi ampliada.** Redimensionar para cima não cria detalhe:
   inventa pixels e mente sobre a resolução do arquivo. Só `sacos-para-lenha`
-  precisou de redução (1080 → 900), e as capas de notícia, de 2560 → 1400.
+  precisou de redução (1080 → 900), e as capas de notícia, de 2560 → 900 — com
+  uma exceção: a da festa junina veio do WordPress com 640 px e ficou nos 640.
 - **Originais preservados fora de `/public`**, em `acervo/originais/`. O que o
   site serve está em `public/images/`, em AVIF. Nada do acervo antigo foi
   apagado do WordPress.
@@ -162,7 +163,23 @@ post, porque não há imagem destacada. É a única capa em resolução menor
    quando `plaswill.com.br` apontar para cá, o que é decisão da empresa, não do
    código.
 
-## 6. Verificado
+## 6. Uma descoberta sobre o servidor
+
+As capas iam a 1400 px e, na prévia, alguns cartões apareciam como moldura
+vazia. A causa não estava nos arquivos: todos decodificam no navegador e o
+servidor responde 200 para todos. O que acontece é que **o build standalone não
+inclui o `sharp`** (`.next/standalone/node_modules` traz só `next`, `react` e
+`typescript`), então o otimizador de imagem do Next não transforma nada e
+entrega o arquivo original inteiro — 270 KB a 515 KB por cartão. Com isso a
+pintura chega depois do primeiro quadro, e o que se vê é a moldura.
+
+Duas medidas: as capas caíram para 900 px (2,1 MB → 1,2 MB no total), com a
+festa junina mantida nos 640 px nativos, e a
+moldura ganhou um tom de fundo, para que uma imagem em carregamento não pareça
+quebrada. O conserto definitivo é do lado do servidor — ver a pendência 24 do
+README.
+
+## 7. Verificado
 
 - `npm run typecheck` sem erros.
 - `npm run build` concluído: 22 páginas estáticas, as 12 notícias geradas por
@@ -171,7 +188,10 @@ post, porque não há imagem destacada. É a única capa em resolução menor
   `/noticias/festa-junina-24-06` respondendo 200; `/_next/image` entregando as
   AVIF do acervo (produto a 640 px sai em 6 KB, capa em 15 KB).
 - `sitemap.xml` com 15 URLs: home, arquivo, doze notícias e política.
-- **Não verificado:** aparência em navegador. O ambiente desta sessão não
-  conseguiu abrir prévia visual, então larguras de 390/768/1024/1440,
-  quebra de linha dos títulos e o recorte das capas nos cartões precisam de uma
-  conferência a olho antes de publicar.
+- **Conferido em navegador:** a página `/noticias` foi renderizada em Chrome
+  headless a 1300 px. As onze capas aparecem, o cartão sem capa começa na
+  margem e os títulos quebram em duas linhas sem estourar.
+- **Não conferido:** a captura a 390 px saiu com corte horizontal, inclusive
+  no cabeçalho do site, o que aponta para o método de captura e não para o
+  layout. Vale abrir numa tela de celular real antes de publicar, e conferir
+  também 768 e 1024 px.

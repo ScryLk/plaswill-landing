@@ -78,8 +78,8 @@ export const newsPosts: NewsPost[] = [
     cover: {
       src: "/images/noticias/07-de-marco-plaswill-celebra-19-anos-de-historia-crescimento-e-transformacao.avif",
       alt: "Colaboradores posando em frente a um painel com bexigas e o número 19.",
-      width: 960,
-      height: 1280
+      width: 675,
+      height: 900
     }
   },
   {
@@ -98,8 +98,8 @@ export const newsPosts: NewsPost[] = [
     cover: {
       src: "/images/noticias/dia-internacional-das-mulheres-na-plaswill.avif",
       alt: "Colaboradoras reunidas à mesa durante o jantar de confraternização.",
-      width: 1079,
-      height: 1373
+      width: 707,
+      height: 900
     },
     note: "O título estava todo em caixa alta no WordPress; normalizado para a tipografia da página."
   },
@@ -125,8 +125,8 @@ export const newsPosts: NewsPost[] = [
     cover: {
       src: "/images/noticias/viagem-de-confraternizacao-06-09-25encantado-cristo-protetor.avif",
       alt: "Grupo de colaboradores e familiares posando ao ar livre, em meio à vegetação.",
-      width: 1400,
-      height: 1050
+      width: 900,
+      height: 675
     },
     note: "O título publicado tem uma falha de digitação (falta espaço antes de “Encantado”); corrigido aqui, sem mexer no original."
   },
@@ -142,8 +142,8 @@ export const newsPosts: NewsPost[] = [
     cover: {
       src: "/images/noticias/evento-de-dia-das-criancas-plaswill.avif",
       alt: "Faixa da Plaswill presa a um gradil, com o prédio da fábrica ao fundo.",
-      width: 1400,
-      height: 933
+      width: 900,
+      height: 600
     }
   },
   {
@@ -163,8 +163,8 @@ export const newsPosts: NewsPost[] = [
     cover: {
       src: "/images/noticias/compromisso-com-a-sustentabilidade-e-inovacao-no-setor-de-embalagens.avif",
       alt: "Vista externa do prédio industrial da Plaswill.",
-      width: 1400,
-      height: 1050
+      width: 900,
+      height: 675
     }
   },
   {
@@ -187,8 +187,8 @@ export const newsPosts: NewsPost[] = [
     cover: {
       src: "/images/noticias/protecao-extra-e-durabilidade-conheca-o-novo-plastico-bolha-com-protecao-uv.avif",
       alt: "Rolos de filme plástico escuro armazenados em prateleira na produção.",
-      width: 960,
-      height: 1280
+      width: 675,
+      height: 900
     }
   },
   {
@@ -207,8 +207,8 @@ export const newsPosts: NewsPost[] = [
     cover: {
       src: "/images/noticias/parceria-com-avocap-fortalecimento-do-compromisso-social-atraves-de-doacoes-mensais.avif",
       alt: "Arte da campanha “Parceria de Sucesso”, com duas pessoas segurando uma embalagem azul da Plaswill.",
-      width: 1080,
-      height: 1350
+      width: 720,
+      height: 900
     }
   },
   {
@@ -226,8 +226,8 @@ export const newsPosts: NewsPost[] = [
     cover: {
       src: "/images/noticias/uma-parceria-sustentavel-na-industria-de-embalagens-plasticas.avif",
       alt: "Caminhão verde no pátio de carga da fábrica.",
-      width: 1050,
-      height: 1400
+      width: 675,
+      height: 900
     }
   },
   {
@@ -245,8 +245,8 @@ export const newsPosts: NewsPost[] = [
     cover: {
       src: "/images/noticias/projeto-tampa-e-lacre-contribuindo-para-um-futuro-sustentavel.avif",
       alt: "Colaboradoras sentadas no chão separando tampinhas plásticas em sacos.",
-      width: 1400,
-      height: 1050
+      width: 900,
+      height: 675
     }
   },
   {
@@ -263,8 +263,8 @@ export const newsPosts: NewsPost[] = [
     cover: {
       src: "/images/noticias/inovacao-em-plasticos-desde-2007.avif",
       alt: "Fachada da indústria Plaswill, com o letreiro da marca sobre a parede.",
-      width: 1400,
-      height: 583
+      width: 900,
+      height: 375
     }
   }
 ];
