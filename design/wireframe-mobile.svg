@@ -1,0 +1,546 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="390" height="8339" viewBox="0 0 390 8339">
+<rect width="390" height="8339" fill="#F2F2F0"/>
+<rect x="0" y="0" width="390" height="8400" rx="0" fill="#FFFFFF" stroke="none" stroke-width="1"/>
+<rect x="20" y="16" width="350" height="44" rx="22" fill="#FFFFFF" stroke="#B9B9B9" stroke-width="1" stroke-dasharray="6 6" opacity="0.9"/>
+<rect x="38" y="33" width="9" height="9" rx="0" fill="#FFDE00" stroke="none" stroke-width="1"/>
+<text x="54" y="44" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" fill="#2B2B2B" text-anchor="start" font-weight="700">Plaswill</text>
+<rect x="300" y="26" width="58" height="24" rx="12" fill="none" stroke="#B9B9B9" stroke-width="1" stroke-dasharray="5 5"/>
+<line x1="310" y1="34" x2="328" y2="34" stroke="#7C7C7C" stroke-width="1"/>
+<line x1="310" y1="38" x2="328" y2="38" stroke="#7C7C7C" stroke-width="1"/>
+<line x1="310" y1="42" x2="328" y2="42" stroke="#7C7C7C" stroke-width="1"/>
+<text x="334" y="42" font-family="DejaVu Sans, Arial, sans-serif" font-size="9" fill="#7C7C7C" text-anchor="start">Menu</text>
+<text x="20" y="82" font-family="DejaVu Sans, Arial, sans-serif" font-size="10" fill="#7C7C7C" text-anchor="start" letter-spacing="1.6">01  ·  ABERTURA</text>
+<text x="20" y="96" font-family="DejaVu Sans, Arial, sans-serif" font-size="9" fill="#9E9E9E" text-anchor="start">hero</text>
+<line x1="20" y1="110" x2="170" y2="110" stroke="#B9B9B9" stroke-width="1" stroke-dasharray="4 6"/>
+<circle cx="358" cy="82" r="11" fill="#09506A" stroke="none" stroke-width="1"/>
+<text x="358" y="85.8" font-family="DejaVu Sans, Arial, sans-serif" font-size="10" fill="#FFFFFF" text-anchor="middle" font-weight="700">01</text>
+<text x="20" y="150" font-family="DejaVu Sans, Arial, sans-serif" font-size="7.5" fill="#7C7C7C" text-anchor="start" letter-spacing="1.2">·  INDÚSTRIA PRÓPRIA · PANAMBI/RS</text>
+<text x="20" y="200" font-family="DejaVu Serif, Georgia, serif" font-size="30" fill="#3A3A3A" text-anchor="start" font-weight="700">A micragem que</text>
+<text x="20" y="236" font-family="DejaVu Serif, Georgia, serif" font-size="30" fill="#3A3A3A" text-anchor="start" font-weight="700">você paga é a que</text>
+<text x="20" y="272" font-family="DejaVu Serif, Georgia, serif" font-size="30" fill="#3A3A3A" text-anchor="start" font-weight="700">chega na esteira.</text>
+<rect x="20" y="308" width="330" height="7" rx="0" fill="#DCDCDC" stroke="none" stroke-width="1"/>
+<rect x="20" y="321" width="330" height="7" rx="0" fill="#DCDCDC" stroke="none" stroke-width="1"/>
+<rect x="20" y="334" width="237.6" height="7" rx="0" fill="#DCDCDC" stroke="none" stroke-width="1"/>
+<rect x="20" y="368" width="350" height="48" rx="24.0" fill="#FFDE00" stroke="none" stroke-width="1"/>
+<text x="195.0" y="395.96" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" fill="#262626" text-anchor="middle">Solicitar orçamento</text>
+<rect x="20" y="428" width="350" height="48" rx="24.0" fill="none" stroke="#B9B9B9" stroke-width="1" stroke-dasharray="6 6"/>
+<text x="195.0" y="455.96" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" fill="#2B2B2B" text-anchor="middle">Falar no WhatsApp</text>
+<text x="20" y="512" font-family="DejaVu Sans, Arial, sans-serif" font-size="7" fill="#7C7C7C" text-anchor="start" letter-spacing="1.1">FUNDAÇÃO</text>
+<text x="20" y="530" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" fill="#4A4A4A" text-anchor="start">2007</text>
+<text x="200" y="512" font-family="DejaVu Sans, Arial, sans-serif" font-size="7" fill="#7C7C7C" text-anchor="start" letter-spacing="1.1">EXTRUSÃO</text>
+<text x="200" y="530" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" fill="#4A4A4A" text-anchor="start">balão própria</text>
+<text x="20" y="558" font-family="DejaVu Sans, Arial, sans-serif" font-size="7" fill="#7C7C7C" text-anchor="start" letter-spacing="1.1">RECICLAGEM PCR</text>
+<text x="20" y="576" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" fill="#4A4A4A" text-anchor="start">com triagem</text>
+<text x="200" y="558" font-family="DejaVu Sans, Arial, sans-serif" font-size="7" fill="#7C7C7C" text-anchor="start" letter-spacing="1.1">PEDIDO MÍNIMO</text>
+<text x="200" y="576" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" fill="#4A4A4A" text-anchor="start">fracionado</text>
+<line x1="20" y1="614" x2="370" y2="614" stroke="#B9B9B9" stroke-width="1" stroke-dasharray="4 6"/>
+<circle cx="73.46055156977685" cy="808.6696836117867" r="14.642507672138798" fill="none" stroke="#6E7A80" stroke-width="1" opacity="0.3755730294419048"/>
+<circle cx="132.68480495551796" cy="750.8457408862911" r="4.607612400996645" fill="none" stroke="#6E7A80" stroke-width="1" opacity="0.4445507424910568"/>
+<circle cx="272.73584846745416" cy="819.9220003190933" r="1.4503545639126696" fill="none" stroke="#6E7A80" stroke-width="1" opacity="0.5200507044342145"/>
+<circle cx="357.6801491818425" cy="813.5126097236041" r="16.079926416063174" fill="none" stroke="#6E7A80" stroke-width="1" opacity="0.45464746408421297"/>
+<circle cx="206.43194541758302" cy="793.3074626910889" r="4.860937604158233" fill="#6E7A80" stroke="none" stroke-width="1" opacity="0.2050114641709191"/>
+<circle cx="196.49201610224827" cy="802.5187473681972" r="3.9328875104233227" fill="none" stroke="#6E7A80" stroke-width="1" opacity="0.36502306899579584"/>
+<circle cx="59.94987103141935" cy="767.5305326350926" r="4.428133346460178" fill="#6E7A80" stroke="none" stroke-width="1" opacity="0.4582288033939546"/>
+<circle cx="165.10987143143973" cy="907.8199521016697" r="17.235057698054074" fill="none" stroke="#6E7A80" stroke-width="1" opacity="0.532890530787002"/>
+<circle cx="162.514216592042" cy="837.1333992681812" r="2.2136148547438097" fill="none" stroke="#6E7A80" stroke-width="1" opacity="0.20949386981516888"/>
+<circle cx="68.22546062576893" cy="850.0634314620395" r="3.0342378691446683" fill="none" stroke="#6E7A80" stroke-width="1" opacity="0.5823778009943217"/>
+<circle cx="272.85089744236143" cy="780.2038383806872" r="14.168231316007763" fill="none" stroke="#6E7A80" stroke-width="1" opacity="0.37739465592573984"/>
+<circle cx="158.2727717988743" cy="801.1080827827078" r="6.66787047022636" fill="#6E7A80" stroke="none" stroke-width="1" opacity="0.5069745606441933"/>
+<circle cx="278.7066418129515" cy="819.0293978011784" r="16.055048785700173" fill="#6E7A80" stroke="none" stroke-width="1" opacity="0.4983770171373787"/>
+<circle cx="196.22632510907226" cy="821.3134747236894" r="1.418613564823559" fill="#6E7A80" stroke="none" stroke-width="1" opacity="0.5147490349744691"/>
+<circle cx="89.08824985197784" cy="748.3474559902671" r="1.6998309503580498" fill="#6E7A80" stroke="none" stroke-width="1" opacity="0.48739557060002714"/>
+<circle cx="159.0661272787352" cy="745.1589590853525" r="3.4035113039375915" fill="#6E7A80" stroke="none" stroke-width="1" opacity="0.26940358266381753"/>
+<circle cx="344.8415983404815" cy="758.8342473244477" r="2.319420390881081" fill="#6E7A80" stroke="none" stroke-width="1" opacity="0.5516433473545677"/>
+<circle cx="71.27900667495219" cy="854.0802612900806" r="6.919976124478572" fill="none" stroke="#6E7A80" stroke-width="1" opacity="0.22213975591723084"/>
+<circle cx="214.77608217297504" cy="844.3132104297008" r="10.016527220441217" fill="#6E7A80" stroke="none" stroke-width="1" opacity="0.31816127873004657"/>
+<circle cx="240.70172440227432" cy="797.3663794236456" r="5.777743073550816" fill="none" stroke="#6E7A80" stroke-width="1" opacity="0.2820654264577762"/>
+<circle cx="115.76810637766498" cy="843.1520270617951" r="15.875414245324079" fill="none" stroke="#6E7A80" stroke-width="1" opacity="0.3831643039702689"/>
+<circle cx="243.59069859138214" cy="738.6587170482254" r="1.5799223767957005" fill="none" stroke="#6E7A80" stroke-width="1" opacity="0.5615379669958429"/>
+<circle cx="195.2333406179292" cy="836.6356726369205" r="9.152915213990495" fill="#6E7A80" stroke="none" stroke-width="1" opacity="0.5749700563598505"/>
+<circle cx="346.8995638773133" cy="742.3674071782629" r="6.162166022738775" fill="#6E7A80" stroke="none" stroke-width="1" opacity="0.3570120340578903"/>
+<circle cx="356.89182926022977" cy="810.7077861520256" r="1.9124912227482964" fill="#6E7A80" stroke="none" stroke-width="1" opacity="0.4759233734345183"/>
+<circle cx="253.66147708485295" cy="690.1781165705224" r="2.2436257100686756" fill="none" stroke="#6E7A80" stroke-width="1" opacity="0.25368202664166084"/>
+<circle cx="268.77597219616985" cy="806.019785704938" r="5.368178298168404" fill="none" stroke="#6E7A80" stroke-width="1" opacity="0.5380079476435902"/>
+<circle cx="164.26934781359418" cy="902.2748593261454" r="1.7524718729515825" fill="#6E7A80" stroke="none" stroke-width="1" opacity="0.18696141309324513"/>
+<circle cx="155.60963632236295" cy="790.694006268625" r="1.6482288245780488" fill="none" stroke="#6E7A80" stroke-width="1" opacity="0.3348898555563503"/>
+<circle cx="264.28844038715226" cy="837.5570453507816" r="13.527088585916932" fill="none" stroke="#6E7A80" stroke-width="1" opacity="0.5918072369620597"/>
+<circle cx="148.0863879036132" cy="687.3176573101831" r="1.5436841600642275" fill="#6E7A80" stroke="none" stroke-width="1" opacity="0.19473382538487533"/>
+<circle cx="315.2754974574906" cy="721.8027258762276" r="16.00747655712422" fill="none" stroke="#6E7A80" stroke-width="1" opacity="0.18892885484782257"/>
+<circle cx="50.606536181694224" cy="792.3759385708282" r="2.430161950598419" fill="#6E7A80" stroke="none" stroke-width="1" opacity="0.5997302030803372"/>
+<circle cx="55.135075741058074" cy="748.1266977215195" r="13.831651712436377" fill="none" stroke="#6E7A80" stroke-width="1" opacity="0.48957701645495516"/>
+<circle cx="238.66474270779827" cy="660.2143342900077" r="2.704160381962571" fill="none" stroke="#6E7A80" stroke-width="1" opacity="0.46776130124015314"/>
+<circle cx="270.71431705869384" cy="719.1923307959199" r="10.50178713007612" fill="none" stroke="#6E7A80" stroke-width="1" opacity="0.5426585230974017"/>
+<circle cx="120.65312014080706" cy="723.1746837797488" r="5.776735161631551" fill="#6E7A80" stroke="none" stroke-width="1" opacity="0.43572409831244213"/>
+<circle cx="86.51247493567509" cy="680.4780958912482" r="13.166080105831158" fill="#6E7A80" stroke="none" stroke-width="1" opacity="0.4858469721575301"/>
+<circle cx="182.83689023812386" cy="681.3511718285479" r="3.636883676201571" fill="#6E7A80" stroke="none" stroke-width="1" opacity="0.5321154122600389"/>
+<circle cx="195.03874792101905" cy="757.5623697710022" r="6.119688420917003" fill="#6E7A80" stroke="none" stroke-width="1" opacity="0.3820018624466812"/>
+<circle cx="156.7650141678423" cy="693.1170684552385" r="6.372537245264224" fill="#6E7A80" stroke="none" stroke-width="1" opacity="0.5665949948448306"/>
+<circle cx="288.03765534556914" cy="785.0631392906528" r="7.699147940082897" fill="#6E7A80" stroke="none" stroke-width="1" opacity="0.26508125363085966"/>
+<circle cx="309.57690484267187" cy="721.0340653737279" r="3.654105277312387" fill="#6E7A80" stroke="none" stroke-width="1" opacity="0.5545253065334496"/>
+<circle cx="156.8131911780929" cy="729.9799070004717" r="3.521349162320634" fill="none" stroke="#6E7A80" stroke-width="1" opacity="0.5185151277254855"/>
+<circle cx="271.95696494806725" cy="724.9235194720667" r="5.784460181544265" fill="#6E7A80" stroke="none" stroke-width="1" opacity="0.31292447468753803"/>
+<circle cx="39.50033959846556" cy="782.6400588648951" r="12.19331879099568" fill="none" stroke="#6E7A80" stroke-width="1" opacity="0.4787114598373948"/>
+<circle cx="183.28468681152776" cy="832.7069165090742" r="3.7622900158284205" fill="#6E7A80" stroke="none" stroke-width="1" opacity="0.2955683856368615"/>
+<circle cx="79.69015461881318" cy="832.9104602761525" r="4.343077236428391" fill="none" stroke="#6E7A80" stroke-width="1" opacity="0.31245609105256317"/>
+<circle cx="308.62533257690006" cy="770.151049143468" r="1.4316081731642767" fill="none" stroke="#6E7A80" stroke-width="1" opacity="0.19322402579197254"/>
+<circle cx="333.2715409138557" cy="808.2052600571603" r="5.561819789203891" fill="none" stroke="#6E7A80" stroke-width="1" opacity="0.309792747592183"/>
+<circle cx="257.2141271070801" cy="785.7413003438334" r="3.8152570581354293" fill="none" stroke="#6E7A80" stroke-width="1" opacity="0.19038513349793487"/>
+<circle cx="200.04256878781297" cy="828.6406221063361" r="1.4103724281453567" fill="#6E7A80" stroke="none" stroke-width="1" opacity="0.4442557283373775"/>
+<circle cx="100.7912854853883" cy="703.3176444714734" r="10.974442417300272" fill="none" stroke="#6E7A80" stroke-width="1" opacity="0.5825534738059843"/>
+<circle cx="231.67206913067275" cy="865.1086105776027" r="1.6565297880635126" fill="#6E7A80" stroke="none" stroke-width="1" opacity="0.18452200067878813"/>
+<circle cx="178.94035788492567" cy="726.3721220069823" r="2.1054148301394977" fill="none" stroke="#6E7A80" stroke-width="1" opacity="0.32521060367427346"/>
+<circle cx="62.83821382969981" cy="766.9595809601246" r="9.581961815114278" fill="none" stroke="#6E7A80" stroke-width="1" opacity="0.3452768088614938"/>
+<circle cx="236.74013680194102" cy="758.6686784653592" r="14.93297399966566" fill="#6E7A80" stroke="none" stroke-width="1" opacity="0.4833984141271436"/>
+<circle cx="66.23349217917593" cy="809.5925243609705" r="14.157913275808582" fill="none" stroke="#6E7A80" stroke-width="1" opacity="0.33825716295097386"/>
+<circle cx="305.17312580909464" cy="700.2046519386607" r="15.34240215863103" fill="none" stroke="#6E7A80" stroke-width="1" opacity="0.37475724769470287"/>
+<circle cx="235.39052238948008" cy="886.050524576761" r="11.289358195194778" fill="none" stroke="#6E7A80" stroke-width="1" opacity="0.4494788487864791"/>
+<circle cx="231.86347758927246" cy="900.0627541836934" r="16.66113862977824" fill="none" stroke="#6E7A80" stroke-width="1" opacity="0.5904905793826296"/>
+<circle cx="219.39104383706854" cy="708.8187193240283" r="14.158733011271785" fill="#6E7A80" stroke="none" stroke-width="1" opacity="0.5394290543092204"/>
+<circle cx="292.95577217148633" cy="822.8966000195004" r="5.215596697244072" fill="#6E7A80" stroke="none" stroke-width="1" opacity="0.5026580679089416"/>
+<circle cx="345.48885936586316" cy="800.7636140272153" r="1.4218714491753714" fill="#6E7A80" stroke="none" stroke-width="1" opacity="0.5159411440398083"/>
+<circle cx="118.18267385058424" cy="879.3222519770309" r="1.5440604064873482" fill="none" stroke="#6E7A80" stroke-width="1" opacity="0.2424437324697229"/>
+<circle cx="169.24151219747583" cy="662.4942393481759" r="7.952515084899419" fill="#6E7A80" stroke="none" stroke-width="1" opacity="0.5772139067171087"/>
+<circle cx="242.33771411215264" cy="768.0250820123816" r="1.829153793219442" fill="#6E7A80" stroke="none" stroke-width="1" opacity="0.4011986298463157"/>
+<circle cx="176.99033819208347" cy="677.00848715655" r="4.773579346474651" fill="none" stroke="#6E7A80" stroke-width="1" opacity="0.5343218275981325"/>
+<circle cx="155.32194198512332" cy="854.3096717045385" r="12.088024576038666" fill="#6E7A80" stroke="none" stroke-width="1" opacity="0.558220515966136"/>
+<circle cx="293.98877769552786" cy="676.8662962063647" r="4.795974412412395" fill="#6E7A80" stroke="none" stroke-width="1" opacity="0.42065541363516445"/>
+<circle cx="77.46633312973252" cy="759.3732193407939" r="6.19429969458089" fill="none" stroke="#6E7A80" stroke-width="1" opacity="0.19165731747519194"/>
+<circle cx="87.9485655455484" cy="771.7331762666265" r="10.79565886783123" fill="#6E7A80" stroke="none" stroke-width="1" opacity="0.41640400924690807"/>
+<circle cx="179.18664142378898" cy="748.8956007717347" r="5.025622627538023" fill="none" stroke="#6E7A80" stroke-width="1" opacity="0.3537851167226497"/>
+<circle cx="273.19028945558483" cy="748.7820386378517" r="4.0554769878180075" fill="#6E7A80" stroke="none" stroke-width="1" opacity="0.2333263874252583"/>
+<circle cx="259.7366550658168" cy="667.0013637026867" r="4.101111531029254" fill="#6E7A80" stroke="none" stroke-width="1" opacity="0.31323015142692423"/>
+<circle cx="74.32548647309582" cy="695.6117195449807" r="1.5183742129362159" fill="#6E7A80" stroke="none" stroke-width="1" opacity="0.5073013141040335"/>
+<circle cx="222.87956502058293" cy="838.1906723065996" r="7.899318023113695" fill="#6E7A80" stroke="none" stroke-width="1" opacity="0.31527454468543203"/>
+<circle cx="154.81042828316572" cy="751.2243961748413" r="8.939979737553637" fill="none" stroke="#6E7A80" stroke-width="1" opacity="0.23156900568161784"/>
+<circle cx="194.73703810809977" cy="837.8063758587462" r="4.8919969884178585" fill="#6E7A80" stroke="none" stroke-width="1" opacity="0.3634459251892939"/>
+<circle cx="89.17604720806432" cy="828.9617209134616" r="1.5959917464179385" fill="none" stroke="#6E7A80" stroke-width="1" opacity="0.26579182150075137"/>
+<circle cx="115.22515490917526" cy="707.6879153126004" r="12.270939689280496" fill="none" stroke="#6E7A80" stroke-width="1" opacity="0.4369186793743875"/>
+<circle cx="210.9111140837632" cy="891.2249785918804" r="11.06357526380799" fill="#6E7A80" stroke="none" stroke-width="1" opacity="0.5591245625620833"/>
+<circle cx="130.1553338004103" cy="894.6118734575925" r="1.8141000867450439" fill="none" stroke="#6E7A80" stroke-width="1" opacity="0.5993086066969306"/>
+<circle cx="250.41819315951966" cy="827.4238865752415" r="8.833532199306168" fill="#6E7A80" stroke="none" stroke-width="1" opacity="0.2889889547446188"/>
+<circle cx="249.49200994976877" cy="706.5892507151807" r="10.485322070476553" fill="#6E7A80" stroke="none" stroke-width="1" opacity="0.23292137521707448"/>
+<circle cx="186.03090119646436" cy="764.0915260840618" r="1.739976224859984" fill="none" stroke="#6E7A80" stroke-width="1" opacity="0.4666009178026526"/>
+<circle cx="251.61637195503914" cy="771.2829408733957" r="4.514753995339124" fill="none" stroke="#6E7A80" stroke-width="1" opacity="0.498424861462926"/>
+<circle cx="165.93900731055834" cy="728.0350458313205" r="1.427576826192479" fill="#6E7A80" stroke="none" stroke-width="1" opacity="0.22459279515004138"/>
+<circle cx="79.39510110776659" cy="750.2458623296569" r="5.52968593492073" fill="#6E7A80" stroke="none" stroke-width="1" opacity="0.2415530250938227"/>
+<circle cx="239.4945100691362" cy="894.2011661802442" r="17.03009814406249" fill="#6E7A80" stroke="none" stroke-width="1" opacity="0.5692947724657795"/>
+<circle cx="348.4234113433418" cy="828.1185398652864" r="3.9085358358658735" fill="#6E7A80" stroke="none" stroke-width="1" opacity="0.501182600711434"/>
+<circle cx="75.58819806769122" cy="799.2338276915107" r="3.5117436871359615" fill="#6E7A80" stroke="none" stroke-width="1" opacity="0.4323905157798875"/>
+<circle cx="147.69330138814146" cy="666.1608131953616" r="1.6655201899512542" fill="none" stroke="#6E7A80" stroke-width="1" opacity="0.3706594122277096"/>
+<circle cx="132.81104187686253" cy="812.1874156360032" r="1.612112194923336" fill="#6E7A80" stroke="none" stroke-width="1" opacity="0.39527553523172915"/>
+<circle cx="314.2014748682699" cy="707.6137452859573" r="8.306979190117872" fill="none" stroke="#6E7A80" stroke-width="1" opacity="0.5415073475366174"/>
+<circle cx="86.3530451835999" cy="836.8379080748376" r="4.494212275340879" fill="none" stroke="#6E7A80" stroke-width="1" opacity="0.5927257044852473"/>
+<circle cx="186.57699067032593" cy="903.9333106593318" r="9.279599276661196" fill="none" stroke="#6E7A80" stroke-width="1" opacity="0.5067549518288337"/>
+<circle cx="61.50702935792572" cy="848.7800944690601" r="13.16767478742005" fill="none" stroke="#6E7A80" stroke-width="1" opacity="0.4718154866646572"/>
+<circle cx="205.34589350523333" cy="697.5712052029083" r="8.737103282593964" fill="#6E7A80" stroke="none" stroke-width="1" opacity="0.20963169496416942"/>
+<circle cx="177.83616831515198" cy="782.6030326220143" r="2.738249768176013" fill="none" stroke="#6E7A80" stroke-width="1" opacity="0.4482590725953574"/>
+<circle cx="213.53674042115261" cy="905.5551036435178" r="7.433989613332617" fill="none" stroke="#6E7A80" stroke-width="1" opacity="0.32188255794897735"/>
+<circle cx="82.55149064058963" cy="739.8159216788313" r="3.065672460835881" fill="none" stroke="#6E7A80" stroke-width="1" opacity="0.5999525465741"/>
+<circle cx="150.2608005835047" cy="671.8199762248698" r="16.64596028192713" fill="none" stroke="#6E7A80" stroke-width="1" opacity="0.18958461454661807"/>
+<circle cx="188.94180655622011" cy="714.3064402092363" r="3.1910584973967007" fill="#6E7A80" stroke="none" stroke-width="1" opacity="0.20119191139748843"/>
+<circle cx="157.12274363536733" cy="808.7196914892766" r="1.9792545525072076" fill="none" stroke="#6E7A80" stroke-width="1" opacity="0.5603701710936133"/>
+<circle cx="28.01848815350175" cy="773.7213376865468" r="5.516390318515731" fill="none" stroke="#6E7A80" stroke-width="1" opacity="0.597944165332978"/>
+<circle cx="212.1452607153298" cy="746.5962314543477" r="6.049377206841626" fill="#6E7A80" stroke="none" stroke-width="1" opacity="0.4988842520210479"/>
+<circle cx="256.5430311622438" cy="757.9096895468467" r="4.036659465753665" fill="#6E7A80" stroke="none" stroke-width="1" opacity="0.2510315130604982"/>
+<circle cx="163.50000815374074" cy="759.771969853259" r="15.37841220367598" fill="none" stroke="#6E7A80" stroke-width="1" opacity="0.35669562443690794"/>
+<circle cx="111.02848219620822" cy="734.6695710678101" r="2.1915684398132877" fill="none" stroke="#6E7A80" stroke-width="1" opacity="0.4551468492544996"/>
+<circle cx="164.9070733150486" cy="887.6150871214916" r="2.2617130797165865" fill="#6E7A80" stroke="none" stroke-width="1" opacity="0.18588523704145063"/>
+<circle cx="259.85600684735493" cy="793.6596883322914" r="9.541450648580625" fill="none" stroke="#6E7A80" stroke-width="1" opacity="0.34378133447596737"/>
+<circle cx="194.60842984944037" cy="750.8867012861358" r="16.972131936959588" fill="#6E7A80" stroke="none" stroke-width="1" opacity="0.5766720826482827"/>
+<circle cx="287.3642773265805" cy="732.3554165337403" r="4.115768673586679" fill="#6E7A80" stroke="none" stroke-width="1" opacity="0.5887305907704654"/>
+<circle cx="32.187840141777144" cy="761.5940657098799" r="8.739623463641035" fill="none" stroke="#6E7A80" stroke-width="1" opacity="0.37670714781159986"/>
+<circle cx="248.7434089007432" cy="687.738436171314" r="1.4892564757446336" fill="#6E7A80" stroke="none" stroke-width="1" opacity="0.4421841479480739"/>
+<circle cx="206.13507455240972" cy="808.4118849477724" r="4.856513131216963" fill="#6E7A80" stroke="none" stroke-width="1" opacity="0.23221687967022403"/>
+<circle cx="138.39577333111882" cy="703.6769293052398" r="2.0435136691164004" fill="#6E7A80" stroke="none" stroke-width="1" opacity="0.4245393941286404"/>
+<circle cx="216.6513586905567" cy="686.7486290342624" r="17.309318633078913" fill="none" stroke="#6E7A80" stroke-width="1" opacity="0.5801066967983113"/>
+<circle cx="199.17341683986757" cy="823.7514946369454" r="13.584643254381787" fill="none" stroke="#6E7A80" stroke-width="1" opacity="0.5094097032628047"/>
+<text x="20" y="962" font-family="DejaVu Sans, Arial, sans-serif" font-size="10" fill="#7C7C7C" text-anchor="start" letter-spacing="1.6">02  ·  QUEM SOMOS</text>
+<line x1="20" y1="990" x2="170" y2="990" stroke="#B9B9B9" stroke-width="1" stroke-dasharray="4 6"/>
+<circle cx="358" cy="962" r="11" fill="#09506A" stroke="none" stroke-width="1"/>
+<text x="358" y="965.8" font-family="DejaVu Sans, Arial, sans-serif" font-size="10" fill="#FFFFFF" text-anchor="middle" font-weight="700">02</text>
+<text x="20" y="1040" font-family="DejaVu Serif, Georgia, serif" font-size="22" fill="#3A3A3A" text-anchor="start" font-weight="700">Indústria de transformação,</text>
+<text x="20" y="1072" font-family="DejaVu Serif, Georgia, serif" font-size="22" fill="#3A3A3A" text-anchor="start" font-weight="700">não distribuidor</text>
+<text x="20" y="1104" font-family="DejaVu Serif, Georgia, serif" font-size="22" fill="#3A3A3A" text-anchor="start" font-weight="700">de terceiros.</text>
+<rect x="20" y="1148" width="330" height="6" rx="0" fill="#DCDCDC" stroke="none" stroke-width="1"/>
+<rect x="20" y="1160" width="330" height="6" rx="0" fill="#DCDCDC" stroke="none" stroke-width="1"/>
+<rect x="20" y="1172" width="217.8" height="6" rx="0" fill="#DCDCDC" stroke="none" stroke-width="1"/>
+<rect x="20" y="1202" width="330" height="6" rx="0" fill="#DCDCDC" stroke="none" stroke-width="1"/>
+<rect x="20" y="1214" width="330" height="6" rx="0" fill="#DCDCDC" stroke="none" stroke-width="1"/>
+<rect x="20" y="1226" width="217.8" height="6" rx="0" fill="#DCDCDC" stroke="none" stroke-width="1"/>
+<rect x="20" y="1256" width="330" height="6" rx="0" fill="#DCDCDC" stroke="none" stroke-width="1"/>
+<rect x="20" y="1268" width="330" height="6" rx="0" fill="#DCDCDC" stroke="none" stroke-width="1"/>
+<rect x="20" y="1280" width="217.8" height="6" rx="0" fill="#DCDCDC" stroke="none" stroke-width="1"/>
+<text x="20" y="1322" font-family="DejaVu Sans, Arial, sans-serif" font-size="8" fill="#09506A" text-anchor="start" letter-spacing="1.2">01</text>
+<text x="48" y="1324" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" fill="#4A4A4A" text-anchor="start" font-weight="700">Extrusão balão própria</text>
+<rect x="48" y="1336" width="300" height="5" rx="0" fill="#DCDCDC" stroke="none" stroke-width="1"/>
+<rect x="48" y="1346" width="240.0" height="5" rx="0" fill="#DCDCDC" stroke="none" stroke-width="1"/>
+<line x1="20" y1="1366" x2="370" y2="1366" stroke="#B9B9B9" stroke-width="1" stroke-dasharray="4 6"/>
+<text x="20" y="1396" font-family="DejaVu Sans, Arial, sans-serif" font-size="8" fill="#09506A" text-anchor="start" letter-spacing="1.2">02</text>
+<text x="48" y="1398" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" fill="#4A4A4A" text-anchor="start" font-weight="700">Corte, solda e rebobinamento</text>
+<rect x="48" y="1410" width="300" height="5" rx="0" fill="#DCDCDC" stroke="none" stroke-width="1"/>
+<rect x="48" y="1420" width="240.0" height="5" rx="0" fill="#DCDCDC" stroke="none" stroke-width="1"/>
+<line x1="20" y1="1440" x2="370" y2="1440" stroke="#B9B9B9" stroke-width="1" stroke-dasharray="4 6"/>
+<text x="20" y="1470" font-family="DejaVu Sans, Arial, sans-serif" font-size="8" fill="#09506A" text-anchor="start" letter-spacing="1.2">03</text>
+<text x="48" y="1472" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" fill="#4A4A4A" text-anchor="start" font-weight="700">Reciclagem mecânica (PCR)</text>
+<rect x="48" y="1484" width="300" height="5" rx="0" fill="#DCDCDC" stroke="none" stroke-width="1"/>
+<rect x="48" y="1494" width="240.0" height="5" rx="0" fill="#DCDCDC" stroke="none" stroke-width="1"/>
+<line x1="20" y1="1514" x2="370" y2="1514" stroke="#B9B9B9" stroke-width="1" stroke-dasharray="4 6"/>
+<text x="20" y="1544" font-family="DejaVu Sans, Arial, sans-serif" font-size="8" fill="#09506A" text-anchor="start" letter-spacing="1.2">04</text>
+<text x="48" y="1546" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" fill="#4A4A4A" text-anchor="start" font-weight="700">Estoque e pronta-entrega</text>
+<rect x="48" y="1558" width="300" height="5" rx="0" fill="#DCDCDC" stroke="none" stroke-width="1"/>
+<rect x="48" y="1568" width="240.0" height="5" rx="0" fill="#DCDCDC" stroke="none" stroke-width="1"/>
+<line x1="20" y1="1588" x2="370" y2="1588" stroke="#B9B9B9" stroke-width="1" stroke-dasharray="4 6"/>
+<text x="20" y="1622" font-family="DejaVu Sans, Arial, sans-serif" font-size="10" fill="#7C7C7C" text-anchor="start" letter-spacing="1.6">03  ·  PRODUTOS E SOLUÇÕES</text>
+<text x="20" y="1636" font-family="DejaVu Sans, Arial, sans-serif" font-size="9" fill="#9E9E9E" text-anchor="start">catálogo em lista — a tabela não cabe</text>
+<line x1="20" y1="1650" x2="170" y2="1650" stroke="#B9B9B9" stroke-width="1" stroke-dasharray="4 6"/>
+<circle cx="358" cy="1622" r="11" fill="#09506A" stroke="none" stroke-width="1"/>
+<text x="358" y="1625.8" font-family="DejaVu Sans, Arial, sans-serif" font-size="10" fill="#FFFFFF" text-anchor="middle" font-weight="700">03</text>
+<text x="20" y="1700" font-family="DejaVu Serif, Georgia, serif" font-size="22" fill="#3A3A3A" text-anchor="start" font-weight="700">Cinco linhas, uma</text>
+<text x="20" y="1732" font-family="DejaVu Serif, Georgia, serif" font-size="22" fill="#3A3A3A" text-anchor="start" font-weight="700">mesma fábrica.</text>
+<text x="20" y="1790" font-family="DejaVu Sans, Arial, sans-serif" font-size="8" fill="#7C7C7C" text-anchor="start" letter-spacing="1">FT-01</text>
+<text x="20" y="1808" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" fill="#3E3E3E" text-anchor="start" font-weight="700">Filme stretch</text>
+<text x="20" y="1830" font-family="DejaVu Sans, Arial, sans-serif" font-size="9.5" fill="#7C7C7C" text-anchor="start">20 · 25 · 30µ</text>
+<text x="140" y="1830" font-family="DejaVu Sans, Arial, sans-serif" font-size="9.5" fill="#7C7C7C" text-anchor="start">manual/auto</text>
+<text x="366" y="1812" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" fill="#7C7C7C" text-anchor="end">→</text>
+<line x1="20" y1="1870" x2="370" y2="1870" stroke="#B9B9B9" stroke-width="1" stroke-dasharray="4 6"/>
+<rect x="10" y="1872" width="370" height="86" rx="0" fill="#EAEAEA" stroke="none" stroke-width="1"/>
+<rect x="10" y="1872" width="3" height="86" rx="0" fill="#09506A" stroke="none" stroke-width="1"/>
+<text x="20" y="1886" font-family="DejaVu Sans, Arial, sans-serif" font-size="8" fill="#7C7C7C" text-anchor="start" letter-spacing="1">FT-02</text>
+<text x="20" y="1904" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" fill="#3E3E3E" text-anchor="start" font-weight="700">Plástico bolha UV</text>
+<text x="20" y="1926" font-family="DejaVu Sans, Arial, sans-serif" font-size="9.5" fill="#7C7C7C" text-anchor="start">até 120µ</text>
+<text x="140" y="1926" font-family="DejaVu Sans, Arial, sans-serif" font-size="9.5" fill="#7C7C7C" text-anchor="start">pátio externo</text>
+<text x="366" y="1908" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" fill="#7C7C7C" text-anchor="end">→</text>
+<line x1="20" y1="1966" x2="370" y2="1966" stroke="#B9B9B9" stroke-width="1" stroke-dasharray="4 6"/>
+<text x="20" y="1982" font-family="DejaVu Sans, Arial, sans-serif" font-size="8" fill="#7C7C7C" text-anchor="start" letter-spacing="1">FT-03</text>
+<text x="20" y="2000" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" fill="#3E3E3E" text-anchor="start" font-weight="700">Sacaria agrícola</text>
+<text x="20" y="2022" font-family="DejaVu Sans, Arial, sans-serif" font-size="9.5" fill="#7C7C7C" text-anchor="start">sob medida</text>
+<text x="140" y="2022" font-family="DejaVu Sans, Arial, sans-serif" font-size="9.5" fill="#7C7C7C" text-anchor="start">silagem</text>
+<text x="366" y="2004" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" fill="#7C7C7C" text-anchor="end">→</text>
+<line x1="20" y1="2062" x2="370" y2="2062" stroke="#B9B9B9" stroke-width="1" stroke-dasharray="4 6"/>
+<text x="20" y="2078" font-family="DejaVu Sans, Arial, sans-serif" font-size="8" fill="#7C7C7C" text-anchor="start" letter-spacing="1">FT-04</text>
+<text x="20" y="2096" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" fill="#3E3E3E" text-anchor="start" font-weight="700">Linha hospitalar</text>
+<text x="20" y="2118" font-family="DejaVu Sans, Arial, sans-serif" font-size="9.5" fill="#7C7C7C" text-anchor="start">NBR 9191</text>
+<text x="140" y="2118" font-family="DejaVu Sans, Arial, sans-serif" font-size="9.5" fill="#7C7C7C" text-anchor="start">resíduo</text>
+<text x="366" y="2100" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" fill="#7C7C7C" text-anchor="end">→</text>
+<line x1="20" y1="2158" x2="370" y2="2158" stroke="#B9B9B9" stroke-width="1" stroke-dasharray="4 6"/>
+<text x="20" y="2174" font-family="DejaVu Sans, Arial, sans-serif" font-size="8" fill="#7C7C7C" text-anchor="start" letter-spacing="1">FT-05</text>
+<text x="20" y="2192" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" fill="#3E3E3E" text-anchor="start" font-weight="700">Polietileno PCR</text>
+<text x="20" y="2214" font-family="DejaVu Sans, Arial, sans-serif" font-size="9.5" fill="#7C7C7C" text-anchor="start">sob medida</text>
+<text x="140" y="2214" font-family="DejaVu Sans, Arial, sans-serif" font-size="9.5" fill="#7C7C7C" text-anchor="start">secundária</text>
+<text x="366" y="2196" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" fill="#7C7C7C" text-anchor="end">→</text>
+<line x1="20" y1="2254" x2="370" y2="2254" stroke="#B9B9B9" stroke-width="1" stroke-dasharray="4 6"/>
+<rect x="20" y="2280" width="350" height="118" rx="0" fill="#FAFAF8" stroke="#B9B9B9" stroke-width="1" stroke-dasharray="6 6"/>
+<text x="32" y="2302" font-family="DejaVu Sans, Arial, sans-serif" font-size="8" fill="#7C7C7C" text-anchor="start" letter-spacing="1.2">FICHA TÉCNICA FT-01</text>
+<text x="32" y="2322" font-family="DejaVu Sans, Arial, sans-serif" font-size="9" fill="#4A4A4A" text-anchor="start">Prancha · micragem · aplicação · resistência</text>
+<rect x="32" y="2340" width="326" height="34" rx="17.0" fill="none" stroke="#C7C7C7" stroke-width="1"/>
+<text x="195.0" y="2360.42" font-family="DejaVu Sans, Arial, sans-serif" font-size="9.5" fill="#2B2B2B" text-anchor="middle">Baixar ficha técnica</text>
+<text x="20" y="2482" font-family="DejaVu Sans, Arial, sans-serif" font-size="10" fill="#7C7C7C" text-anchor="start" letter-spacing="1.6">04  ·  DIFERENCIAIS</text>
+<line x1="20" y1="2510" x2="170" y2="2510" stroke="#B9B9B9" stroke-width="1" stroke-dasharray="4 6"/>
+<circle cx="358" cy="2482" r="11" fill="#09506A" stroke="none" stroke-width="1"/>
+<text x="358" y="2485.8" font-family="DejaVu Sans, Arial, sans-serif" font-size="10" fill="#FFFFFF" text-anchor="middle" font-weight="700">04</text>
+<text x="20" y="2560" font-family="DejaVu Serif, Georgia, serif" font-size="22" fill="#3A3A3A" text-anchor="start" font-weight="700">Onde o fornecimento</text>
+<text x="20" y="2592" font-family="DejaVu Serif, Georgia, serif" font-size="22" fill="#3A3A3A" text-anchor="start" font-weight="700">costuma falhar.</text>
+<text x="20" y="2648" font-family="DejaVu Sans, Arial, sans-serif" font-size="7.5" fill="#7C7C7C" text-anchor="start" letter-spacing="1.2">OBJEÇÃO 01</text>
+<text x="20" y="2668" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" fill="#3E3E3E" text-anchor="start" font-weight="700">Pedido mínimo abusivo</text>
+<rect x="20" y="2682" width="186.0" height="5" rx="0" fill="#DCDCDC" stroke="none" stroke-width="1"/>
+<text x="20" y="2708" font-family="DejaVu Sans, Arial, sans-serif" font-size="7.5" fill="#09506A" text-anchor="start" letter-spacing="1.2">COMO A PLASWILL RESPONDE</text>
+<rect x="20" y="2722" width="330" height="6" rx="0" fill="#DCDCDC" stroke="none" stroke-width="1"/>
+<rect x="20" y="2734" width="280.5" height="6" rx="0" fill="#DCDCDC" stroke="none" stroke-width="1"/>
+<line x1="20" y1="2758" x2="370" y2="2758" stroke="#B9B9B9" stroke-width="1" stroke-dasharray="4 6"/>
+<text x="20" y="2780" font-family="DejaVu Sans, Arial, sans-serif" font-size="7.5" fill="#7C7C7C" text-anchor="start" letter-spacing="1.2">OBJEÇÃO 02</text>
+<text x="20" y="2800" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" fill="#3E3E3E" text-anchor="start" font-weight="700">Prazo de faturamento</text>
+<rect x="20" y="2814" width="186.0" height="5" rx="0" fill="#DCDCDC" stroke="none" stroke-width="1"/>
+<text x="20" y="2840" font-family="DejaVu Sans, Arial, sans-serif" font-size="7.5" fill="#09506A" text-anchor="start" letter-spacing="1.2">COMO A PLASWILL RESPONDE</text>
+<rect x="20" y="2854" width="330" height="6" rx="0" fill="#DCDCDC" stroke="none" stroke-width="1"/>
+<rect x="20" y="2866" width="280.5" height="6" rx="0" fill="#DCDCDC" stroke="none" stroke-width="1"/>
+<line x1="20" y1="2890" x2="370" y2="2890" stroke="#B9B9B9" stroke-width="1" stroke-dasharray="4 6"/>
+<text x="20" y="2912" font-family="DejaVu Sans, Arial, sans-serif" font-size="7.5" fill="#7C7C7C" text-anchor="start" letter-spacing="1.2">OBJEÇÃO 03</text>
+<text x="20" y="2932" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" fill="#3E3E3E" text-anchor="start" font-weight="700">Micragem enganosa</text>
+<rect x="20" y="2946" width="186.0" height="5" rx="0" fill="#DCDCDC" stroke="none" stroke-width="1"/>
+<text x="20" y="2972" font-family="DejaVu Sans, Arial, sans-serif" font-size="7.5" fill="#09506A" text-anchor="start" letter-spacing="1.2">COMO A PLASWILL RESPONDE</text>
+<rect x="20" y="2986" width="330" height="6" rx="0" fill="#DCDCDC" stroke="none" stroke-width="1"/>
+<rect x="20" y="2998" width="280.5" height="6" rx="0" fill="#DCDCDC" stroke="none" stroke-width="1"/>
+<line x1="20" y1="3022" x2="370" y2="3022" stroke="#B9B9B9" stroke-width="1" stroke-dasharray="4 6"/>
+<text x="20" y="3044" font-family="DejaVu Sans, Arial, sans-serif" font-size="7.5" fill="#7C7C7C" text-anchor="start" letter-spacing="1.2">OBJEÇÃO 04</text>
+<text x="20" y="3064" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" fill="#3E3E3E" text-anchor="start" font-weight="700">Sustentabilidade de fachada</text>
+<rect x="20" y="3078" width="186.0" height="5" rx="0" fill="#DCDCDC" stroke="none" stroke-width="1"/>
+<text x="20" y="3104" font-family="DejaVu Sans, Arial, sans-serif" font-size="7.5" fill="#09506A" text-anchor="start" letter-spacing="1.2">COMO A PLASWILL RESPONDE</text>
+<rect x="20" y="3118" width="330" height="6" rx="0" fill="#DCDCDC" stroke="none" stroke-width="1"/>
+<rect x="20" y="3130" width="280.5" height="6" rx="0" fill="#DCDCDC" stroke="none" stroke-width="1"/>
+<line x1="20" y1="3154" x2="370" y2="3154" stroke="#B9B9B9" stroke-width="1" stroke-dasharray="4 6"/>
+<text x="20" y="3176" font-family="DejaVu Sans, Arial, sans-serif" font-size="7.5" fill="#7C7C7C" text-anchor="start" letter-spacing="1.2">OBJEÇÃO 05</text>
+<text x="20" y="3196" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" fill="#3E3E3E" text-anchor="start" font-weight="700">Atendimento desumanizado</text>
+<rect x="20" y="3210" width="186.0" height="5" rx="0" fill="#DCDCDC" stroke="none" stroke-width="1"/>
+<text x="20" y="3236" font-family="DejaVu Sans, Arial, sans-serif" font-size="7.5" fill="#09506A" text-anchor="start" letter-spacing="1.2">COMO A PLASWILL RESPONDE</text>
+<rect x="20" y="3250" width="330" height="6" rx="0" fill="#DCDCDC" stroke="none" stroke-width="1"/>
+<rect x="20" y="3262" width="280.5" height="6" rx="0" fill="#DCDCDC" stroke="none" stroke-width="1"/>
+<line x1="20" y1="3286" x2="370" y2="3286" stroke="#B9B9B9" stroke-width="1" stroke-dasharray="4 6"/>
+<text x="20" y="3352" font-family="DejaVu Sans, Arial, sans-serif" font-size="10" fill="#7C7C7C" text-anchor="start" letter-spacing="1.6">05  ·  ESTRUTURA E PROCESSO</text>
+<text x="20" y="3366" font-family="DejaVu Sans, Arial, sans-serif" font-size="9" fill="#9E9E9E" text-anchor="start">diagrama aproveitado do hero</text>
+<line x1="20" y1="3380" x2="170" y2="3380" stroke="#B9B9B9" stroke-width="1" stroke-dasharray="4 6"/>
+<circle cx="358" cy="3352" r="11" fill="#09506A" stroke="none" stroke-width="1"/>
+<text x="358" y="3355.8" font-family="DejaVu Sans, Arial, sans-serif" font-size="10" fill="#FFFFFF" text-anchor="middle" font-weight="700">05</text>
+<text x="20" y="3430" font-family="DejaVu Serif, Georgia, serif" font-size="22" fill="#3A3A3A" text-anchor="start" font-weight="700">Da resina à bobina</text>
+<text x="20" y="3462" font-family="DejaVu Serif, Georgia, serif" font-size="22" fill="#3A3A3A" text-anchor="start" font-weight="700">calibrada, na mesma</text>
+<text x="20" y="3494" font-family="DejaVu Serif, Georgia, serif" font-size="22" fill="#3A3A3A" text-anchor="start" font-weight="700">planta.</text>
+<rect x="20" y="3532" width="350" height="300" rx="0" fill="#FAFAF8" stroke="#B9B9B9" stroke-width="1" stroke-dasharray="6 6"/>
+<text x="32" y="3554" font-family="DejaVu Sans, Arial, sans-serif" font-size="8" fill="#7C7C7C" text-anchor="start" letter-spacing="1.2">LINHA DE EXTRUSÃO BALÃO</text>
+<line x1="72.8" y1="3774.84" x2="291.03999999999996" y2="3774.84" stroke="#C7C7C7" stroke-width="1" stroke-dasharray="5 6"/>
+<rect x="85.2" y="3742.6" width="93.0" height="24.8" rx="0" fill="none" stroke="#C7C7C7" stroke-width="1"/>
+<rect x="101.32" y="3727.72" width="27.28" height="14.879999999999999" rx="0" fill="none" stroke="#C7C7C7" stroke-width="1"/>
+<rect x="107.52" y="3717.8" width="48.36" height="9.92" rx="0" fill="none" stroke="#C7C7C7" stroke-width="1"/>
+<rect x="105.66" y="3610.54" width="52.08" height="109.12" rx="26.04" fill="none" stroke="#C7C7C7" stroke-width="1"/>
+<line x1="105.66" y1="3631.0" x2="157.74" y2="3631.0" stroke="#9E9E9E" stroke-width="1" stroke-dasharray="3 5"/>
+<circle cx="117.44" cy="3604.96" r="7.4399999999999995" fill="none" stroke="#C7C7C7" stroke-width="1"/>
+<circle cx="145.95999999999998" cy="3604.96" r="7.4399999999999995" fill="none" stroke="#C7C7C7" stroke-width="1"/>
+<line x1="157.12" y1="3607.44" x2="234.0" y2="3665.1" stroke="#C7C7C7" stroke-width="1" stroke-dasharray="4 5"/>
+<circle cx="249.5" cy="3683.7" r="21.08" fill="none" stroke="#C7C7C7" stroke-width="1"/>
+<circle cx="249.5" cy="3683.7" r="13.64" fill="none" stroke="#C7C7C7" stroke-width="1"/>
+<circle cx="249.5" cy="3683.7" r="6.82" fill="none" stroke="#C7C7C7" stroke-width="1"/>
+<rect x="234.0" y="3724.0" width="34.72" height="16.12" rx="0" fill="none" stroke="#C7C7C7" stroke-width="1"/>
+<line x1="131.7" y1="3717.8" x2="131.7" y2="3576.44" stroke="#C7C7C7" stroke-width="1" stroke-dasharray="5 6"/>
+<circle cx="34" cy="3892" r="14" fill="none" stroke="#C7C7C7" stroke-width="1"/>
+<text x="34" y="3896" font-family="DejaVu Sans, Arial, sans-serif" font-size="10" fill="#7C7C7C" text-anchor="middle">1</text>
+<text x="60" y="3896" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" fill="#3E3E3E" text-anchor="start" font-weight="700">Insumos</text>
+<rect x="60" y="3908" width="290" height="5" rx="0" fill="#DCDCDC" stroke="none" stroke-width="1"/>
+<rect x="60" y="3919" width="249.4" height="5" rx="0" fill="#DCDCDC" stroke="none" stroke-width="1"/>
+<line x1="34" y1="3908" x2="34" y2="3958" stroke="#B9B9B9" stroke-width="1" stroke-dasharray="4 4"/>
+<circle cx="34" cy="3982" r="14" fill="none" stroke="#C7C7C7" stroke-width="1"/>
+<text x="34" y="3986" font-family="DejaVu Sans, Arial, sans-serif" font-size="10" fill="#7C7C7C" text-anchor="middle">2</text>
+<text x="60" y="3986" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" fill="#3E3E3E" text-anchor="start" font-weight="700">Extrusão e blenda</text>
+<rect x="60" y="3998" width="290" height="5" rx="0" fill="#DCDCDC" stroke="none" stroke-width="1"/>
+<rect x="60" y="4009" width="249.4" height="5" rx="0" fill="#DCDCDC" stroke="none" stroke-width="1"/>
+<line x1="34" y1="3998" x2="34" y2="4048" stroke="#B9B9B9" stroke-width="1" stroke-dasharray="4 4"/>
+<circle cx="34" cy="4072" r="14" fill="none" stroke="#C7C7C7" stroke-width="1"/>
+<text x="34" y="4076" font-family="DejaVu Sans, Arial, sans-serif" font-size="10" fill="#7C7C7C" text-anchor="middle">3</text>
+<text x="60" y="4076" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" fill="#3E3E3E" text-anchor="start" font-weight="700">Corte, solda e rebobinamento</text>
+<rect x="60" y="4088" width="290" height="5" rx="0" fill="#DCDCDC" stroke="none" stroke-width="1"/>
+<rect x="60" y="4099" width="249.4" height="5" rx="0" fill="#DCDCDC" stroke="none" stroke-width="1"/>
+<line x1="34" y1="4088" x2="34" y2="4138" stroke="#B9B9B9" stroke-width="1" stroke-dasharray="4 4"/>
+<circle cx="34" cy="4162" r="14" fill="none" stroke="#C7C7C7" stroke-width="1"/>
+<text x="34" y="4166" font-family="DejaVu Sans, Arial, sans-serif" font-size="10" fill="#7C7C7C" text-anchor="middle">4</text>
+<text x="60" y="4166" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" fill="#3E3E3E" text-anchor="start" font-weight="700">Estoque e expedição</text>
+<rect x="60" y="4178" width="290" height="5" rx="0" fill="#DCDCDC" stroke="none" stroke-width="1"/>
+<rect x="60" y="4189" width="249.4" height="5" rx="0" fill="#DCDCDC" stroke="none" stroke-width="1"/>
+<text x="20" y="4222" font-family="DejaVu Sans, Arial, sans-serif" font-size="10" fill="#7C7C7C" text-anchor="start" letter-spacing="1.6">06  ·  SEGMENTOS ATENDIDOS</text>
+<text x="20" y="4236" font-family="DejaVu Sans, Arial, sans-serif" font-size="9" fill="#9E9E9E" text-anchor="start">uma coluna, ordem comercial</text>
+<line x1="20" y1="4250" x2="170" y2="4250" stroke="#B9B9B9" stroke-width="1" stroke-dasharray="4 6"/>
+<circle cx="358" cy="4222" r="11" fill="#09506A" stroke="none" stroke-width="1"/>
+<text x="358" y="4225.8" font-family="DejaVu Sans, Arial, sans-serif" font-size="10" fill="#FFFFFF" text-anchor="middle" font-weight="700">06</text>
+<text x="20" y="4300" font-family="DejaVu Serif, Georgia, serif" font-size="22" fill="#3A3A3A" text-anchor="start" font-weight="700">Quem compra da</text>
+<text x="20" y="4332" font-family="DejaVu Serif, Georgia, serif" font-size="22" fill="#3A3A3A" text-anchor="start" font-weight="700">Plaswill.</text>
+<text x="20" y="4388" font-family="DejaVu Sans, Arial, sans-serif" font-size="7.5" fill="#7C7C7C" text-anchor="start" letter-spacing="1.2">SG-01</text>
+<text x="80" y="4389" font-family="DejaVu Sans, Arial, sans-serif" font-size="11.5" fill="#3E3E3E" text-anchor="start" font-weight="700">Metalmecânica e máquinas agrícolas</text>
+<rect x="80" y="4400" width="167.4" height="5" rx="0" fill="#DCDCDC" stroke="none" stroke-width="1"/>
+<line x1="20" y1="4426" x2="370" y2="4426" stroke="#B9B9B9" stroke-width="1" stroke-dasharray="4 6"/>
+<text x="20" y="4454" font-family="DejaVu Sans, Arial, sans-serif" font-size="7.5" fill="#7C7C7C" text-anchor="start" letter-spacing="1.2">SG-02</text>
+<text x="80" y="4455" font-family="DejaVu Sans, Arial, sans-serif" font-size="11.5" fill="#3E3E3E" text-anchor="start" font-weight="700">Cooperativas agropecuárias</text>
+<rect x="80" y="4466" width="167.4" height="5" rx="0" fill="#DCDCDC" stroke="none" stroke-width="1"/>
+<line x1="20" y1="4492" x2="370" y2="4492" stroke="#B9B9B9" stroke-width="1" stroke-dasharray="4 6"/>
+<text x="20" y="4520" font-family="DejaVu Sans, Arial, sans-serif" font-size="7.5" fill="#7C7C7C" text-anchor="start" letter-spacing="1.2">SG-03</text>
+<text x="80" y="4521" font-family="DejaVu Sans, Arial, sans-serif" font-size="11.5" fill="#3E3E3E" text-anchor="start" font-weight="700">Complexo hospitalar e saúde</text>
+<rect x="80" y="4532" width="167.4" height="5" rx="0" fill="#DCDCDC" stroke="none" stroke-width="1"/>
+<line x1="20" y1="4558" x2="370" y2="4558" stroke="#B9B9B9" stroke-width="1" stroke-dasharray="4 6"/>
+<text x="20" y="4586" font-family="DejaVu Sans, Arial, sans-serif" font-size="7.5" fill="#7C7C7C" text-anchor="start" letter-spacing="1.2">SG-04</text>
+<text x="80" y="4587" font-family="DejaVu Sans, Arial, sans-serif" font-size="11.5" fill="#3E3E3E" text-anchor="start" font-weight="700">Logística e centros de distribuição</text>
+<rect x="80" y="4598" width="167.4" height="5" rx="0" fill="#DCDCDC" stroke="none" stroke-width="1"/>
+<line x1="20" y1="4624" x2="370" y2="4624" stroke="#B9B9B9" stroke-width="1" stroke-dasharray="4 6"/>
+<text x="20" y="4652" font-family="DejaVu Sans, Arial, sans-serif" font-size="7.5" fill="#7C7C7C" text-anchor="start" letter-spacing="1.2">SG-05</text>
+<text x="80" y="4653" font-family="DejaVu Sans, Arial, sans-serif" font-size="11.5" fill="#3E3E3E" text-anchor="start" font-weight="700">Setor público e licitações</text>
+<rect x="80" y="4664" width="167.4" height="5" rx="0" fill="#DCDCDC" stroke="none" stroke-width="1"/>
+<line x1="20" y1="4690" x2="370" y2="4690" stroke="#B9B9B9" stroke-width="1" stroke-dasharray="4 6"/>
+<text x="20" y="4762" font-family="DejaVu Sans, Arial, sans-serif" font-size="10" fill="#7C7C7C" text-anchor="start" letter-spacing="1.6">07  ·  CLIENTES</text>
+<text x="20" y="4776" font-family="DejaVu Sans, Arial, sans-serif" font-size="9" fill="#9E9E9E" text-anchor="start">nomes reais após autorização de marca</text>
+<line x1="20" y1="4790" x2="170" y2="4790" stroke="#B9B9B9" stroke-width="1" stroke-dasharray="4 6"/>
+<circle cx="358" cy="4762" r="11" fill="#09506A" stroke="none" stroke-width="1"/>
+<text x="358" y="4765.8" font-family="DejaVu Sans, Arial, sans-serif" font-size="10" fill="#FFFFFF" text-anchor="middle" font-weight="700">07</text>
+<text x="20" y="4840" font-family="DejaVu Serif, Georgia, serif" font-size="22" fill="#3A3A3A" text-anchor="start" font-weight="700">Fornecedor homologado</text>
+<text x="20" y="4872" font-family="DejaVu Serif, Georgia, serif" font-size="22" fill="#3A3A3A" text-anchor="start" font-weight="700">de quem não pode parar</text>
+<text x="20" y="4904" font-family="DejaVu Serif, Georgia, serif" font-size="22" fill="#3A3A3A" text-anchor="start" font-weight="700">a linha.</text>
+<text x="20" y="4956" font-family="DejaVu Sans, Arial, sans-serif" font-size="7.5" fill="#7C7C7C" text-anchor="start" letter-spacing="1.2">AGRONEGÓCIO E COOPERATIVAS</text>
+<rect x="20" y="4970" width="216.0" height="5" rx="0" fill="#DCDCDC" stroke="none" stroke-width="1"/>
+<rect x="20" y="4988" width="216.0" height="5" rx="0" fill="#DCDCDC" stroke="none" stroke-width="1"/>
+<rect x="20" y="5006" width="216.0" height="5" rx="0" fill="#DCDCDC" stroke="none" stroke-width="1"/>
+<text x="20" y="5040" font-family="DejaVu Sans, Arial, sans-serif" font-size="7.5" fill="#7C7C7C" text-anchor="start" letter-spacing="1.2">INDÚSTRIA METALMECÂNICA</text>
+<rect x="20" y="5054" width="216.0" height="5" rx="0" fill="#DCDCDC" stroke="none" stroke-width="1"/>
+<rect x="20" y="5072" width="216.0" height="5" rx="0" fill="#DCDCDC" stroke="none" stroke-width="1"/>
+<rect x="20" y="5090" width="216.0" height="5" rx="0" fill="#DCDCDC" stroke="none" stroke-width="1"/>
+<rect x="20" y="5108" width="216.0" height="5" rx="0" fill="#DCDCDC" stroke="none" stroke-width="1"/>
+<rect x="20" y="5126" width="216.0" height="5" rx="0" fill="#DCDCDC" stroke="none" stroke-width="1"/>
+<text x="20" y="5160" font-family="DejaVu Sans, Arial, sans-serif" font-size="7.5" fill="#7C7C7C" text-anchor="start" letter-spacing="1.2">SAÚDE E HOSPITAIS</text>
+<rect x="20" y="5174" width="216.0" height="5" rx="0" fill="#DCDCDC" stroke="none" stroke-width="1"/>
+<rect x="20" y="5192" width="216.0" height="5" rx="0" fill="#DCDCDC" stroke="none" stroke-width="1"/>
+<rect x="20" y="5210" width="216.0" height="5" rx="0" fill="#DCDCDC" stroke="none" stroke-width="1"/>
+<text x="20" y="5244" font-family="DejaVu Sans, Arial, sans-serif" font-size="7.5" fill="#7C7C7C" text-anchor="start" letter-spacing="1.2">SETOR PÚBLICO</text>
+<rect x="20" y="5258" width="216.0" height="5" rx="0" fill="#DCDCDC" stroke="none" stroke-width="1"/>
+<text x="20" y="5292" font-family="DejaVu Sans, Arial, sans-serif" font-size="7.5" fill="#7C7C7C" text-anchor="start" letter-spacing="1.2">SERVIÇOS E DISTRIBUIÇÃO</text>
+<rect x="20" y="5306" width="216.0" height="5" rx="0" fill="#DCDCDC" stroke="none" stroke-width="1"/>
+<rect x="20" y="5324" width="216.0" height="5" rx="0" fill="#DCDCDC" stroke="none" stroke-width="1"/>
+<text x="20" y="5402" font-family="DejaVu Sans, Arial, sans-serif" font-size="10" fill="#7C7C7C" text-anchor="start" letter-spacing="1.6">08  ·  PERGUNTAS FREQUENTES</text>
+<line x1="20" y1="5430" x2="170" y2="5430" stroke="#B9B9B9" stroke-width="1" stroke-dasharray="4 6"/>
+<circle cx="358" cy="5402" r="11" fill="#09506A" stroke="none" stroke-width="1"/>
+<text x="358" y="5405.8" font-family="DejaVu Sans, Arial, sans-serif" font-size="10" fill="#FFFFFF" text-anchor="middle" font-weight="700">08</text>
+<text x="20" y="5480" font-family="DejaVu Serif, Georgia, serif" font-size="22" fill="#3A3A3A" text-anchor="start" font-weight="700">As objeções que</text>
+<text x="20" y="5512" font-family="DejaVu Serif, Georgia, serif" font-size="22" fill="#3A3A3A" text-anchor="start" font-weight="700">ouvimos toda semana.</text>
+<text x="22" y="5588" font-family="DejaVu Sans, Arial, sans-serif" font-size="11.5" fill="#3E3E3E" text-anchor="start" font-weight="700">Plástico reciclado é fraco?</text>
+<circle cx="358" cy="5584" r="9" fill="none" stroke="#C7C7C7" stroke-width="1"/>
+<line x1="352" y1="5584" x2="364" y2="5584" stroke="#7C7C7C" stroke-width="1"/>
+<rect x="22" y="5602" width="300" height="5" rx="0" fill="#DCDCDC" stroke="none" stroke-width="1"/>
+<rect x="22" y="5613" width="210.0" height="5" rx="0" fill="#DCDCDC" stroke="none" stroke-width="1"/>
+<line x1="20" y1="5640" x2="370" y2="5640" stroke="#B9B9B9" stroke-width="1" stroke-dasharray="4 6"/>
+<text x="22" y="5676" font-family="DejaVu Sans, Arial, sans-serif" font-size="11.5" fill="#3E3E3E" text-anchor="start">Já compro de um grande convertedor.</text>
+<circle cx="358" cy="5672" r="9" fill="none" stroke="#C7C7C7" stroke-width="1"/>
+<line x1="352" y1="5672" x2="364" y2="5672" stroke="#7C7C7C" stroke-width="1"/>
+<line x1="358" y1="5666" x2="358" y2="5678" stroke="#7C7C7C" stroke-width="1"/>
+<line x1="20" y1="5696" x2="370" y2="5696" stroke="#B9B9B9" stroke-width="1" stroke-dasharray="4 6"/>
+<text x="22" y="5732" font-family="DejaVu Sans, Arial, sans-serif" font-size="11.5" fill="#3E3E3E" text-anchor="start">Saco infectante exige laudo?</text>
+<circle cx="358" cy="5728" r="9" fill="none" stroke="#C7C7C7" stroke-width="1"/>
+<line x1="352" y1="5728" x2="364" y2="5728" stroke="#7C7C7C" stroke-width="1"/>
+<line x1="358" y1="5722" x2="358" y2="5734" stroke="#7C7C7C" stroke-width="1"/>
+<line x1="20" y1="5752" x2="370" y2="5752" stroke="#B9B9B9" stroke-width="1" stroke-dasharray="4 6"/>
+<text x="22" y="5788" font-family="DejaVu Sans, Arial, sans-serif" font-size="11.5" fill="#3E3E3E" text-anchor="start">Qual é o pedido mínimo?</text>
+<circle cx="358" cy="5784" r="9" fill="none" stroke="#C7C7C7" stroke-width="1"/>
+<line x1="352" y1="5784" x2="364" y2="5784" stroke="#7C7C7C" stroke-width="1"/>
+<line x1="358" y1="5778" x2="358" y2="5790" stroke="#7C7C7C" stroke-width="1"/>
+<line x1="20" y1="5808" x2="370" y2="5808" stroke="#B9B9B9" stroke-width="1" stroke-dasharray="4 6"/>
+<text x="22" y="5844" font-family="DejaVu Sans, Arial, sans-serif" font-size="11.5" fill="#3E3E3E" text-anchor="start">Vocês enviam amostra?</text>
+<circle cx="358" cy="5840" r="9" fill="none" stroke="#C7C7C7" stroke-width="1"/>
+<line x1="352" y1="5840" x2="364" y2="5840" stroke="#7C7C7C" stroke-width="1"/>
+<line x1="358" y1="5834" x2="358" y2="5846" stroke="#7C7C7C" stroke-width="1"/>
+<line x1="20" y1="5864" x2="370" y2="5864" stroke="#B9B9B9" stroke-width="1" stroke-dasharray="4 6"/>
+<text x="22" y="5900" font-family="DejaVu Sans, Arial, sans-serif" font-size="11.5" fill="#3E3E3E" text-anchor="start">Em quanto tempo vocês faturam?</text>
+<circle cx="358" cy="5896" r="9" fill="none" stroke="#C7C7C7" stroke-width="1"/>
+<line x1="352" y1="5896" x2="364" y2="5896" stroke="#7C7C7C" stroke-width="1"/>
+<line x1="358" y1="5890" x2="358" y2="5902" stroke="#7C7C7C" stroke-width="1"/>
+<line x1="20" y1="5920" x2="370" y2="5920" stroke="#B9B9B9" stroke-width="1" stroke-dasharray="4 6"/>
+<rect x="0" y="6040" width="390" height="940" rx="0" fill="#0F172A" stroke="none" stroke-width="1"/>
+<text x="20" y="6068" font-family="DejaVu Sans, Arial, sans-serif" font-size="10" fill="#8FA0AE" text-anchor="start" letter-spacing="1.6">09  ·  ORÇAMENTO</text>
+<text x="20" y="6082" font-family="DejaVu Sans, Arial, sans-serif" font-size="9" fill="#6C7C8B" text-anchor="start">faixa escura — único amarelo sobre fundo</text>
+<line x1="20" y1="6096" x2="170" y2="6096" stroke="#39465A" stroke-width="1" stroke-dasharray="4 6"/>
+<circle cx="358" cy="6068" r="11" fill="#09506A" stroke="none" stroke-width="1"/>
+<text x="358" y="6071.8" font-family="DejaVu Sans, Arial, sans-serif" font-size="10" fill="#FFFFFF" text-anchor="middle" font-weight="700">13</text>
+<text x="20" y="6160" font-family="DejaVu Serif, Georgia, serif" font-size="22" fill="#EDEDE9" text-anchor="start" font-weight="700">Peça uma cotação com</text>
+<text x="20" y="6192" font-family="DejaVu Serif, Georgia, serif" font-size="22" fill="#EDEDE9" text-anchor="start" font-weight="700">amostra técnica.</text>
+<rect x="20" y="6220" width="300" height="6" rx="0" fill="#4A5563" stroke="none" stroke-width="1"/>
+<rect x="20" y="6233" width="186.0" height="6" rx="0" fill="#4A5563" stroke="none" stroke-width="1"/>
+<rect x="20" y="6270" width="350" height="46" rx="23.0" fill="#FFDE00" stroke="none" stroke-width="1"/>
+<text x="195.0" y="6296.96" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" fill="#262626" text-anchor="middle">Falar no WhatsApp</text>
+<rect x="20" y="6328" width="350" height="46" rx="23.0" fill="none" stroke="#3E4A58" stroke-width="1"/>
+<text x="195.0" y="6354.96" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" fill="#2B2B2B" text-anchor="middle">Ligar (55) 3375-8522</text>
+<text x="20" y="6420" font-family="DejaVu Sans, Arial, sans-serif" font-size="7.5" fill="#8E9AA6" text-anchor="start" letter-spacing="1.2">E-MAIL</text>
+<text x="20" y="6438" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" fill="#FFDE00" text-anchor="start">comercial@plaswill.com.br</text>
+<line x1="20" y1="6452" x2="370" y2="6452" stroke="#3A4653" stroke-width="1" stroke-dasharray="4 6"/>
+<text x="20" y="6484" font-family="DejaVu Sans, Arial, sans-serif" font-size="7.5" fill="#8E9AA6" text-anchor="start" letter-spacing="1.2">ENDEREÇO</text>
+<text x="20" y="6502" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" fill="#FFDE00" text-anchor="start">Rua das Indústrias · Panambi/RS</text>
+<line x1="20" y1="6516" x2="370" y2="6516" stroke="#3A4653" stroke-width="1" stroke-dasharray="4 6"/>
+<rect x="20" y="6560" width="350" height="352" rx="0" fill="none" stroke="#B9B9B9" stroke-width="1" stroke-dasharray="6 6"/>
+<text x="32" y="6582" font-family="DejaVu Sans, Arial, sans-serif" font-size="7.5" fill="#8E9AA6" text-anchor="start" letter-spacing="1.2">FORMULÁRIO COMERCIAL</text>
+<rect x="32" y="6600" width="43.4" height="5" rx="0" fill="#6B7683" stroke="none" stroke-width="1"/>
+<rect x="32" y="6611" width="326" height="34" rx="0" fill="none" stroke="#3E4A58" stroke-width="1"/>
+<rect x="32" y="6666" width="43.4" height="5" rx="0" fill="#6B7683" stroke="none" stroke-width="1"/>
+<rect x="32" y="6677" width="326" height="34" rx="0" fill="none" stroke="#3E4A58" stroke-width="1"/>
+<rect x="32" y="6732" width="43.4" height="5" rx="0" fill="#6B7683" stroke="none" stroke-width="1"/>
+<rect x="32" y="6743" width="326" height="34" rx="0" fill="none" stroke="#3E4A58" stroke-width="1"/>
+<rect x="32" y="6798" width="43.4" height="5" rx="0" fill="#6B7683" stroke="none" stroke-width="1"/>
+<rect x="32" y="6809" width="326" height="34" rx="0" fill="none" stroke="#3E4A58" stroke-width="1"/>
+<rect x="32" y="6864" width="326" height="50" rx="0" fill="none" stroke="#3E4A58" stroke-width="1"/>
+<rect x="32" y="6928" width="326" height="38" rx="19" fill="#FFDE00" stroke="none" stroke-width="1"/>
+<text x="195.0" y="6952" font-family="DejaVu Sans, Arial, sans-serif" font-size="10" fill="#262626" text-anchor="middle">Enviar pedido</text>
+<circle cx="358" cy="6554" r="11" fill="#09506A" stroke="none" stroke-width="1"/>
+<text x="358" y="6557.8" font-family="DejaVu Sans, Arial, sans-serif" font-size="10" fill="#FFFFFF" text-anchor="middle" font-weight="700">14</text>
+<rect x="0" y="7020" width="390" height="470" rx="0" fill="#0B111C" stroke="none" stroke-width="1"/>
+<rect x="20" y="7060" width="9" height="9" rx="0" fill="#FFDE00" stroke="none" stroke-width="1"/>
+<text x="38" y="7071" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" fill="#E8E8E4" text-anchor="start" font-weight="700">Plaswill</text>
+<rect x="20" y="7090" width="220" height="5" rx="0" fill="#39424F" stroke="none" stroke-width="1"/>
+<rect x="20" y="7101" width="136.4" height="5" rx="0" fill="#39424F" stroke="none" stroke-width="1"/>
+<text x="20" y="7140" font-family="DejaVu Sans, Arial, sans-serif" font-size="7.5" fill="#7F8A96" text-anchor="start" letter-spacing="1.2">FÁBRICA</text>
+<rect x="20" y="7152" width="240" height="5" rx="0" fill="#39424F" stroke="none" stroke-width="1"/>
+<rect x="20" y="7168" width="240" height="5" rx="0" fill="#39424F" stroke="none" stroke-width="1"/>
+<rect x="20" y="7184" width="240" height="5" rx="0" fill="#39424F" stroke="none" stroke-width="1"/>
+<rect x="20" y="7200" width="148.8" height="5" rx="0" fill="#39424F" stroke="none" stroke-width="1"/>
+<text x="20" y="7230" font-family="DejaVu Sans, Arial, sans-serif" font-size="7.5" fill="#7F8A96" text-anchor="start" letter-spacing="1.2">COMERCIAL</text>
+<rect x="20" y="7242" width="240" height="5" rx="0" fill="#39424F" stroke="none" stroke-width="1"/>
+<rect x="20" y="7258" width="240" height="5" rx="0" fill="#39424F" stroke="none" stroke-width="1"/>
+<rect x="20" y="7274" width="240" height="5" rx="0" fill="#39424F" stroke="none" stroke-width="1"/>
+<rect x="20" y="7290" width="148.8" height="5" rx="0" fill="#39424F" stroke="none" stroke-width="1"/>
+<text x="20" y="7320" font-family="DejaVu Sans, Arial, sans-serif" font-size="7.5" fill="#7F8A96" text-anchor="start" letter-spacing="1.2">NAVEGAÇÃO</text>
+<rect x="20" y="7332" width="240" height="5" rx="0" fill="#39424F" stroke="none" stroke-width="1"/>
+<rect x="20" y="7348" width="240" height="5" rx="0" fill="#39424F" stroke="none" stroke-width="1"/>
+<rect x="20" y="7364" width="240" height="5" rx="0" fill="#39424F" stroke="none" stroke-width="1"/>
+<rect x="20" y="7380" width="240" height="5" rx="0" fill="#39424F" stroke="none" stroke-width="1"/>
+<rect x="20" y="7396" width="240" height="5" rx="0" fill="#39424F" stroke="none" stroke-width="1"/>
+<rect x="20" y="7412" width="148.8" height="5" rx="0" fill="#39424F" stroke="none" stroke-width="1"/>
+<line x1="20" y1="7432" x2="370" y2="7432" stroke="#2A3340" stroke-width="1" stroke-dasharray="4 6"/>
+<text x="20" y="7456" font-family="DejaVu Sans, Arial, sans-serif" font-size="7.5" fill="#5D6874" text-anchor="start">© 2026 · CNPJ · Política de privacidade</text>
+<circle cx="358" cy="7044" r="11" fill="#09506A" stroke="none" stroke-width="1"/>
+<text x="358" y="7047.8" font-family="DejaVu Sans, Arial, sans-serif" font-size="10" fill="#FFFFFF" text-anchor="middle" font-weight="700">15</text>
+<text x="20" y="7542" font-family="DejaVu Sans, Arial, sans-serif" font-size="10" fill="#7C7C7C" text-anchor="start" letter-spacing="1.6">·  LEGENDA E DECISÕES DO MOBILE</text>
+<line x1="20" y1="7570" x2="170" y2="7570" stroke="#B9B9B9" stroke-width="1" stroke-dasharray="4 6"/>
+<circle cx="30" cy="7590" r="11" fill="#09506A" stroke="none" stroke-width="1"/>
+<text x="30" y="7593.8" font-family="DejaVu Sans, Arial, sans-serif" font-size="10" fill="#FFFFFF" text-anchor="middle" font-weight="700">1</text>
+<text x="52" y="7594" font-family="DejaVu Sans, Arial, sans-serif" font-size="9.5" fill="#4A4A4A" text-anchor="start">Nav em pílula: menu vira botão (drawer) e o CTA sai da nav —</text>
+<text x="52" y="7608" font-family="DejaVu Sans, Arial, sans-serif" font-size="9.5" fill="#4A4A4A" text-anchor="start">alvo de toque ≥44px.</text>
+<circle cx="30" cy="7628" r="11" fill="#09506A" stroke="none" stroke-width="1"/>
+<text x="30" y="7631.8" font-family="DejaVu Sans, Arial, sans-serif" font-size="10" fill="#FFFFFF" text-anchor="middle" font-weight="700">2</text>
+<text x="52" y="7632" font-family="DejaVu Sans, Arial, sans-serif" font-size="9.5" fill="#4A4A4A" text-anchor="start">H1 serif 30px (contra 52px no desktop): a mesma promessa</text>
+<text x="52" y="7646" font-family="DejaVu Sans, Arial, sans-serif" font-size="9.5" fill="#4A4A4A" text-anchor="start">em 3 linhas, medida de 24ch.</text>
+<circle cx="30" cy="7666" r="11" fill="#09506A" stroke="none" stroke-width="1"/>
+<text x="30" y="7669.8" font-family="DejaVu Sans, Arial, sans-serif" font-size="10" fill="#FFFFFF" text-anchor="middle" font-weight="700">3</text>
+<text x="52" y="7670" font-family="DejaVu Sans, Arial, sans-serif" font-size="9.5" fill="#4A4A4A" text-anchor="start">Campo de grânulos abaixo do texto e sangrando nas duas</text>
+<text x="52" y="7684" font-family="DejaVu Sans, Arial, sans-serif" font-size="9.5" fill="#4A4A4A" text-anchor="start">bordas (no desktop, à direita).</text>
+<circle cx="30" cy="7704" r="11" fill="#09506A" stroke="none" stroke-width="1"/>
+<text x="30" y="7707.8" font-family="DejaVu Sans, Arial, sans-serif" font-size="10" fill="#FFFFFF" text-anchor="middle" font-weight="700">4</text>
+<text x="52" y="7708" font-family="DejaVu Sans, Arial, sans-serif" font-size="9.5" fill="#4A4A4A" text-anchor="start">CTA primário ocupa a largura toda (48px); o secundário vem</text>
+<text x="52" y="7722" font-family="DejaVu Sans, Arial, sans-serif" font-size="9.5" fill="#4A4A4A" text-anchor="start">logo abaixo.</text>
+<circle cx="30" cy="7742" r="11" fill="#09506A" stroke="none" stroke-width="1"/>
+<text x="30" y="7745.8" font-family="DejaVu Sans, Arial, sans-serif" font-size="10" fill="#FFFFFF" text-anchor="middle" font-weight="700">5</text>
+<text x="52" y="7746" font-family="DejaVu Sans, Arial, sans-serif" font-size="9.5" fill="#4A4A4A" text-anchor="start">Faixa de fatos em grade 2×2: nada de rolagem horizontal.</text>
+<circle cx="30" cy="7766" r="11" fill="#09506A" stroke="none" stroke-width="1"/>
+<text x="30" y="7769.8" font-family="DejaVu Sans, Arial, sans-serif" font-size="10" fill="#FFFFFF" text-anchor="middle" font-weight="700">6</text>
+<text x="52" y="7770" font-family="DejaVu Sans, Arial, sans-serif" font-size="9.5" fill="#4A4A4A" text-anchor="start">Sobre empilhado; capacidades viram 4 linhas com hairline —</text>
+<text x="52" y="7784" font-family="DejaVu Sans, Arial, sans-serif" font-size="9.5" fill="#4A4A4A" text-anchor="start">lê como ficha técnica.</text>
+<circle cx="30" cy="7804" r="11" fill="#09506A" stroke="none" stroke-width="1"/>
+<text x="30" y="7807.8" font-family="DejaVu Sans, Arial, sans-serif" font-size="10" fill="#FFFFFF" text-anchor="middle" font-weight="700">7</text>
+<text x="52" y="7808" font-family="DejaVu Sans, Arial, sans-serif" font-size="9.5" fill="#4A4A4A" text-anchor="start">NOVO: a tabela não cabe — cada produto vira linha com</text>
+<text x="52" y="7822" font-family="DejaVu Sans, Arial, sans-serif" font-size="9.5" fill="#4A4A4A" text-anchor="start">código, micragem, aplicação e seta.</text>
+<circle cx="30" cy="7842" r="11" fill="#09506A" stroke="none" stroke-width="1"/>
+<text x="30" y="7845.8" font-family="DejaVu Sans, Arial, sans-serif" font-size="10" fill="#FFFFFF" text-anchor="middle" font-weight="700">8</text>
+<text x="52" y="7846" font-family="DejaVu Sans, Arial, sans-serif" font-size="9.5" fill="#4A4A4A" text-anchor="start">Ficha técnica vira bloco recolhido: mantém a isca de lead sem</text>
+<text x="52" y="7860" font-family="DejaVu Sans, Arial, sans-serif" font-size="9.5" fill="#4A4A4A" text-anchor="start">ocupar a tela.</text>
+<circle cx="30" cy="7880" r="11" fill="#09506A" stroke="none" stroke-width="1"/>
+<text x="30" y="7883.8" font-family="DejaVu Sans, Arial, sans-serif" font-size="10" fill="#FFFFFF" text-anchor="middle" font-weight="700">9</text>
+<text x="52" y="7884" font-family="DejaVu Sans, Arial, sans-serif" font-size="9.5" fill="#4A4A4A" text-anchor="start">Diferenciais: objeção e resposta empilhadas, separador</text>
+<text x="52" y="7898" font-family="DejaVu Sans, Arial, sans-serif" font-size="9.5" fill="#4A4A4A" text-anchor="start">tracejado entre elas.</text>
+<circle cx="30" cy="7918" r="11" fill="#09506A" stroke="none" stroke-width="1"/>
+<text x="30" y="7921.8" font-family="DejaVu Sans, Arial, sans-serif" font-size="10" fill="#FFFFFF" text-anchor="middle" font-weight="700">10</text>
+<text x="52" y="7922" font-family="DejaVu Sans, Arial, sans-serif" font-size="9.5" fill="#4A4A4A" text-anchor="start">Estrutura: diagrama + 4 etapas numeradas, mostrando a</text>
+<text x="52" y="7936" font-family="DejaVu Sans, Arial, sans-serif" font-size="9.5" fill="#4A4A4A" text-anchor="start">sequência na vertical.</text>
+<circle cx="30" cy="7956" r="11" fill="#09506A" stroke="none" stroke-width="1"/>
+<text x="30" y="7959.8" font-family="DejaVu Sans, Arial, sans-serif" font-size="10" fill="#FFFFFF" text-anchor="middle" font-weight="700">11</text>
+<text x="52" y="7960" font-family="DejaVu Sans, Arial, sans-serif" font-size="9.5" fill="#4A4A4A" text-anchor="start">Segmentos e clientes em coluna única, na ordem de prioridade</text>
+<text x="52" y="7974" font-family="DejaVu Sans, Arial, sans-serif" font-size="9.5" fill="#4A4A4A" text-anchor="start">comercial.</text>
+<circle cx="30" cy="7994" r="11" fill="#09506A" stroke="none" stroke-width="1"/>
+<text x="30" y="7997.8" font-family="DejaVu Sans, Arial, sans-serif" font-size="10" fill="#FFFFFF" text-anchor="middle" font-weight="700">12</text>
+<text x="52" y="7998" font-family="DejaVu Sans, Arial, sans-serif" font-size="9.5" fill="#4A4A4A" text-anchor="start">FAQ em acordeão com 1 item aberto por padrão — altura</text>
+<text x="52" y="8012" font-family="DejaVu Sans, Arial, sans-serif" font-size="9.5" fill="#4A4A4A" text-anchor="start">controlada.</text>
+<circle cx="30" cy="8032" r="11" fill="#09506A" stroke="none" stroke-width="1"/>
+<text x="30" y="8035.8" font-family="DejaVu Sans, Arial, sans-serif" font-size="10" fill="#FFFFFF" text-anchor="middle" font-weight="700">13</text>
+<text x="52" y="8036" font-family="DejaVu Sans, Arial, sans-serif" font-size="9.5" fill="#4A4A4A" text-anchor="start">Conversão: WhatsApp e telefone viram botões antes do</text>
+<text x="52" y="8050" font-family="DejaVu Sans, Arial, sans-serif" font-size="9.5" fill="#4A4A4A" text-anchor="start">formulário.</text>
+<circle cx="30" cy="8070" r="11" fill="#09506A" stroke="none" stroke-width="1"/>
+<text x="30" y="8073.8" font-family="DejaVu Sans, Arial, sans-serif" font-size="10" fill="#FFFFFF" text-anchor="middle" font-weight="700">14</text>
+<text x="52" y="8074" font-family="DejaVu Sans, Arial, sans-serif" font-size="9.5" fill="#4A4A4A" text-anchor="start">Formulário em coluna única, com rótulo acima de cada campo</text>
+<text x="52" y="8088" font-family="DejaVu Sans, Arial, sans-serif" font-size="9.5" fill="#4A4A4A" text-anchor="start">— sem zoom involuntário.</text>
+<circle cx="30" cy="8108" r="11" fill="#09506A" stroke="none" stroke-width="1"/>
+<text x="30" y="8111.8" font-family="DejaVu Sans, Arial, sans-serif" font-size="10" fill="#FFFFFF" text-anchor="middle" font-weight="700">15</text>
+<text x="52" y="8112" font-family="DejaVu Sans, Arial, sans-serif" font-size="9.5" fill="#4A4A4A" text-anchor="start">Rodapé empilhado; política de privacidade antes do CNPJ.</text>
+<text x="20" y="8158" font-family="DejaVu Sans, Arial, sans-serif" font-size="9" fill="#9E9E9E" text-anchor="start" letter-spacing="1.2">ESTADO FIXO NA VIEWPORT ·</text>
+<text x="20" y="8171" font-family="DejaVu Sans, Arial, sans-serif" font-size="9" fill="#9E9E9E" text-anchor="start" letter-spacing="1.2">barra de conversão sempre a um toque</text>
+<rect x="0" y="8204" width="390" height="64" rx="0" fill="#FFFFFF" stroke="#B9B9B9" stroke-width="1" stroke-dasharray="4 6"/>
+<rect x="0" y="8204" width="390" height="1" rx="0" fill="#B9B9B9" stroke="none" stroke-width="1"/>
+<rect x="20" y="8214" width="350" height="44" rx="22.0" fill="#FFDE00" stroke="none" stroke-width="1"/>
+<text x="195.0" y="8239.96" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" fill="#262626" text-anchor="middle">Solicitar orçamento</text>
+<circle cx="358" cy="8212" r="11" fill="#09506A" stroke="none" stroke-width="1"/>
+<text x="358" y="8215.8" font-family="DejaVu Sans, Arial, sans-serif" font-size="10" fill="#FFFFFF" text-anchor="middle" font-weight="700">16</text>
+<text x="20" y="8300" font-family="DejaVu Sans, Arial, sans-serif" font-size="9" fill="#9E9E9E" text-anchor="start" letter-spacing="1.2">WIREFRAME · PLASWILL · versão ideal para mobile (390px)</text>
+</svg>

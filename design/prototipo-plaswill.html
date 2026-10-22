@@ -1,0 +1,1382 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Protótipo animado · Plaswill</title>
+<meta name="description" content="Protótipo navegável do wireframe da landing page da Plaswill: estrutura, movimento e conversão.">
+<style>
+:root{
+  color-scheme: light;
+  --bg:#edf1f3;
+  --surface:#ffffff;
+  --paper:#f7f8f8;
+  --ink:#1d2227;
+  --ink-2:#333a40;
+  --muted:#5f686e;
+  --faint:#8b9499;
+  --line:#cfd6da;
+  --dash:#b7c0c5;
+  --bar:#dbe1e4;
+  --bar-2:#e9edef;
+  --petrol:#09506a;
+  --petrol-soft:rgba(9,80,106,.08);
+  --yellow:#ffde00;
+  --slate:#0f172a;
+  --slate-2:#16233a;
+  --ice:#edf1f3;
+  --gutter:clamp(20px,8.3vw,120px);
+  --max:1440px;
+  --ease:cubic-bezier(.22,1,.36,1);
+  --ease-ui:cubic-bezier(.4,0,.2,1);
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --serif:Georgia,"Times New Roman",serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--bg);color:var(--ink);
+  font-family:var(--sans);font-size:16px;line-height:1.6;
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+}
+img{max-width:100%;display:block}
+a{color:inherit}
+button{font:inherit;color:inherit}
+::selection{background:var(--yellow);color:var(--slate)}
+:focus-visible{outline:2px solid var(--petrol);outline-offset:3px;border-radius:4px}
+.skip{position:absolute;left:-9999px;top:0;background:var(--slate);color:#fff;padding:12px 18px;z-index:200}
+.skip:focus{left:16px;top:16px}
+
+/* ---------- estrutura ---------- */
+.wrap{max-width:var(--max);margin:0 auto;padding-inline:var(--gutter)}
+section{scroll-margin-top:96px}
+.band{position:relative;border-top:1px solid transparent}
+.sec{padding-block:clamp(64px,7vw,104px)}
+.sec + .sec{padding-top:0}
+
+.label{display:flex;align-items:baseline;gap:18px;flex-wrap:wrap;margin:0 0 26px}
+.label .idx{font-family:var(--mono);font-size:11px;letter-spacing:.18em;color:var(--muted)}
+.label .name{font-family:var(--mono);font-size:11px;letter-spacing:.18em;color:var(--muted)}
+.label .sub{font-size:13px;color:var(--faint);letter-spacing:.01em}
+.label::after{content:"";flex:1 1 120px;height:1px;align-self:center;
+  background-image:linear-gradient(90deg,var(--dash) 0 4px,transparent 4px 9px);
+  background-size:9px 1px;opacity:.9}
+
+h1,h2,h3{font-family:var(--serif);font-weight:600;letter-spacing:-.015em;color:var(--ink)}
+h2{font-size:clamp(30px,3.7vw,52px);line-height:1.08;margin:0 0 22px;max-width:780px}
+br.d{display:block}
+.lead{font-size:clamp(16px,1.25vw,18px);line-height:1.65;color:var(--muted);max-width:62ch;margin:0}
+.mono{font-family:var(--mono);font-size:11px;letter-spacing:.16em;color:var(--muted)}
+
+/* ---------- navegação ---------- */
+.nav-wrap{position:fixed;inset:14px 0 auto;z-index:100;display:flex;justify-content:center;pointer-events:none}
+.nav{
+  pointer-events:auto;width:min(100% - 32px,1180px);
+  display:flex;align-items:center;gap:26px;
+  background:rgba(255,255,255,.82);backdrop-filter:blur(14px) saturate(150%);
+  border:1px dashed var(--dash);border-radius:999px;
+  padding:10px 12px 10px 20px;
+  transition:box-shadow .35s var(--ease),background .35s var(--ease),padding .35s var(--ease),border-color .35s var(--ease);
+}
+.nav.scrolled{background:rgba(255,255,255,.94);box-shadow:0 10px 30px -18px rgba(15,23,42,.35);border-color:var(--line);padding-block:8px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;flex:0 0 auto}
+.brand-mark{width:11px;height:11px;background:var(--yellow);display:block}
+.brand-word{font-weight:650;font-size:16px;letter-spacing:-.01em}
+.brand-img{height:26px;width:auto}
+.brand-img[hidden]{display:none}
+.nav-links{display:flex;gap:4px;margin-left:auto;align-items:center}
+.nav-links a{
+  text-decoration:none;font-size:13.5px;color:var(--ink-2);
+  padding:9px 12px;border-radius:999px;transition:background .2s var(--ease-ui),color .2s var(--ease-ui)
+}
+.nav-links a:hover{background:var(--petrol-soft);color:var(--petrol)}
+.nav-links a.active{color:var(--petrol)}
+.nav .btn{flex:0 0 auto}
+.menu-btn{
+  display:none;margin-left:auto;align-items:center;gap:9px;background:none;border:1px dashed var(--dash);
+  border-radius:999px;padding:9px 14px;font-size:13px;cursor:pointer
+}
+.menu-btn i{display:block;width:16px}
+.menu-btn i b{display:block;height:1.5px;background:var(--ink);margin:3.5px 0;transition:transform .25s var(--ease-ui),opacity .2s}
+body.menu-open .menu-btn i b:nth-child(1){transform:translateY(5px) rotate(45deg)}
+body.menu-open .menu-btn i b:nth-child(2){opacity:0}
+body.menu-open .menu-btn i b:nth-child(3){transform:translateY(-5px) rotate(-45deg)}
+.progress{position:fixed;left:0;top:0;height:2px;width:100%;z-index:110;background:transparent;pointer-events:none}
+.progress span{display:block;height:100%;width:0;background:var(--petrol);transition:width .1s linear}
+
+/* menu mobile */
+.drawer{
+  position:fixed;inset:0;z-index:95;background:rgba(237,241,243,.98);backdrop-filter:blur(8px);
+  padding:96px var(--gutter) 32px;display:flex;flex-direction:column;
+  opacity:0;visibility:hidden;transform:translateY(-8px);
+  transition:opacity .3s var(--ease),transform .35s var(--ease),visibility .3s
+}
+body.menu-open .drawer{opacity:1;visibility:visible;transform:none}
+.drawer a.dlink{
+  font-family:var(--serif);font-size:34px;line-height:1.15;text-decoration:none;color:var(--ink);
+  padding:14px 0;border-bottom:1px dashed var(--dash);display:flex;justify-content:space-between;align-items:center
+}
+.drawer a.dlink span{font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:var(--faint)}
+.drawer .drawer-foot{margin-top:auto;display:grid;gap:10px;padding-top:26px}
+.drawer .mono{font-size:10.5px}
+
+/* ---------- botões ---------- */
+.btn{
+  --pad-y:13px;--pad-x:22px;
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  min-height:46px;padding:var(--pad-y) var(--pad-x);border-radius:999px;
+  text-decoration:none;font-weight:600;font-size:14.5px;line-height:1;
+  border:1px solid transparent;cursor:pointer;
+  transition:transform .2s var(--ease-ui),background .2s var(--ease-ui),border-color .2s var(--ease-ui),color .2s;
+}
+.btn:hover{transform:translateY(-1px)}
+.btn:active{transform:translateY(0)}
+.btn-primary{background:var(--yellow);color:#232323;border-color:var(--yellow)}
+.btn-primary:hover{background:#ffe93d;border-color:#ffe93d}
+.btn-ghost{background:transparent;border:1px dashed var(--dash);color:var(--ink)}
+.btn-ghost:hover{border-color:var(--ink);background:rgba(255,255,255,.55)}
+.btn-dark{background:var(--yellow);color:#232323}
+.btn-dark:hover{background:#ffe93d}
+.btn-line{background:transparent;border:1px solid #3e4a58;color:var(--ice)}
+.btn-line:hover{border-color:#66748a;background:rgba(255,255,255,.04)}
+.btn .ico{width:15px;height:15px;flex:0 0 auto}
+.btn-lg{min-height:54px;--pad-x:28px;font-size:15.5px}
+
+/* ---------- hero ---------- */
+#abertura{padding-top:120px;position:relative;overflow:clip}
+.hero-top{position:relative;z-index:2}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.2em;color:var(--petrol);margin:0 0 22px}
+h1{
+  font-size:clamp(34px,4.4vw,58px);line-height:1.04;margin:0 0 26px;letter-spacing:-.02em
+}
+h1 .line{display:block;overflow:hidden;padding-bottom:.06em;margin-bottom:-.06em}
+h1 .line span{display:block;transform:translateY(112%);animation:rise 1s var(--ease) forwards}
+h1 .line:nth-child(1) span{animation-delay:.05s}
+h1 .line:nth-child(2) span{animation-delay:.14s}
+h1 .line:nth-child(3) span{animation-delay:.23s}
+@keyframes rise{to{transform:none}}
+.hero-copy{max-width:56ch}
+.hero-ctas{display:flex;flex-wrap:wrap;gap:10px;margin:30px 0 0}
+.facts{
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px 26px;
+  margin:44px 0 0;padding:22px 0 0;border-top:1px dashed var(--dash);position:relative;z-index:2
+}
+.facts div{padding-right:12px;border-right:1px dashed var(--dash)}
+.facts div:last-child{border-right:0}
+.facts dt{font-family:var(--mono);font-size:10px;letter-spacing:.16em;color:var(--faint);margin:0 0 6px}
+.facts dd{margin:0;font-size:16px;color:var(--ink-2);font-weight:550}
+/* campo de grânulos */
+.field{
+  position:relative;margin-top:36px;height:clamp(300px,34vw,430px);
+  -webkit-mask-image:radial-gradient(ellipse 72% 78% at 50% 48%,#000 55%,transparent 100%);
+          mask-image:radial-gradient(ellipse 72% 78% at 50% 48%,#000 55%,transparent 100%);
+}
+.field canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.field .caption{
+  position:absolute;left:0;bottom:8px;font-family:var(--mono);font-size:10px;letter-spacing:.16em;color:var(--faint)
+}
+
+/* ---------- sobre ---------- */
+.about-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:clamp(32px,5vw,80px);align-items:start}
+.about-copy p{margin:0 0 18px;color:var(--muted);max-width:58ch}
+.about-copy p:first-child{color:var(--ink-2)}
+.caps{list-style:none;margin:0;padding:0;border-top:1px dashed var(--dash)}
+.caps li{position:relative;padding:20px 44px 20px 0;border-bottom:1px dashed var(--dash);transition:background .25s var(--ease-ui)}
+.caps li::after{
+  content:"→";position:absolute;right:6px;top:22px;color:var(--petrol);opacity:.55;font-size:15px;
+  transition:transform .25s var(--ease-ui),opacity .25s
+}
+.caps li:hover{background:rgba(255,255,255,.6)}
+.caps li:hover::after{transform:translateX(4px);opacity:1}
+.caps .code{font-family:var(--mono);font-size:10px;letter-spacing:.16em;color:var(--petrol);margin-right:12px}
+.caps h3{display:inline;font-family:var(--sans);font-size:15.5px;font-weight:650;letter-spacing:0;margin:0}
+.caps p{margin:8px 0 0 42px;font-size:14px;color:var(--muted);max-width:52ch}
+
+/* ---------- produtos ---------- */
+.prod-head{display:grid;grid-template-columns:74px minmax(0,1fr) 170px 190px 26px;gap:16px;
+  padding:0 0 12px;border-bottom:1px solid var(--line)}
+.prod-head span{font-family:var(--mono);font-size:10px;letter-spacing:.16em;color:var(--faint)}
+.rows{border-top:0}
+.prod{display:block;border-bottom:1px dashed var(--dash)}
+.prod-row{
+  width:100%;display:grid;grid-template-columns:74px minmax(0,1fr) 170px 190px 26px;gap:16px;align-items:center;
+  background:none;border:0;text-align:left;padding:20px 0;cursor:pointer;transition:background .25s var(--ease-ui)
+}
+.prod-row:hover{background:rgba(255,255,255,.66)}
+.prod-row .pcode{font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:var(--muted)}
+.prod-row .pname{font-size:17px;font-weight:620;color:var(--ink);letter-spacing:-.005em}
+.prod-row .pspec,.prod-row .papp{font-size:13.5px;color:var(--muted)}
+.prod-row .parrow{color:var(--petrol);opacity:.55;transition:transform .3s var(--ease),opacity .2s;font-size:17px;text-align:right}
+.prod.open .prod-row{background:rgba(255,255,255,.9)}
+.prod.open .parrow{transform:rotate(90deg);opacity:1}
+.ficha{overflow:hidden;max-height:0;transition:max-height .45s var(--ease)}
+.ficha-inner{
+  margin:0 0 22px;border:1px dashed var(--dash);background:var(--paper);
+  padding:22px clamp(18px,2.4vw,28px);display:grid;gap:22px;
+  grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr)
+}
+.ficha h4{font-family:var(--mono);font-size:10px;letter-spacing:.18em;color:var(--faint);margin:0 0 12px;font-weight:500}
+.specs{display:grid;grid-template-columns:1fr 1fr;gap:14px 22px;margin:0;list-style:none;padding:0}
+.specs dt{font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;color:var(--faint);margin-bottom:3px}
+.specs dd{margin:0;font-size:13.5px;color:var(--ink-2)}
+.ficha .benefit{font-size:15px;color:var(--ink-2);margin:0 0 14px;max-width:44ch}
+.ficha .apps{margin:0 0 16px;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:6px}
+.ficha .apps li{font-size:12px;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:5px 10px;background:#fff}
+.ficha .acts{display:flex;flex-wrap:wrap;gap:8px}
+.ficha .acts .btn{min-height:40px;font-size:13px;--pad-x:16px}
+
+/* ---------- diferenciais ---------- */
+.diffs{border-top:1px dashed var(--dash)}
+.diff{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(24px,4vw,64px);
+  padding:26px 0;border-bottom:1px dashed var(--dash);align-items:start}
+.diff .pain{font-family:var(--serif);font-size:clamp(20px,2.1vw,27px);line-height:1.2;color:var(--ink);margin:0}
+.diff .market{font-size:13.5px;color:var(--faint);margin:8px 0 0;max-width:44ch}
+.diff .ans{position:relative;padding-left:18px}
+.diff .ans::before{content:"";position:absolute;left:0;top:4px;bottom:4px;width:2px;background:var(--petrol);opacity:.35}
+.diff .ans .tag{font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;color:var(--petrol);display:block;margin-bottom:8px}
+.diff .ans p{margin:0;font-size:15px;color:var(--ink-2);max-width:52ch}
+
+/* ---------- estrutura ---------- */
+.struct-grid{display:grid;grid-template-columns:minmax(0,1.02fr) minmax(0,.98fr);gap:clamp(28px,4.5vw,64px);align-items:start}
+.diagram{border:1px dashed var(--dash);background:var(--paper);padding:18px;position:relative}
+.diagram .cap{font-family:var(--mono);font-size:10px;letter-spacing:.16em;color:var(--faint);margin:0 0 8px}
+.diagram svg{width:100%;height:auto;display:block}
+.steps{list-style:none;margin:0;padding:0;position:relative}
+.steps li{display:grid;grid-template-columns:44px 1fr;gap:16px;padding:0 0 26px;position:relative}
+.steps li:not(:last-child)::before{
+  content:"";position:absolute;left:21px;top:44px;bottom:2px;border-left:1px dashed var(--dash)
+}
+.steps .num{
+  width:44px;height:44px;border-radius:50%;border:1px solid var(--dash);display:grid;place-items:center;
+  font-family:var(--mono);font-size:12px;color:var(--muted);background:var(--bg);position:relative;z-index:1
+}
+.steps h3{margin:9px 0 4px;font-family:var(--sans);font-size:16px;font-weight:650;letter-spacing:-.005em}
+.steps p{margin:0;font-size:14px;color:var(--muted);max-width:46ch}
+
+/* diagram animation */
+#bubble{transform-box:fill-box;transform-origin:center;animation:breathe 6s ease-in-out infinite}
+@keyframes breathe{0%,100%{transform:scale(1,1)}50%{transform:scale(1.015,1.03)}}
+#film{stroke-dasharray:5 7;animation:march 1.6s linear infinite}
+@keyframes march{to{stroke-dashoffset:-24}}
+#winder{transform-box:fill-box;transform-origin:center;animation:spin 9s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+#nip1,#nip2{transform-box:fill-box;transform-origin:center;animation:spin 3.5s linear infinite}
+
+/* ---------- segmentos ---------- */
+.seg-list{border-top:1px dashed var(--dash)}
+.seg{display:grid;grid-template-columns:70px minmax(0,1fr);gap:18px;padding:20px 0;border-bottom:1px dashed var(--dash);align-items:baseline}
+.seg .code{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;color:var(--muted)}
+.seg h3{margin:0 0 3px;font-family:var(--sans);font-size:16.5px;font-weight:640}
+.seg p{margin:0;font-size:14px;color:var(--muted);max-width:70ch}
+
+/* ---------- clientes ---------- */
+.clients{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px 56px}
+.cgroup h3{font-family:var(--mono);font-size:10px;letter-spacing:.16em;color:var(--faint);font-weight:500;margin:0 0 12px}
+.bars{display:grid;gap:9px}
+.bar{height:9px;background:var(--bar);border-radius:1px}
+.bar.w1{width:58%}.bar.w2{width:74%}.bar.w3{width:66%}.bar.w4{width:82%}.bar.w5{width:70%}.bar.w6{width:52%}
+.note{font-size:12.5px;color:var(--faint);margin:26px 0 0;max-width:70ch}
+
+/* ---------- faq ---------- */
+.faq{border-top:1px solid var(--line)}
+.faq-item{border-bottom:1px dashed var(--dash)}
+.faq-q{
+  width:100%;display:flex;align-items:center;justify-content:space-between;gap:20px;text-align:left;
+  background:none;border:0;padding:20px 0;cursor:pointer;font-size:16.5px;font-weight:600;color:var(--ink-2)
+}
+.faq-q:hover{color:var(--petrol)}
+.faq-q .sign{
+  flex:0 0 auto;width:34px;height:34px;border-radius:50%;border:1px solid var(--line);position:relative;
+  transition:border-color .2s,background .2s
+}
+.faq-q .sign::before,.faq-q .sign::after{
+  content:"";position:absolute;left:50%;top:50%;background:var(--muted);transform:translate(-50%,-50%);
+  transition:transform .3s var(--ease),opacity .2s
+}
+.faq-q .sign::before{width:12px;height:1.5px}
+.faq-q .sign::after{width:1.5px;height:12px}
+.faq-item.open .faq-q .sign{border-color:var(--petrol);background:var(--petrol-soft)}
+.faq-item.open .faq-q .sign::before,.faq-item.open .faq-q .sign::after{background:var(--petrol)}
+.faq-item.open .faq-q .sign::after{transform:translate(-50%,-50%) rotate(90deg);opacity:0}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .45s var(--ease)}
+.faq-a p{margin:0 0 14px;font-size:14.5px;color:var(--muted);max-width:68ch}
+.faq-a p:first-child{color:var(--ink-2)}
+.faq-a .inner{padding:0 46px 18px 0}
+
+/* ---------- conversão ---------- */
+#orcamento{background:var(--slate);color:var(--ice);margin-top:clamp(48px,6vw,88px);position:relative;overflow:hidden}
+#orcamento .label .idx,#orcamento .label .name{color:#8fa0ae}
+#orcamento .label .sub{color:#6c7c8b}
+#orcamento .label::after{background-image:linear-gradient(90deg,#39465a 0 4px,transparent 4px 9px)}
+#orcamento h2{color:var(--ice);max-width:16ch}
+#orcamento .lead{color:#a9b6c2;max-width:52ch}
+.conv-grid{display:grid;grid-template-columns:minmax(0,1.02fr) minmax(0,.98fr);gap:clamp(32px,5vw,72px);margin-top:36px;align-items:start}
+.conv-ctas{display:grid;gap:10px;max-width:420px;margin:28px 0 34px}
+.contact-list{margin:0;padding:0;list-style:none;display:grid;gap:0;max-width:420px}
+.contact-list li{padding:12px 0;border-top:1px dashed #39465a}
+.contact-list .k{font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;color:#8e9aa6;display:block;margin-bottom:3px}
+.contact-list a{color:var(--yellow);text-decoration:none;font-size:14.5px}
+.contact-list a:hover{text-decoration:underline}
+.form{background:rgba(255,255,255,.025);border:1px dashed #3e4a58;padding:clamp(18px,2.4vw,28px)}
+.form h3{font-family:var(--mono);font-size:10px;letter-spacing:.18em;color:#8e9aa6;font-weight:500;margin:0 0 18px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+.f{display:flex;flex-direction:column;gap:6px}
+.f.full{grid-column:1/-1}
+.f label{font-family:var(--mono);font-size:9px;letter-spacing:.14em;color:#8e9aa6}
+.f input,.f select,.f textarea{
+  background:rgba(255,255,255,.04);border:1px solid #3e4a58;border-radius:2px;color:var(--ice);
+  padding:11px 12px;font-size:14px;font-family:var(--sans);transition:border-color .2s,background .2s
+}
+.f textarea{min-height:86px;resize:vertical}
+.f input::placeholder,.f textarea::placeholder{color:#6d7a88}
+.f input:focus,.f select:focus,.f textarea:focus{border-color:var(--yellow);background:rgba(255,255,255,.07);outline:none}
+.f select option{color:#16233a;background:#fff}
+.f select{appearance:none;background-image:linear-gradient(45deg,transparent 50%,#8e9aa6 50%),linear-gradient(135deg,#8e9aa6 50%,transparent 50%);background-position:calc(100% - 18px) 18px,calc(100% - 13px) 18px;background-size:5px 5px,5px 5px;background-repeat:no-repeat}
+.f .err{font-size:11.5px;color:#ffb4a8;min-height:0;display:none}
+.f.invalid input,.f.invalid select{border-color:#e08a7c}
+.f.invalid .err{display:block}
+.form .consent{font-size:11.5px;color:#7f8b98;margin:4px 0 14px;max-width:52ch}
+.form .btn{width:100%}
+.form-success{display:none;border:1px dashed #4b5a6b;padding:20px;margin-top:16px;background:rgba(255,255,255,.03)}
+.form-success.on{display:block}
+.form-success h4{font-family:var(--serif);font-size:20px;color:var(--ice);margin:0 0 8px;font-weight:600}
+.form-success p{font-size:13.5px;color:#a9b6c2;margin:0 0 12px}
+.form-success a{color:var(--yellow);font-size:13.5px}
+
+/* ---------- rodapé ---------- */
+footer{background:#0b111c;color:#c9d2db;padding:clamp(40px,5vw,64px) 0 26px}
+.foot-grid{display:grid;grid-template-columns:1.2fr .8fr .8fr .8fr;gap:32px 48px}
+.foot .brand{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.foot .brand .brand-mark{background:var(--yellow)}
+.foot .brand .brand-word{color:#e8e8e4}
+.foot .brand .brand-img{height:24px;width:auto;background:#fff;padding:5px 7px;border-radius:3px}
+.foot p{font-size:13px;color:#7f8a96;margin:0;max-width:34ch}
+.foot h3{font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;color:#7f8a96;font-weight:500;margin:0 0 12px}
+.foot ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.foot a{color:#b9c3cc;text-decoration:none;font-size:13.5px}
+.foot a:hover{color:#fff}
+.foot-legal{display:flex;flex-wrap:wrap;gap:10px 20px;justify-content:space-between;
+  border-top:1px dashed #2a3340;margin-top:40px;padding-top:16px;font-size:12px;color:#5d6874}
+.foot-legal a{font-size:12px;color:#5d6874}
+
+/* ---------- barra fixa mobile ---------- */
+.sticky-cta{
+  position:fixed;left:12px;right:12px;bottom:12px;z-index:90;
+  background:rgba(255,255,255,.92);backdrop-filter:blur(12px);
+  border:1px dashed var(--dash);border-radius:999px;padding:8px;
+  display:none;transform:translateY(120%);transition:transform .45s var(--ease)
+}
+.sticky-cta.show{transform:none}
+.sticky-cta .btn{width:100%;min-height:48px}
+
+/* ---------- painel de decisões ---------- */
+#toast{bottom:24px}
+.legend-btn{
+  position:fixed;right:18px;bottom:18px;z-index:80;border:1px dashed var(--dash);background:rgba(255,255,255,.9);
+  backdrop-filter:blur(8px);border-radius:999px;padding:9px 14px;font-family:var(--mono);font-size:10px;
+  letter-spacing:.14em;cursor:pointer;color:var(--muted);transition:color .2s,border-color .2s
+}
+.legend-btn:hover{color:var(--petrol);border-color:var(--petrol)}
+.legend{
+  position:fixed;right:14px;bottom:64px;z-index:99;width:min(420px,calc(100vw - 28px));
+  max-height:min(70vh,620px);overflow:auto;background:var(--surface);border:1px dashed var(--dash);
+  padding:20px 20px 8px;box-shadow:0 24px 60px -30px rgba(15,23,42,.4);
+  opacity:0;visibility:hidden;transform:translateY(10px);
+  transition:opacity .25s var(--ease),transform .3s var(--ease),visibility .25s
+}
+.legend.on{opacity:1;visibility:visible;transform:none}
+.legend h3{font-family:var(--mono);font-size:10px;letter-spacing:.18em;color:var(--faint);font-weight:500;margin:0 0 14px}
+.legend ol{list-style:none;margin:0;padding:0;counter-reset:l}
+.legend li{display:grid;grid-template-columns:26px 1fr;gap:10px;padding:0 0 11px;font-size:12.5px;color:var(--ink-2);line-height:1.45}
+.legend li::before{
+  counter-increment:l;content:counter(l);width:22px;height:22px;border-radius:50%;background:var(--petrol);
+  color:#fff;font-family:var(--mono);font-size:10px;display:grid;place-items:center;margin-top:1px
+}
+
+/* desktop alto: texto à esquerda, matéria-prima ao lado */
+@media (min-width:861px){
+  #abertura{display:grid;grid-template-columns:minmax(0,1.02fr) minmax(0,.98fr);gap:clamp(28px,4vw,56px);align-items:center}
+  #abertura h1{font-size:clamp(32px,3.5vw,54px)}
+  .field{margin-top:0;height:clamp(380px,38vw,520px)}
+}
+
+/* ---------- responsivo ---------- */
+@media (max-width:1080px){
+  .nav-links a{padding:8px 9px;font-size:12.5px}
+  .about-grid,.struct-grid,.conv-grid{grid-template-columns:1fr}
+  .clients{grid-template-columns:1fr 1fr}
+  .foot-grid{grid-template-columns:1fr 1fr}
+}
+@media (max-width:860px){
+  #abertura{padding-top:104px}
+  .nav-links{display:none}
+  .nav .btn{display:none}
+  .menu-btn{display:inline-flex}
+  h1{font-size:clamp(30px,8.4vw,38px);max-width:100%}
+  h2{font-size:clamp(26px,7vw,32px);max-width:100%}
+  br.d{display:none}
+  #toast{bottom:88px}
+  .facts{grid-template-columns:1fr 1fr;gap:14px 18px}
+  .facts div:nth-child(2){border-right:0}
+  .prod-head{display:none}
+  .prod-row{grid-template-columns:56px 1fr 20px;gap:6px 12px;padding:16px 0}
+  .prod-row .pname{font-size:15.5px}
+  .prod-row .pspec{grid-column:2}
+  .prod-row .papp{grid-column:2;color:var(--faint);font-size:12.5px}
+  .prod-row .parrow{grid-row:1/3;grid-column:3;align-self:center}
+  .ficha-inner{grid-template-columns:1fr}
+  .specs{grid-template-columns:1fr 1fr}
+  .diff{grid-template-columns:1fr;gap:12px;padding:22px 0}
+  .diff .market{margin-top:6px}
+  .steps li{grid-template-columns:40px 1fr;gap:12px}
+  .steps .num{width:40px;height:40px}
+  .steps li:not(:last-child)::before{left:19px;top:40px}
+  .seg{grid-template-columns:58px 1fr}
+  .clients{grid-template-columns:1fr}
+  .form-row{grid-template-columns:1fr}
+  .sticky-cta{display:block}
+  #orcamento{padding-bottom:110px}
+  .legend-btn{bottom:84px}
+  .legend{bottom:128px}
+  .foot-legal{justify-content:flex-start}
+}
+@media (max-width:420px){
+  .hero-ctas .btn{width:100%}
+  .specs{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
+  .reveal{opacity:1!important;transform:none!important}
+  h1 .line span{transform:none!important;animation:none!important}
+}
+/* reveal */
+.reveal{opacity:0;transform:translateY(16px);transition:opacity .8s var(--ease),transform .8s var(--ease);transition-delay:calc(var(--d,0) * 80ms)}
+.reveal.in{opacity:1;transform:none}
+</style>
+</head>
+<body>
+<a class="skip" href="#conteudo">Ir para o conteúdo</a>
+<div class="progress" aria-hidden="true"><span id="progressbar"></span></div>
+
+<header class="nav-wrap">
+  <nav class="nav" id="nav" aria-label="Navegação principal">
+    <a class="brand" href="#abertura" aria-label="Plaswill — voltar ao início">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <img class="brand-img" alt="Plaswill" data-logo data-dark="0" hidden>
+      <span class="brand-word">Plaswill</span>
+    </a>
+    <div class="nav-links">
+      <a href="#sobre">A Plaswill</a>
+      <a href="#produtos">Produtos</a>
+      <a href="#diferenciais">Diferenciais</a>
+      <a href="#estrutura">Estrutura</a>
+      <a href="#segmentos">Segmentos</a>
+      <a href="#orcamento">Orçamento</a>
+    </div>
+    <a class="btn btn-primary" href="#orcamento">Solicitar orçamento</a>
+    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="drawer" aria-label="Abrir menu">
+      <i aria-hidden="true"><b></b><b></b><b></b></i> Menu
+    </button>
+  </nav>
+</header>
+
+<div class="drawer" id="drawer" aria-hidden="true">
+  <a class="dlink" href="#sobre">A Plaswill <span>02</span></a>
+  <a class="dlink" href="#produtos">Produtos <span>03</span></a>
+  <a class="dlink" href="#diferenciais">Diferenciais <span>04</span></a>
+  <a class="dlink" href="#estrutura">Estrutura <span>05</span></a>
+  <a class="dlink" href="#segmentos">Segmentos <span>06</span></a>
+  <a class="dlink" href="#faq">Perguntas <span>08</span></a>
+  <div class="drawer-foot">
+    <a class="btn btn-primary btn-lg" href="#orcamento">Solicitar orçamento</a>
+    <a class="btn btn-ghost btn-lg" href="https://wa.me/5555984275963" target="_blank" rel="noopener">Falar no WhatsApp</a>
+    <p class="mono" style="margin:8px 0 0">INDÚSTRIA EM PANAMBI/RS · DESDE 2007</p>
+  </div>
+</div>
+
+<main id="conteudo">
+
+  <!-- 01 · ABERTURA -->
+  <section id="abertura" class="wrap">
+    <div class="hero-top">
+      <p class="label"><span class="idx">01</span><span class="name">ABERTURA</span><span class="sub">hero com campo de grânulos</span></p>
+      <p class="eyebrow">INDÚSTRIA PRÓPRIA EM PANAMBI/RS · DESDE 2007</p>
+      <h1>
+        <span class="line"><span>A micragem que</span></span>
+        <span class="line"><span>você paga é a que</span></span>
+        <span class="line"><span>chega na esteira.</span></span>
+      </h1>
+      <div class="hero-copy">
+        <p class="lead">Indústria de transformação de filmes técnicos e embalagens plásticas, com extrusão balão própria, reciclagem de polietileno pós-consumo e pronta-entrega fracionada para o Sul do país.</p>
+      </div>
+      <div class="hero-ctas">
+        <a class="btn btn-primary btn-lg" href="#orcamento">Solicitar orçamento</a>
+        <a class="btn btn-ghost btn-lg" href="https://wa.me/5555984275963" target="_blank" rel="noopener">
+          <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M21 11.5a8.5 8.5 0 0 1-12.6 7.4L3 21l2.2-5.2A8.5 8.5 0 1 1 21 11.5Z"/></svg>
+          Falar no WhatsApp
+        </a>
+      </div>
+      <dl class="facts">
+        <div><dt>FUNDAÇÃO</dt><dd>2007</dd></div>
+        <div><dt>EXTRUSÃO BALÃO</dt><dd>própria</dd></div>
+        <div><dt>RECICLAGEM PCR</dt><dd>com triagem</dd></div>
+        <div><dt>PEDIDO MÍNIMO</dt><dd>fracionado</dd></div>
+      </dl>
+    </div>
+    <div class="field" id="field">
+      <canvas id="pellets" aria-hidden="true"></canvas>
+      <span class="caption">CAMPO DE GRÂNULOS · REAJA AO MOUSE OU AO TOQUE</span>
+    </div>
+  </section>
+
+  <!-- 02 · QUEM SOMOS -->
+  <section id="sobre" class="wrap sec">
+    <p class="label reveal"><span class="idx">02</span><span class="name">QUEM SOMOS</span></p>
+    <div class="about-grid">
+      <div class="about-copy">
+        <h2 class="reveal">Indústria de transformação,<br class="d"> não distribuidor de terceiros.</h2>
+        <p class="reveal" style="--d:1">A Plaswill foi fundada em 2007 em Panambi, no noroeste do Rio Grande do Sul — um dos polos metalmecânicos, agroindustriais e de implementos agrícolas mais expressivos do Sul do país.</p>
+        <p class="reveal" style="--d:2">Diferente de distribuidores que apenas intermediam mercadoria de terceiros, extrudamos o próprio filme, calibramos a própria bobina e recuperamos a própria resina. Isso significa controle sobre três coisas que decidem o resultado na sua linha: a espessura que sai do cabeçote, a resistência da solda e o prazo de reposição.</p>
+      </div>
+      <ul class="caps">
+        <li class="reveal"><span class="code">01</span><h3>Extrusão balão própria</h3>
+          <p>Transformação de resinas termoplásticas virgens e recicladas em filmes tubulares de polietileno de baixa (PEBD) e alta densidade (PEAD).</p></li>
+        <li class="reveal" style="--d:1"><span class="code">02</span><h3>Corte, solda e rebobinamento</h3>
+          <p>Calibração de bobinas stretch para aplicação manual e automática, com corte, solda e rebobinamento automatizados.</p></li>
+        <li class="reveal" style="--d:2"><span class="code">03</span><h3>Reciclagem mecânica (PCR)</h3>
+          <p>Triagem, descontaminação, micronização e extrusão de polietileno pós-consumo, com aditivação de blendas estabilizantes.</p></li>
+        <li class="reveal" style="--d:3"><span class="code">04</span><h3>Estoque e pronta-entrega</h3>
+          <p>Armazenagem centralizada em Panambi para atendimento fracionado ao noroeste gaúcho, Serra, região metropolitana de Porto Alegre, Santa Catarina e Paraná.</p></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 03 · PRODUTOS -->
+  <section id="produtos" class="wrap sec">
+    <p class="label reveal"><span class="idx">03</span><span class="name">PRODUTOS E SOLUÇÕES</span><span class="sub">cinco linhas · ficha abre no lugar</span></p>
+    <h2 class="reveal">Cinco linhas, uma mesma fábrica.</h2>
+    <p class="lead reveal" style="--d:1;margin-bottom:34px">Cada linha sai da mesma planta, com a espessura calibrada no cabeçote. Abra a ficha para ver micragem, aplicação e o que muda na sua operação.</p>
+    <div class="prod-head reveal" aria-hidden="true">
+      <span>CÓDIGO</span><span>PRODUTO</span><span>MICRAGEM</span><span>APLICAÇÃO</span><span></span>
+    </div>
+    <div class="rows">
+
+      <div class="prod reveal">
+        <button class="prod-row" aria-expanded="false" aria-controls="f1">
+          <span class="pcode">FT-01</span>
+          <span class="pname">Filme stretch de alta performance</span>
+          <span class="pspec">20 · 25 · 30µ</span>
+          <span class="papp">manual e automática</span>
+          <span class="parrow" aria-hidden="true">→</span>
+        </button>
+        <div class="ficha" id="f1">
+          <div class="ficha-inner">
+            <div>
+              <h4>O QUE MUDA NA SUA OPERAÇÃO</h4>
+              <p class="benefit">Bobina calibrada para travar a carga até o destino, sem afrouxar na trepidação da estrada.</p>
+              <ul class="apps">
+                <li>Cargas paletizadas pesadas</li><li>Eixos metálicos usinados</li><li>Caixas de papelão corrugado</li><li>Implementos agrícolas</li>
+              </ul>
+            </div>
+            <div>
+              <h4>FICHA TÉCNICA</h4>
+              <dl class="specs">
+                <div><dt>MICRAGEM</dt><dd>20µ · 25µ · 30µ</dd></div>
+                <div><dt>APLICAÇÃO</dt><dd>manual e automática</dd></div>
+                <div><dt>PROPRIEDADE</dt><dd>memória elástica ativa</dd></div>
+                <div><dt>RESISTÊNCIA</dt><dd>perfuração e quinas vivas</dd></div>
+              </dl>
+              <div class="acts" style="margin-top:16px">
+                <a class="btn btn-primary" href="#orcamento">Pedir amostra</a>
+                <button class="btn btn-ghost" data-toast="A ficha em PDF entra assim que a Plaswill enviar o arquivo oficial.">Baixar ficha</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="prod reveal">
+        <button class="prod-row" aria-expanded="false" aria-controls="f2">
+          <span class="pcode">FT-02</span>
+          <span class="pname">Plástico bolha industrial com proteção UV</span>
+          <span class="pspec">até 120µ</span>
+          <span class="papp">pátio externo</span>
+          <span class="parrow" aria-hidden="true">→</span>
+        </button>
+        <div class="ficha" id="f2">
+          <div class="ficha-inner">
+            <div>
+              <h4>O QUE MUDA NA SUA OPERAÇÃO</h4>
+              <p class="benefit">Protege o que fica no pátio: não resseca com o sol nem rasga com o vento.</p>
+              <ul class="apps"><li>Maquinários e equipamentos</li><li>Chapas metálicas usinadas</li><li>Implementos recém-pintados</li><li>Peças em pátio aberto</li></ul>
+            </div>
+            <div>
+              <h4>FICHA TÉCNICA</h4>
+              <dl class="specs">
+                <div><dt>ESPESSURA</dt><dd>até 120µ</dd></div>
+                <div><dt>ADITIVAÇÃO</dt><dd>anti-UV</dd></div>
+                <div><dt>BOLHA</dt><dd>indeformável de alta tração</dd></div>
+                <div><dt>APLICAÇÃO</dt><dd>pátios e armazenagem externa</dd></div>
+              </dl>
+              <div class="acts" style="margin-top:16px">
+                <a class="btn btn-primary" href="#orcamento">Pedir amostra</a>
+                <button class="btn btn-ghost" data-toast="A ficha em PDF entra assim que a Plaswill enviar o arquivo oficial.">Baixar ficha</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="prod reveal">
+        <button class="prod-row" aria-expanded="false" aria-controls="f3">
+          <span class="pcode">FT-03</span>
+          <span class="pname">Sacaria e linha agrícola</span>
+          <span class="pspec">sob medida</span>
+          <span class="papp">silagem</span>
+          <span class="parrow" aria-hidden="true">→</span>
+        </button>
+        <div class="ficha" id="f3">
+          <div class="ficha-inner">
+            <div>
+              <h4>O QUE MUDA NA SUA OPERAÇÃO</h4>
+              <p class="benefit">Vedação sem microfuros, para a forragem chegar ao cocho com o nutriente dentro.</p>
+              <ul class="apps"><li>Silagem de milho e sorgo</li><li>Sementes e grãos</li><li>Rações e fertilizantes</li><li>Cobertura de silo e forragem</li></ul>
+            </div>
+            <div>
+              <h4>FICHA TÉCNICA</h4>
+              <dl class="specs">
+                <div><dt>MATÉRIA-PRIMA</dt><dd>polietileno virgem e aditivado</dd></div>
+                <div><dt>VEDAÇÃO</dt><dd>anaeróbica completa</dd></div>
+                <div><dt>INTEGRIDADE</dt><dd>sem microfuros</dd></div>
+                <div><dt>FORMATOS</dt><dd>sacos e lonas sob medida</dd></div>
+              </dl>
+              <div class="acts" style="margin-top:16px">
+                <a class="btn btn-primary" href="#orcamento">Pedir amostra</a>
+                <button class="btn btn-ghost" data-toast="A ficha em PDF entra assim que a Plaswill enviar o arquivo oficial.">Baixar ficha</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="prod reveal">
+        <button class="prod-row" aria-expanded="false" aria-controls="f4">
+          <span class="pcode">FT-04</span>
+          <span class="pname">Linha hospitalar e resíduos sanitários</span>
+          <span class="pspec">NBR 9191</span>
+          <span class="papp">resíduo infectante</span>
+          <span class="parrow" aria-hidden="true">→</span>
+        </button>
+        <div class="ficha" id="f4">
+          <div class="ficha-inner">
+            <div>
+              <h4>O QUE MUDA NA SUA OPERAÇÃO</h4>
+              <p class="benefit">Solda de fundo estanque que não rompe no manuseio nem no transporte interno.</p>
+              <ul class="apps"><li>Resíduo infectante hospitalar</li><li>Resíduo ambulatorial e químico</li><li>Perfurocortantes acondicionados</li><li>Redes de atendimento e laboratórios</li></ul>
+            </div>
+            <div>
+              <h4>FICHA TÉCNICA</h4>
+              <dl class="specs">
+                <div><dt>NORMA</dt><dd>ABNT NBR 9191</dd></div>
+                <div><dt>EXIGÊNCIAS</dt><dd>ANVISA</dd></div>
+                <div><dt>SOLDA</dt><dd>fundo estanque de alta resistência</dd></div>
+                <div><dt>ACABAMENTO</dt><dd>leitosa e pigmentada</dd></div>
+              </dl>
+              <div class="acts" style="margin-top:16px">
+                <a class="btn btn-primary" href="#orcamento">Pedir amostra</a>
+                <button class="btn btn-ghost" data-toast="A ficha em PDF entra assim que a Plaswill enviar o arquivo oficial.">Baixar ficha</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="prod reveal">
+        <button class="prod-row" aria-expanded="false" aria-controls="f5">
+          <span class="pcode">FT-05</span>
+          <span class="pname">Polietileno reciclado pós-consumo (PCR)</span>
+          <span class="pspec">sob medida</span>
+          <span class="papp">embalagem secundária</span>
+          <span class="parrow" aria-hidden="true">→</span>
+        </button>
+        <div class="ficha" id="f5">
+          <div class="ficha-inner">
+            <div>
+              <h4>O QUE MUDA NA SUA OPERAÇÃO</h4>
+              <p class="benefit">Reduz o custo da embalagem secundária sem abrir mão da resistência à tração.</p>
+              <ul class="apps"><li>Embalagens secundárias</li><li>Sacos de fardo industrial</li><li>Filmes de proteção superficial</li><li>Sacos de descarte</li></ul>
+            </div>
+            <div>
+              <h4>FICHA TÉCNICA</h4>
+              <dl class="specs">
+                <div><dt>ORIGEM</dt><dd>triagem por polímero</dd></div>
+                <div><dt>PROCESSO</dt><dd>lavagem e micronização</dd></div>
+                <div><dt>BLENDA</dt><dd>aditivação estabilizante</dd></div>
+                <div><dt>CONFORMIDADE</dt><dd>PNRS e diretrizes ESG</dd></div>
+              </dl>
+              <div class="acts" style="margin-top:16px">
+                <a class="btn btn-primary" href="#orcamento">Pedir amostra</a>
+                <button class="btn btn-ghost" data-toast="A ficha em PDF entra assim que a Plaswill enviar o arquivo oficial.">Baixar ficha</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 04 · DIFERENCIAIS -->
+  <section id="diferenciais" class="wrap sec">
+    <p class="label reveal"><span class="idx">04</span><span class="name">DIFERENCIAIS</span><span class="sub">objeção → resposta</span></p>
+    <h2 class="reveal">Onde o fornecimento costuma falhar.</h2>
+    <div class="diffs">
+      <div class="diff reveal">
+        <div><p class="pain">Pedido mínimo abusivo</p><p class="market">Petroquímicas e grandes convertedores exigem de 3 a 5 toneladas por pedido.</p></div>
+        <div class="ans"><span class="tag">COMO A PLASWILL RESPONDE</span><p>Estoque à pronta-entrega a partir de 1 palete, com lotes fracionados ao longo do ano.</p></div>
+      </div>
+      <div class="diff reveal">
+        <div><p class="pain">Prazo de faturamento</p><p class="market">De 25 a 45 dias para programar e faturar lotes customizados.</p></div>
+        <div class="ans"><span class="tag">COMO A PLASWILL RESPONDE</span><p>Faturamento ágil, com entregas emergenciais no noroeste gaúcho e nos polos do RS.</p></div>
+      </div>
+      <div class="diff reveal">
+        <div><p class="pain">Micragem enganosa</p><p class="market">Vendem 18 micras cobrando por 25, e a bobina estoura na quina do palete.</p></div>
+        <div class="ans"><span class="tag">COMO A PLASWILL RESPONDE</span><p>Espessura calibrada real: 25 micras nominais entregam 25 micras constantes em toda a bobina.</p></div>
+      </div>
+      <div class="diff reveal">
+        <div><p class="pain">Sustentabilidade de fachada</p><p class="market">Plástico reciclado sem triagem, que cheira mal, quebra e trava a máquina.</p></div>
+        <div class="ans"><span class="tag">COMO A PLASWILL RESPONDE</span><p>PCR com triagem por polímero e aditivação térmica, com desempenho mecânico de resina virgem.</p></div>
+      </div>
+      <div class="diff reveal">
+        <div><p class="pain">Atendimento desumanizado</p><p class="market">Call center de capital distante, tratando a compra como número de pedido.</p></div>
+        <div class="ans"><span class="tag">COMO A PLASWILL RESPONDE</span><p>Visita ao chão de fábrica, amostra técnica gratuita e suporte direto por WhatsApp com o comercial.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 · ESTRUTURA -->
+  <section id="estrutura" class="wrap sec">
+    <p class="label reveal"><span class="idx">05</span><span class="name">ESTRUTURA E PROCESSO</span><span class="sub">diagrama animado da linha</span></p>
+    <h2 class="reveal">Da resina à bobina calibrada,<br class="d"> na mesma planta.</h2>
+    <p class="lead reveal" style="--d:1;margin-bottom:34px">A cadeia produtiva acontece inteira em Panambi. Sem intermediário entre a formulação da blenda e a bobina que sai no seu palete.</p>
+    <div class="struct-grid">
+      <div class="diagram reveal">
+        <p class="cap">LINHA DE EXTRUSÃO BALÃO · ESQUEMA</p>
+        <svg viewBox="0 0 420 420" role="img" aria-label="Esquema de uma linha de extrusão balão: extrusora, balão, rolos de prensagem e bobinadeira.">
+          <g fill="none" stroke="#b7c0c5" stroke-width="1.3" stroke-linecap="round">
+            <!-- piso -->
+            <line x1="30" y1="382" x2="392" y2="382" stroke-dasharray="5 6"/>
+            <!-- extrusora -->
+            <rect x="60" y="330" width="150" height="40"/>
+            <rect x="86" y="306" width="44" height="24"/>
+            <rect x="96" y="290" width="78" height="16"/>
+            <!-- eixo central -->
+            <line x1="135" y1="290" x2="135" y2="62" stroke-dasharray="4 6" opacity=".7"/>
+            <!-- balão -->
+            <g id="bubble">
+              <ellipse cx="135" cy="205" rx="42" ry="88" fill="rgba(9,80,106,.035)"/>
+              <line x1="93" y1="150" x2="177" y2="150" stroke-dasharray="4 5"/>
+            </g>
+            <!-- rolos de prensagem -->
+            <g id="nip1"><circle cx="112" cy="108" r="12"/><line x1="112" y1="98" x2="112" y2="118"/><line x1="102" y1="108" x2="122" y2="108"/></g>
+            <g id="nip2"><circle cx="158" cy="108" r="12"/><line x1="158" y1="98" x2="158" y2="118"/><line x1="148" y1="108" x2="168" y2="108"/></g>
+            <!-- filme colapsado -->
+            <line id="film" x1="176" y1="112" x2="300" y2="205" stroke-dasharray="5 7"/>
+            <!-- bobinadeira -->
+            <g id="winder">
+              <circle cx="325" cy="235" r="34"/>
+              <circle cx="325" cy="235" r="22"/>
+              <circle cx="325" cy="235" r="11"/>
+              <line x1="325" y1="201" x2="325" y2="269"/>
+              <line x1="291" y1="235" x2="359" y2="235"/>
+            </g>
+            <rect x="300" y="300" width="56" height="26"/>
+            <line x1="328" y1="269" x2="328" y2="300"/>
+          </g>
+        </svg>
+      </div>
+      <ol class="steps">
+        <li class="reveal"><span class="num">1</span><div><h3>Insumos</h3><p>Resinas PEBD e PEAD virgens e sucata plástica triada para a linha de PCR.</p></div></li>
+        <li class="reveal" style="--d:1"><span class="num">2</span><div><h3>Extrusão e blenda</h3><p>Extrusoras balão, aditivação anti-UV e controle de densidade no cabeçote.</p></div></li>
+        <li class="reveal" style="--d:2"><span class="num">3</span><div><h3>Corte, solda e rebobinamento</h3><p>Calibração de micragem, solda de fundo e enrolamento conforme a aplicação.</p></div></li>
+        <li class="reveal" style="--d:3"><span class="num">4</span><div><h3>Estoque e expedição</h3><p>Armazenagem fracionada e expedição para RS, SC e PR.</p></div></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- 06 · SEGMENTOS -->
+  <section id="segmentos" class="wrap sec">
+    <p class="label reveal"><span class="idx">06</span><span class="name">SEGMENTOS ATENDIDOS</span><span class="sub">uma coluna, ordem comercial</span></p>
+    <h2 class="reveal">Quem compra da Plaswill.</h2>
+    <p class="lead reveal" style="--d:1;margin-bottom:30px">Cinco frentes concentram o fornecimento. Se a sua operação embala carga, alimenta gado, esteriliza instrumento ou despacha caminhão, provavelmente é uma delas.</p>
+    <div class="seg-list">
+      <div class="seg reveal"><span class="code">SG-01</span><div><h3>Metalmecânica e máquinas agrícolas</h3><p>Fabricantes de tratores, colheitadeiras, implementos agrícolas, rodoviários e autopeças.</p></div></div>
+      <div class="seg reveal"><span class="code">SG-02</span><div><h3>Cooperativas agropecuárias e armazéns</h3><p>Cooperativas de grãos e laticínios, moinhos e revendas, com compra corporativa de safra.</p></div></div>
+      <div class="seg reveal"><span class="code">SG-03</span><div><h3>Complexo hospitalar e saúde</h3><p>Hospitais regionais, policlínicas, laboratórios de análises clínicas e redes de atendimento.</p></div></div>
+      <div class="seg reveal"><span class="code">SG-04</span><div><h3>Logística e centros de distribuição</h3><p>Operadores de frete rodoviário pesado, transportadoras e armazéns gerais.</p></div></div>
+      <div class="seg reveal"><span class="code">SG-05</span><div><h3>Setor público e licitações</h3><p>Fornecimento contínuo a tribunais, autarquias e prefeituras, com documentação em ordem.</p></div></div>
+    </div>
+  </section>
+
+  <!-- 07 · CLIENTES -->
+  <section id="clientes" class="wrap sec">
+    <p class="label reveal"><span class="idx">07</span><span class="name">CLIENTES</span><span class="sub">nomes reais após autorização de marca</span></p>
+    <h2 class="reveal">Fornecedor homologado<br class="d"> de quem não pode parar a linha.</h2>
+    <p class="lead reveal" style="--d:1;margin-bottom:32px">A Plaswill é fornecedora homologada de indústrias, cooperativas e redes de saúde no Sul do país.</p>
+    <div class="clients">
+      <div class="cgroup reveal"><h3>AGRONEGÓCIO E COOPERATIVAS</h3><div class="bars">
+        <div class="bar w2"></div><div class="bar w4"></div><div class="bar w1"></div></div></div>
+      <div class="cgroup reveal" style="--d:1"><h3>INDÚSTRIA METALMECÂNICA</h3><div class="bars">
+        <div class="bar w3"></div><div class="bar w5"></div><div class="bar w2"></div><div class="bar w4"></div><div class="bar w1"></div></div></div>
+      <div class="cgroup reveal"><h3>SAÚDE E HOSPITAIS</h3><div class="bars">
+        <div class="bar w4"></div><div class="bar w6"></div><div class="bar w2"></div></div></div>
+      <div class="cgroup reveal" style="--d:1"><h3>SETOR PÚBLICO</h3><div class="bars">
+        <div class="bar w5"></div></div>
+        <h3 style="margin-top:22px">SERVIÇOS E DISTRIBUIÇÃO</h3><div class="bars">
+        <div class="bar w3"></div><div class="bar w1"></div></div></div>
+    </div>
+    <p class="note reveal">Os nomes de clientes entram somente depois de autorização formal de uso de marca. Até lá, a página comunica a homologação por segmento, sem expor logos de terceiros.</p>
+  </section>
+
+  <!-- 08 · FAQ -->
+  <section id="faq" class="wrap sec">
+    <p class="label reveal"><span class="idx">08</span><span class="name">PERGUNTAS FREQUENTES</span><span class="sub">acordeão · 1 aberto por padrão</span></p>
+    <h2 class="reveal">As objeções que ouvimos toda semana.</h2>
+    <div class="faq" style="margin-top:30px">
+      <div class="faq-item open reveal">
+        <button class="faq-q" aria-expanded="true">Plástico reciclado é fraco e vai arrebentar na esteira?<span class="sign" aria-hidden="true"></span></button>
+        <div class="faq-a"><div class="inner">
+          <p>A desconfiança faz sentido, porque muito reciclado informal no mercado é feito sem triagem e sem controle de densidade.</p>
+          <p>Na Plaswill, a blenda PCR passa por triagem por polímero, aditivação térmica e controle de densidade. O resultado mecânico em estiramento e retenção é equivalente ao da resina virgem.</p>
+          <p>Antes de qualquer pedido, enviamos amostra técnica gratuita para você rodar na sua própria linha.</p>
+        </div></div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q" aria-expanded="false">Já compro de um grande convertedor de São Paulo ou Porto Alegre.<span class="sign" aria-hidden="true"></span></button>
+        <div class="faq-a"><div class="inner">
+          <p>Convertedores distantes oferecem bom preço quando você fecha 5 toneladas e pode esperar 30 dias.</p>
+          <p>O problema aparece quando a produção oscila ou surge uma demanda urgente: frete interestadual e lote mínimo travam o capital de giro.</p>
+          <p>A Plaswill está em Panambi, ao lado da sua operação, com estoque de pronta-entrega e atendimento fracionado direto com o time técnico.</p>
+        </div></div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q" aria-expanded="false">Saco para resíduo infectante exige laudo que fabricante pequeno não tem.<span class="sign" aria-hidden="true"></span></button>
+        <div class="faq-a"><div class="inner">
+          <p>Os sacos hospitalares da Plaswill atendem aos requisitos da ABNT NBR 9191 e às exigências da ANVISA.</p>
+          <p>Fazemos teste de solda de fundo e estanqueidade justamente para evitar vazamento de material biológico no manuseio e no transporte interno.</p>
+          <p>Já somos fornecedores contínuos de centros hospitalares de porte, como o Hospital de Clínicas Ijuí.</p>
+        </div></div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q" aria-expanded="false">Qual é o pedido mínimo?<span class="sign" aria-hidden="true"></span></button>
+        <div class="faq-a"><div class="inner">
+          <p>Trabalhamos com estoque à pronta-entrega a partir de 1 palete e com lotes fracionados, sem exigir o mínimo de toneladas praticado por petroquímicas e grandes convertedores.</p>
+          <p>Para itens sob medida, o mínimo depende do formato e do material — o comercial informa na cotação.</p>
+        </div></div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q" aria-expanded="false">Vocês enviam amostra antes do fechamento?<span class="sign" aria-hidden="true"></span></button>
+        <div class="faq-a"><div class="inner">
+          <p>Sim. A amostra técnica é enviada sem custo para que o material seja testado na sua esteira, com a sua carga e a sua regulagem.</p>
+          <p>É o jeito mais direto de comparar micragem, estiramento e consumo por palete antes de assumir um contrato.</p>
+        </div></div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q" aria-expanded="false">Em quanto tempo vocês faturam?<span class="sign" aria-hidden="true"></span></button>
+        <div class="faq-a"><div class="inner">
+          <p>O prazo depende do item e do volume: parte dos itens sai do estoque de pronta-entrega em Panambi, e itens sob medida entram na programação de extrusão.</p>
+          <p>Como a produção é local, o faturamento é mais ágil do que o de um fornecedor interestadual — e o comercial confirma a data exata junto com a cotação.</p>
+        </div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 09 · ORÇAMENTO -->
+  <section id="orcamento">
+    <div class="wrap sec">
+      <p class="label reveal"><span class="idx">09</span><span class="name">ORÇAMENTO</span><span class="sub">faixa escura · único amarelo sobre fundo</span></p>
+      <div class="conv-grid">
+        <div>
+          <h2 class="reveal">Peça uma cotação com amostra técnica.</h2>
+          <p class="lead reveal" style="--d:1">Fale com o comercial em Panambi. Se preferir, o mesmo pedido segue pronto no WhatsApp — sem formulário pela metade.</p>
+          <div class="conv-ctas reveal" style="--d:2">
+            <a class="btn btn-dark btn-lg" href="https://wa.me/5555984275963" target="_blank" rel="noopener">
+              <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M21 11.5a8.5 8.5 0 0 1-12.6 7.4L3 21l2.2-5.2A8.5 8.5 0 1 1 21 11.5Z"/></svg>
+              Falar no WhatsApp
+            </a>
+            <a class="btn btn-line btn-lg" href="tel:+555533758522">Ligar (55) 3375-8522</a>
+          </div>
+          <ul class="contact-list reveal" style="--d:3">
+            <li><span class="k">E-MAIL</span><a href="mailto:comercial@plaswill.com.br">comercial@plaswill.com.br</a></li>
+            <li><span class="k">ENDEREÇO</span><a href="https://maps.google.com/?q=Av.+dos+Imigrantes,+1260,+Panambi+RS" target="_blank" rel="noopener">Av. dos Imigrantes, 1260 · Panambi/RS</a></li>
+            <li><span class="k">ATENDIMENTO</span><span style="font-size:14.5px;color:#c9d2db">Segunda a sexta, direto com o comercial</span></li>
+          </ul>
+        </div>
+        <form class="form reveal" id="formOrcamento" novalidate style="--d:2">
+          <h3>FORMULÁRIO COMERCIAL</h3>
+          <div class="form-row">
+            <div class="f"><label for="f-nome">NOME</label><input id="f-nome" name="nome" autocomplete="name" placeholder="Como podemos te chamar" required><span class="err">Informe seu nome.</span></div>
+            <div class="f"><label for="f-empresa">EMPRESA</label><input id="f-empresa" name="empresa" autocomplete="organization" placeholder="Razão social ou nome fantasia" required><span class="err">Informe a empresa.</span></div>
+          </div>
+          <div class="form-row">
+            <div class="f"><label for="f-email">E-MAIL</label><input id="f-email" name="email" type="email" autocomplete="email" placeholder="nome@empresa.com.br" required><span class="err">Informe um e-mail válido.</span></div>
+            <div class="f"><label for="f-fone">TELEFONE OU WHATSAPP</label><input id="f-fone" name="telefone" type="tel" autocomplete="tel" placeholder="(00) 00000-0000" required><span class="err">Informe um telefone.</span></div>
+          </div>
+          <div class="form-row">
+            <div class="f"><label for="f-seg">SEGMENTO</label>
+              <select id="f-seg" name="segmento">
+                <option value="">Selecione o segmento</option>
+                <option>Metalmecânica e máquinas agrícolas</option>
+                <option>Cooperativa ou armazém</option>
+                <option>Hospital, clínica ou laboratório</option>
+                <option>Transportadora ou centro de distribuição</option>
+                <option>Setor público / licitação</option>
+                <option>Outro</option>
+              </select></div>
+            <div class="f"><label for="f-prod">PRODUTO DE INTERESSE</label>
+              <select id="f-prod" name="produto">
+                <option value="">Selecione o produto</option>
+                <option>Filme stretch</option>
+                <option>Plástico bolha</option>
+                <option>Sacaria e linha agrícola</option>
+                <option>Linha hospitalar</option>
+                <option>Polietileno reciclado (PCR)</option>
+                <option>Mais de um item</option>
+              </select></div>
+          </div>
+          <div class="form-row">
+            <div class="f full"><label for="f-msg">DETALHE TÉCNICO</label><textarea id="f-msg" name="mensagem" placeholder="Micragem, medida da bobina, aplicação, prazo…"></textarea></div>
+          </div>
+          <p class="consent">Ao enviar, você concorda em ser contatado pelo time comercial da Plaswill sobre esta solicitação.</p>
+          <button class="btn btn-dark btn-lg" type="submit">Enviar pedido de orçamento</button>
+          <div class="form-success" id="formSuccess" role="status" aria-live="polite">
+            <h4>Pedido pronto para seguir.</h4>
+            <p>Montamos o resumo. Abra no WhatsApp para enviar ao comercial — ou escreva direto para o e-mail abaixo.</p>
+            <a id="waLink" href="https://wa.me/5555984275963" target="_blank" rel="noopener">Abrir no WhatsApp</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a class="brand" href="#abertura" aria-label="Plaswill — voltar ao início">
+          <span class="brand-mark" aria-hidden="true"></span>
+          <img class="brand-img" alt="Plaswill" data-logo data-dark="1" hidden>
+          <span class="brand-word">Plaswill</span>
+        </a>
+        <p>Filmes técnicos e embalagens industriais sustentáveis. Indústria própria em Panambi/RS, desde 2007.</p>
+      </div>
+      <div>
+        <h3>FÁBRICA</h3>
+        <ul>
+          <li>Av. dos Imigrantes, 1260</li>
+          <li>Distrito Industrial</li>
+          <li>Panambi · RS · 98280-000</li>
+          <li>Brasil</li>
+        </ul>
+      </div>
+      <div>
+        <h3>COMERCIAL</h3>
+        <ul>
+          <li><a href="https://wa.me/5555984275963" target="_blank" rel="noopener">WhatsApp (55) 98427-5963</a></li>
+          <li><a href="tel:+555533758522">(55) 3375-8522</a></li>
+          <li><a href="mailto:comercial@plaswill.com.br">comercial@plaswill.com.br</a></li>
+          <li><a href="mailto:contato@plaswill.com.br">contato@plaswill.com.br</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>NAVEGAÇÃO</h3>
+        <ul>
+          <li><a href="#sobre">A Plaswill</a></li>
+          <li><a href="#produtos">Produtos</a></li>
+          <li><a href="#diferenciais">Diferenciais</a></li>
+          <li><a href="#estrutura">Estrutura</a></li>
+          <li><a href="#segmentos">Segmentos</a></li>
+          <li><a href="#orcamento">Orçamento</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-legal">
+      <span>© 2026 Plaswill Indústria de Embalagens Plásticas Ltda. · CNPJ 08.718.368/0001-08</span>
+      <span><a href="#" data-toast="A política de privacidade entra na revisão jurídica antes da publicação.">Política de privacidade</a></span>
+    </div>
+  </div>
+</footer>
+
+<div class="sticky-cta" id="stickyCta">
+  <a class="btn btn-primary" href="#orcamento">Solicitar orçamento</a>
+</div>
+
+<button class="legend-btn" id="legendBtn" aria-expanded="false" aria-controls="legend">DECISÕES</button>
+<aside class="legend" id="legend" aria-hidden="true" aria-label="Decisões do wireframe">
+  <h3>DECISÕES E MOVIMENTO</h3>
+  <ol>
+    <li>Nav em pílula, fixa, com menu em gaveta no mobile e CTA fora dela.</li>
+    <li>H1 entra linha a linha; no mobile cai de 52px para 30px na mesma promessa.</li>
+    <li>Matéria-prima ao lado do título no desktop e abaixo do texto no mobile — mesmo campo, posição definida pelo espaço de cada tela.</li>
+    <li>Campo de grânulos reage ao mouse ou ao toque — o único movimento contínuo da página.</li>
+    <li>CTA primário amarelo; secundário tracejado. Alvos de 46–54px.</li>
+    <li>Faixa de fatos em quatro colunas no desktop e 2×2 no mobile.</li>
+    <li>Sobre em duas colunas: texto à esquerda, capacidades em ficha técnica à direita.</li>
+    <li>Produtos em tabela no desktop; no mobile viram lista com código, micragem e aplicação.</li>
+    <li>A ficha técnica abre no lugar, com amostra e download sem sair da página.</li>
+    <li>Diferenciais em objeção e resposta, com o filete petróleo marcando a resposta.</li>
+    <li>Estrutura anima o balão, o filme e a bobinadeira sem depender de vídeo.</li>
+    <li>Segmentos em coluna única, na ordem de prioridade comercial.</li>
+    <li>Clientes como barras até a autorização de marca; nenhum logo de terceiro exposto.</li>
+    <li>FAQ em acordeão, com o primeiro item aberto e altura animada.</li>
+    <li>Orçamento: WhatsApp e telefone antes do formulário; resumo pronto para enviar.</li>
+    <li>Rodapé com endereço verificado, CNPJ e privacidade antes do crédito.</li>
+    <li>Barra fixa de conversão no mobile, some ao chegar na faixa de orçamento.</li>
+  </ol>
+</aside>
+
+<div id="toast" role="status" aria-live="polite" style="position:fixed;left:50%;transform:translate(-50%,20px);z-index:120;background:#0f172a;color:#edf1f3;padding:12px 18px;border-radius:999px;font-size:13px;opacity:0;pointer-events:none;transition:opacity .25s,transform .3s;max-width:calc(100vw - 40px);text-align:center"></div>
+
+<script>
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ------------------------------------------------------------------ */
+/* Logotipo oficial — usa o arquivo quando existir, sem imitar a marca */
+/* ------------------------------------------------------------------ */
+const logoSources = [
+  'Plaswill_logotipo.png',
+  '../public/brand/plaswill-logo.png',
+  '../public/brand/plaswill_logotipo.png'
+];
+document.querySelectorAll('[data-logo]').forEach((img) => {
+  const brand = img.closest('.brand');
+  const word = brand ? brand.querySelector('.brand-word') : null;
+  const mark = brand ? brand.querySelector('.brand-mark') : null;
+  let i = 0;
+  const next = () => { if (i < logoSources.length) img.src = logoSources[i++]; };
+  img.addEventListener('load', () => {
+    if (img.naturalWidth < 5) return next();
+    img.hidden = false;
+    if (word) word.style.display = 'none';
+    if (mark) mark.style.display = 'none';
+  });
+  img.addEventListener('error', next);
+  next();
+});
+
+/* ------------------------------------------------------------------ */
+/* Navegação, progresso e seção ativa                                 */
+/* ------------------------------------------------------------------ */
+const nav = document.getElementById('nav');
+const progress = document.getElementById('progressbar');
+const menuBtn = document.getElementById('menuBtn');
+const drawer = document.getElementById('drawer');
+const sticky = document.getElementById('stickyCta');
+const orcamento = document.getElementById('orcamento');
+const heroField = document.getElementById('field');
+
+function setMenu(open) {
+  document.body.classList.toggle('menu-open', open);
+  menuBtn.setAttribute('aria-expanded', String(open));
+  drawer.setAttribute('aria-hidden', String(!open));
+  document.body.style.overflow = open ? 'hidden' : '';
+}
+menuBtn.addEventListener('click', () => { const open = !document.body.classList.contains('menu-open'); if (open) setLegend(false); setMenu(open); });
+drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMenu(false)));
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') { setMenu(false); setLegend(false); }
+});
+
+function setLegend(open) {
+  const panel = document.getElementById('legend');
+  const btn = document.getElementById('legendBtn');
+  panel.classList.toggle('on', open);
+  panel.setAttribute('aria-hidden', String(!open));
+  btn.setAttribute('aria-expanded', String(open));
+}
+document.getElementById('legendBtn').addEventListener('click', () => {
+  const open = !document.getElementById('legend').classList.contains('on');
+  setLegend(open);
+});
+document.getElementById('legendBtn').addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') setLegend(false);
+});
+
+const navLinks = [...document.querySelectorAll('.nav-links a')];
+const sections = navLinks.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+const activeObs = new IntersectionObserver((entries) => {
+  entries.forEach(en => {
+    if (!en.isIntersecting) return;
+    navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + en.target.id));
+  });
+}, { rootMargin: '-45% 0px -50% 0px' });
+sections.forEach(s => activeObs.observe(s));
+
+let orcamentoVisible = false;
+new IntersectionObserver((entries) => {
+  entries.forEach(en => orcamentoVisible = en.isIntersecting);
+}, { threshold: 0.06 }).observe(orcamento);
+
+function onScroll() {
+  const y = window.scrollY || document.documentElement.scrollTop;
+  nav.classList.toggle('scrolled', y > 40);
+  const max = document.documentElement.scrollHeight - window.innerHeight;
+  progress.style.width = (max > 0 ? Math.min(100, y / max * 100) : 0) + '%';
+  const pastHero = heroField ? y > heroField.offsetTop + heroField.offsetHeight - 120 : y > 700;
+  sticky.classList.toggle('show', pastHero && !orcamentoVisible && !document.body.classList.contains('menu-open'));
+}
+window.addEventListener('scroll', onScroll, { passive: true });
+window.addEventListener('resize', onScroll);
+onScroll();
+
+/* ------------------------------------------------------------------ */
+/* Revelações por seção                                               */
+/* ------------------------------------------------------------------ */
+const revealObs = new IntersectionObserver((entries) => {
+  entries.forEach((en) => {
+    if (!en.isIntersecting) return;
+    en.target.classList.add('in');
+    revealObs.unobserve(en.target);
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+/* ------------------------------------------------------------------ */
+/* Produtos — ficha abre no lugar                                     */
+/* ------------------------------------------------------------------ */
+const prods = [...document.querySelectorAll('.prod')];
+function openProd(prod, open) {
+  const btn = prod.querySelector('.prod-row');
+  const panel = prod.querySelector('.ficha');
+  prod.classList.toggle('open', open);
+  btn.setAttribute('aria-expanded', String(open));
+  panel.style.maxHeight = open ? (panel.scrollHeight + 24) + 'px' : '0px';
+}
+prods.forEach((prod) => {
+  prod.querySelector('.prod-row').addEventListener('click', () => {
+    const willOpen = !prod.classList.contains('open');
+    prods.forEach(p => { if (p !== prod) openProd(p, false); });
+    openProd(prod, willOpen);
+  });
+});
+window.addEventListener('resize', () => {
+  prods.forEach(p => {
+    if (p.classList.contains('open')) {
+      const panel = p.querySelector('.ficha');
+      panel.style.maxHeight = (panel.scrollHeight + 24) + 'px';
+    }
+  });
+});
+
+/* ------------------------------------------------------------------ */
+/* FAQ — acordeão, um aberto                                           */
+/* ------------------------------------------------------------------ */
+const faqItems = [...document.querySelectorAll('.faq-item')];
+function setFaq(item, open) {
+  const btn = item.querySelector('.faq-q');
+  const panel = item.querySelector('.faq-a');
+  item.classList.toggle('open', open);
+  btn.setAttribute('aria-expanded', String(open));
+  panel.style.maxHeight = open ? panel.scrollHeight + 'px' : '0px';
+}
+faqItems.forEach((item) => {
+  const btn = item.querySelector('.faq-q');
+  btn.addEventListener('click', () => {
+    const willOpen = !item.classList.contains('open');
+    faqItems.forEach(i => { if (i !== item) setFaq(i, false); });
+    setFaq(item, willOpen);
+  });
+  setFaq(item, item.classList.contains('open'));
+});
+window.addEventListener('resize', () => {
+  faqItems.forEach(i => {
+    if (i.classList.contains('open')) {
+      const panel = i.querySelector('.faq-a');
+      panel.style.maxHeight = panel.scrollHeight + 'px';
+    }
+  });
+});
+
+/* ------------------------------------------------------------------ */
+/* Formulário — validação e resumo para WhatsApp                      */
+/* ------------------------------------------------------------------ */
+const form = document.getElementById('formOrcamento');
+const success = document.getElementById('formSuccess');
+const waLink = document.getElementById('waLink');
+const phoneDigits = (v) => v.replace(/\D/g, '');
+function mark(input, ok) {
+  const f = input.closest('.f');
+  if (!f) return;
+  f.classList.toggle('invalid', !ok);
+  input.setAttribute('aria-invalid', String(!ok));
+}
+form.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const nome = form.nome, empresa = form.empresa, email = form.email, fone = form.telefone;
+  const okName = nome.value.trim().length > 1;
+  const okCompany = empresa.value.trim().length > 1;
+  const okEmail = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email.value.trim());
+  const okPhone = phoneDigits(fone.value).length >= 8;
+  [ [nome, okName], [empresa, okCompany], [email, okEmail], [fone, okPhone] ].forEach(([i, ok]) => mark(i, ok));
+  const firstBad = [nome, empresa, email, fone].find(i => i.getAttribute('aria-invalid') === 'true');
+  if (firstBad) { firstBad.focus(); return; }
+  const linhas = [
+    'Olá! Vim pelo site da Plaswill e gostaria de uma cotação.',
+    '',
+    'Nome: ' + nome.value.trim(),
+    'Empresa: ' + empresa.value.trim(),
+    'E-mail: ' + email.value.trim(),
+    'Telefone: ' + fone.value.trim(),
+    form.segmento.value ? 'Segmento: ' + form.segmento.value : '',
+    form.produto.value ? 'Produto: ' + form.produto.value : '',
+    form.mensagem.value.trim() ? 'Detalhe: ' + form.mensagem.value.trim() : ''
+  ].filter(Boolean).join('\n');
+  waLink.href = 'https://wa.me/5555984275963?text=' + encodeURIComponent(linhas);
+  success.classList.add('on');
+  success.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'center' });
+});
+
+/* máscara leve de telefone */
+const foneInput = document.getElementById('f-fone');
+foneInput.addEventListener('input', () => {
+  const d = phoneDigits(foneInput.value).slice(0, 11);
+  let out = d;
+  if (d.length > 6) out = '(' + d.slice(0,2) + ') ' + d.slice(2, d.length > 10 ? 7 : 6) + '-' + d.slice(d.length > 10 ? 7 : 6);
+  else if (d.length > 2) out = '(' + d.slice(0,2) + ') ' + d.slice(2);
+  foneInput.value = out;
+});
+
+/* ------------------------------------------------------------------ */
+/* Avisos curtos                                                      */
+/* ------------------------------------------------------------------ */
+const toast = document.getElementById('toast');
+let toastTimer;
+function showToast(msg) {
+  toast.textContent = msg;
+  toast.style.opacity = '1';
+  toast.style.transform = 'translate(-50%,0)';
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => {
+    toast.style.opacity = '0';
+    toast.style.transform = 'translate(-50%,20px)';
+  }, 3000);
+}
+document.querySelectorAll('[data-toast]').forEach(el => {
+  el.addEventListener('click', (e) => { e.preventDefault(); showToast(el.dataset.toast); });
+});
+
+/* ------------------------------------------------------------------ */
+/* Campo de grânulos                                                  */
+/* ------------------------------------------------------------------ */
+(function pelletsField() {
+  const field = document.getElementById('field');
+  const canvas = document.getElementById('pellets');
+  if (!field || !canvas) return;
+  const ctx = canvas.getContext('2d');
+  let W = 0, H = 0, dpr = 1, items = [], raf = null, visible = true;
+  const pointer = { x: -9999, y: -9999 };
+  const rnd = (() => { let s = 20261019; return () => (s = (s * 1664525 + 1013904223) >>> 0) / 4294967296; })();
+
+  function build() {
+    W = field.clientWidth; H = field.clientHeight;
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = Math.round(W * dpr); canvas.height = Math.round(H * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    items = [];
+    const cx = W / 2, cy = H / 2;
+    const R = Math.min(W * 0.42, H * 0.52);
+    const count = W < 640 ? 90 : 140;
+    for (let i = 0; i < count; i++) {
+      const a = rnd() * Math.PI * 2;
+      const r = Math.sqrt(rnd()) * R;
+      const size = 1.1 + Math.pow(rnd(), 2.2) * (W < 640 ? 8 : 12);
+      items.push({
+        bx: cx + Math.cos(a) * r * 1.08,
+        by: cy + Math.sin(a) * r * 0.78,
+        r: size,
+        fill: rnd() < 0.55,
+        alpha: 0.16 + rnd() * 0.34,
+        phase: rnd() * Math.PI * 2,
+        speed: 0.15 + rnd() * 0.25,
+        dx: 0, dy: 0, vx: 0, vy: 0
+      });
+    }
+    paint(0);
+  }
+
+  function paint(t) {
+    ctx.clearRect(0, 0, W, H);
+    for (const p of items) {
+      const wob = reduceMotion ? 0 : 1;
+      const px = p.bx + Math.sin(t * p.speed + p.phase) * 2.2 * wob + p.dx;
+      const py = p.by + Math.cos(t * p.speed * 0.8 + p.phase) * 1.8 * wob + p.dy;
+      ctx.beginPath();
+      ctx.arc(px, py, p.r, 0, Math.PI * 2);
+      const c = '9,80,106';
+      if (p.fill) {
+        ctx.fillStyle = 'rgba(' + c + ',' + (p.alpha * 0.85).toFixed(3) + ')';
+        ctx.fill();
+      } else {
+        ctx.strokeStyle = 'rgba(' + c + ',' + p.alpha.toFixed(3) + ')';
+        ctx.lineWidth = 1;
+        ctx.stroke();
+      }
+    }
+  }
+
+  let last = 0;
+  function frame(now) {
+    if (!visible || document.hidden) { raf = null; return; }
+    const t = now / 1000;
+    for (const p of items) {
+      if (pointer.x > -999) {
+        const x = p.bx + p.dx, y = p.by + p.dy;
+        const ddx = x - pointer.x, ddy = y - pointer.y;
+        const dist = Math.hypot(ddx, ddy);
+        const range = 110;
+        if (dist < range && dist > 0.001) {
+          const force = (1 - dist / range) * 26;
+          p.vx += (ddx / dist) * force * 0.06;
+          p.vy += (ddy / dist) * force * 0.06;
+        }
+      }
+      p.vx = (p.vx + 0) * 0.90;
+      p.vy = (p.vy + 0) * 0.90;
+      p.dx += p.vx; p.dy += p.vy;
+      p.dx *= 0.94; p.dy *= 0.94;
+    }
+    paint(t);
+    last = now;
+    raf = requestAnimationFrame(frame);
+  }
+  function start() { if (raf === null && !reduceMotion) raf = requestAnimationFrame(frame); }
+
+  build();
+  if (!reduceMotion) start();
+
+  let rz;
+  window.addEventListener('resize', () => { cancelAnimationFrame(raf); raf = null; clearTimeout(rz); rz = setTimeout(() => { build(); start(); }, 160); });
+
+  field.addEventListener('pointermove', (e) => {
+    const rect = field.getBoundingClientRect();
+    pointer.x = e.clientX - rect.left;
+    pointer.y = e.clientY - rect.top;
+  });
+  field.addEventListener('pointerleave', () => { pointer.x = -9999; pointer.y = -9999; });
+
+  new IntersectionObserver((entries) => {
+    entries.forEach(en => {
+      visible = en.isIntersecting;
+      if (visible) start(); else { cancelAnimationFrame(raf); raf = null; }
+    });
+  }, { threshold: 0.05 }).observe(field);
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) { cancelAnimationFrame(raf); raf = null; } else start();
+  });
+})();
+</script>
+</body>
+</html>

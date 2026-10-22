@@ -1,0 +1,32 @@
+{
+  "name": "plaswill-landing",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Landing page institucional e comercial da Plaswill — Indústria de Embalagens Plásticas",
+  "engines": {
+    "node": ">=20.9.0"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf .next",
+    "dev:clean": "rm -rf .next && next dev"
+  },
+  "dependencies": {
+    "next": "^15.1.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "autoprefixer": "^10.6.1",
+    "postcss": "^8.5.31",
+    "tailwindcss": "^3.4",
+    "typescript": "^5.7.0"
+  }
+}

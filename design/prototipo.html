@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Protótipo — o cabeçalho em tamanho real</title>
+<!--
+  MOLDURA DE CONFERÊNCIA DO PROTÓTIPO — não faz parte do site.
+
+  Irmã de `cabecalho.html`, que faz o mesmo para a rota compilada. Aqui quem
+  carrega é `design/abertura.html`, o protótipo estático: o mesmo cabeçalho de
+  três cápsulas, escrito em CSS puro, com o anel desenhado por `pillPath()`.
+
+  Por que duas molduras: o painel de pré-visualização tem ~780px de altura e não
+  rola. Numa moldura só, as faixas do protótipo ficariam abaixo da dobra e não
+  haveria como conferi-las — foi o que aconteceu na primeira captura.
+
+  O que se confere aqui:
+
+    1. a barra inteira a 0,3× — a posição dos três grupos;
+    2. o centro a 1:1, cápsula cheia — a marca, o vidro, a aresta de meio pixel;
+    3. o centro a 1:1, cápsula encolhida — o estado que a rota compilada só
+       alcança rolando, aqui obtido rolando de verdade em `prototipo-compacto.html`;
+       é onde se vê se o logotipo cabe nos 94px com os mesmos 12px de folga de
+       cima e de baixo, e se o anel de progresso acompanha a aresta;
+    4. o centro a 1:1 com o ponteiro em cima — o nome escrito ao lado da marca,
+       que é o quarto estado e não existe em repouso: vem de
+       `prototipo-hover.html`, a cópia que força só a revelação do nome;
+    5. esquerda e direita a 1:1 — navegação e CTA.
+
+  As duas cópias (`prototipo-compacto.html`, `prototipo-hover.html`) saem de
+  `prototipo-estado.py --compacto|--hover`, e cada uma traz uma sonda que escreve
+  os números medidos dentro da própria página.
+
+  O que NÃO se confere aqui: movimento. As faixas são estáticas, então transição
+  de largura, hover e foco aparecem parados no estado final. O `:hover` de
+  verdade — o ponteiro entrando e saindo — nenhuma captura provoca: a cópia
+  aplica as mesmas declarações da regra, e é isso que se julga aqui.
+-->
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:#e2e8ec;padding:10px;font:10px/1.4 ui-monospace,monospace;color:#334155}
+  .rotulo{margin:10px 0 3px;text-transform:uppercase;letter-spacing:.1em}
+  .nota{margin:0 0 6px;color:#64748b;text-transform:none;letter-spacing:0;font-size:9.5px;max-width:430px}
+  .faixa{position:relative;width:432px;height:84px;overflow:hidden;background:#F8FAFC;
+         box-shadow:0 1px 2px rgba(0,0,0,.12)}
+  .faixa iframe{position:absolute;top:0;width:1440px;height:1000px;border:0}
+  .esq iframe{left:0}
+  .ctr iframe{left:-504px}
+  .dir iframe{left:-1008px}
+  .todo{width:432px;height:40px}
+  .todo iframe{transform:scale(.3);transform-origin:top left}
+  .fim{margin-top:12px;color:#94a3b8;font-size:9px;max-width:430px}
+</style>
+</head>
+<body>
+  <p class="rotulo">protótipo — a barra inteira (0,3×) — posição dos grupos</p>
+  <div class="faixa todo"><iframe src="abertura.html?v=20261021p" title="Protótipo, cabeçalho inteiro reduzido"></iframe></div>
+
+  <p class="rotulo">protótipo — centro, 1:1, cápsula cheia</p>
+  <div class="faixa ctr"><iframe src="abertura.html?v=20261021p" title="Protótipo, centro do cabeçalho"></iframe></div>
+
+  <p class="rotulo">protótipo — centro, 1:1, cápsula encolhida (94px)</p>
+  <p class="nota">A cópia rola até 60% da página; o encolhimento e o anel vêm do
+    próprio script do protótipo, não de CSS forçado. Comparar com a mesma faixa
+    em <b>cabecalho.html</b>: o desenho tem de ser o mesmo.</p>
+  <div class="faixa ctr"><iframe src="prototipo-compacto.html?v=20261021p" title="Protótipo, cápsula central encolhida"></iframe></div>
+
+  <p class="rotulo">protótipo — centro, 1:1, com o ponteiro em cima (a marca e o nome)</p>
+  <p class="nota">O quarto estado, que não existe em repouso. Só a revelação do
+    nome é forçada — `max-width`, vão e opacidade —, porque ponteiro não se
+    fotografa; o resto é a cápsula cheia de sempre, e é a mesma imagem que pairar
+    a cápsula encolhida produz, já que o hover a devolve aos 385px. A janela do
+    texto entra aberta de propósito: aqui se julga o desenho, e o número que a
+    limita está na sonda, logo abaixo.</p>
+  <div class="faixa ctr"><iframe src="prototipo-hover.html?v=20261021p" title="Protótipo, cápsula com o nome revelado"></iframe></div>
+
+  <p class="rotulo">protótipo — a sonda do estado de hover (canto superior esquerdo, 1:1)</p>
+  <p class="nota">As quatro linhas que são a conta deste estado: <b>nome</b> (a
+    largura natural do texto, medida sem janela), <b>janela</b> (a largura que o
+    protótipo declara no hover, lida do próprio CSS e não repetida no gerador),
+    <b>conteudo</b> (marca + vão + nome) e <b>folga</b> (o que sobra dos 385px).
+    Se <b>nome</b> passar de <b>janela</b>, a última letra corta no hover de
+    verdade.</p>
+  <div class="faixa esq"><iframe src="prototipo-hover.html?v=20261021p" title="Protótipo, sonda do estado de hover"></iframe></div>
+
+  <p class="rotulo">protótipo — a sonda do estado encolhido (canto superior esquerdo, 1:1)</p>
+  <p class="nota">O painel não rola e o iframe não tem console, então a cópia
+    escreve os números na própria página: rolagem, altura rolável, medida da
+    cápsula e se ela está encolhida.</p>
+  <div class="faixa esq"><iframe src="prototipo-compacto.html?v=20261021p" title="Protótipo, sonda do estado encolhido"></iframe></div>
+
+  <p class="rotulo">rota compilada — cápsula encolhida, 1:1</p>
+  <p class="nota">A mesma faixa em <code>cabecalho.html</code>, aqui para ficar ao
+     lado da do protótipo. O anel não aparece: na rota ele só existe depois da
+     hidratação, e esta é uma captura estática. A comparação é de largura, marca
+     e respiro — 94px de cápsula, 30px de logotipo, 12px de folga em cima, embaixo
+     e dos lados.</p>
+  <div class="faixa ctr"><iframe src="abertura-compacto.html?v=20261021p" title="Rota compilada, cápsula encolhida"></iframe></div>
+
+  <p class="rotulo">protótipo — cápsula encolhida, 1:1 (a mesma faixa)</p>
+  <div class="faixa ctr"><iframe src="prototipo-compacto.html?v=20261021p" title="Protótipo, cápsula encolhida"></iframe></div>
+
+  <p class="rotulo">protótipo — esquerda, 1:1</p>
+  <div class="faixa esq"><iframe src="abertura.html?v=20261021p" title="Protótipo, canto esquerdo"></iframe></div>
+
+  <p class="rotulo">protótipo — direita, 1:1</p>
+  <div class="faixa dir"><iframe src="abertura.html?v=20261021p" title="Protótipo, canto direito"></iframe></div>
+
+  <p class="fim">O protótipo e a rota compilada são duas escritas do mesmo
+    cabeçalho. Se uma faixa daqui divergir da faixa correspondente em
+    <b>cabecalho.html</b>, uma das duas está errada.</p>
+</body>
+</html>

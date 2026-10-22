@@ -1,0 +1,1250 @@
+/* ==========================================================================
+   PLASWILL — abertura cinematográfica (/abertura)
+   --------------------------------------------------------------------------
+   Navbar fixa + hero de tela cheia + faixa de clientes. Nada mais.
+
+   Este arquivo carrega o Tailwind e é importado **só** pelo layout da rota,
+   então o preflight e as utilitárias não tocam na landing aprovada, que segue
+   no sistema de tokens de `src/app/globals.css`.
+
+   As animações de entrada são cópia literal do spec de referência — mesmos
+   nomes de classe, mesmos tempos, mesmas curvas. Não renomeie: os componentes
+   usam `animate-fade-up stagger-4` e afins.
+   ========================================================================== */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* --------------------------------------------------------------------------
+   Por que tudo daqui para baixo vive em `@layer components`
+   --------------------------------------------------------------------------
+   Sem esta camada, estas regras são emitidas **depois** das utilitárias, e
+   qualquer propriedade escrita aqui vence a utilitária de mesmo peso. Duas
+   consequências apareceram na conferência de 21/10, as duas como defeito de
+   layout e nenhuma como erro de build:
+
+   · `.pill-link` tinha `display: block`, e o `flex` do item de navegação era
+     descartado — o chevron de "Produtos" caía para a linha de baixo;
+   · `.glass` tinha `position: relative`, e o `absolute` das três cápsulas era
+     descartado — elas paravam de flutuar nos cantos e viravam três blocos de
+     largura total, empilhados.
+
+   Em `@layer components` a ordem é a que todo mundo espera: base, componentes,
+   utilitárias. Utilitária sempre ganha, e o componente não precisa saber quem
+   vai usá-lo. Regra prática para o próximo que mexer aqui: **não declare nesta
+   folha nada que uma utilitária possa querer sobrescrever** — display,
+   position, margem e padding de componente são as armadilhas.
+   -------------------------------------------------------------------------- */
+
+@layer components {
+
+/* --------------------------------------------------------------------------
+   Reset e base
+   -------------------------------------------------------------------------- */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  /* 'Helvetica Neue Light' na referência; aqui é a grotesca industrial do
+     sistema Plaswill, servida localmente pelo projeto. */
+  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: #f8fafc;
+}
+
+/* --------------------------------------------------------------------------
+   Entrada
+   -------------------------------------------------------------------------- */
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-down {
+  from {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.animate-fade-down {
+  animation: fade-down 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.stagger-1 {
+  animation-delay: 0ms;
+}
+.stagger-2 {
+  animation-delay: 120ms;
+}
+.stagger-3 {
+  animation-delay: 240ms;
+}
+.stagger-4 {
+  animation-delay: 360ms;
+}
+.stagger-5 {
+  animation-delay: 480ms;
+}
+.stagger-6 {
+  animation-delay: 600ms;
+}
+
+/* --------------------------------------------------------------------------
+   Casca de largura
+   --------------------------------------------------------------------------
+   Mesma coluna da landing: teto de 1512px e a mesma calha lateral, para as
+   duas páginas alinharem abertas lado a lado.
+
+   `--gutter` é declarado aqui, e não em `:root`, porque quem precisa dele é a
+   fachada: ela sangra até a borda da janela usando exatamente a calha que o
+   texto respeita.
+
+   > Correção de 20/10: esta classe estava **em uso** em `AberturaNav` e
+   > `AberturaHero` sem nunca ter sido definida — a rota saía sem teto de
+   > largura e sem calha nenhuma. O protótipo não mostrou o defeito porque
+   > define um `.shell` próprio, com o mesmo nome. Se um dia um componente
+   > desta rota parecer alinhado no protótipo e torto na página, é aqui que se
+   > olha primeiro.
+   -------------------------------------------------------------------------- */
+
+.shell {
+  --gutter: clamp(1.5rem, 7.6vw, 7.5rem);
+
+  width: 100%;
+  max-width: 1512px;
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+/* --------------------------------------------------------------------------
+   Mídia da abertura
+   --------------------------------------------------------------------------
+   A referência põe o vídeo em `inset-0` e o texto por cima, sem véu nenhum.
+   Com uma fotografia aérea industrial isso não se sustenta: o texto decide se
+   o fundo é claro ou escuro, e a foto não é. Então a camada continua sangrando
+   de borda a borda (spec), mas a **máscara abaixo** é que decide onde ela
+   aparece — o papel fica limpo exatamente onde o texto está, e a foto entra em
+   força total embaixo, onde não há texto.
+
+   Máscara não é véu: não há cinza por cima da foto, ela simplesmente não está
+   onde o texto está. É também o que garante o AA do texto sem scrim.
+
+   Para o comportamento literal da referência (foto atrás de todo o conteúdo),
+   troque os dois primeiros stops para `transparent 0%` e `transparent 0%`.
+   -------------------------------------------------------------------------- */
+
+@keyframes ken-burns {
+  from {
+    transform: scale(1.02) translate3d(0, 0.8%, 0);
+  }
+  to {
+    transform: scale(1.09) translate3d(0, -0.9%, 0);
+  }
+}
+
+.media-drift {
+  animation: ken-burns 30s cubic-bezier(0.4, 0, 0.6, 1) infinite alternate;
+  transform-origin: 50% 70%;
+  will-change: transform;
+}
+
+.media-mask {
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    transparent 52%,
+    rgba(0, 0, 0, 0.5) 66%,
+    #000 80%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    transparent 52%,
+    rgba(0, 0, 0, 0.5) 66%,
+    #000 80%
+  );
+}
+
+/* --------------------------------------------------------------------------
+   Fachada — a sede na coluna direita da abertura
+   --------------------------------------------------------------------------
+   A fotografia é do prédio real, de dia, com o letreiro amarelo legível na
+   altura do olho. O que se move é só o enquadramento: uma deriva lenta de
+   zoom e deslocamento, 34s, para lá e para cá. Nada dentro da imagem se
+   mexe — nenhuma janela se deforma, nenhum carro aparece do nada. É o mesmo
+   recurso previsto para a foto aérea (`media-drift`), em outra escala.
+
+   **Duas máscaras, uma em cada caixa, porque `mask-image` não compõe duas
+   direções sozinha.** A de fora dissolve o topo: o céu entra no papel, e a
+   barra fixa continua sobre papel limpo em vez de sobre fotografia. A de
+   dentro dissolve a esquerda: a foto encosta na coluna de texto sem uma linha
+   vertical dura. Máscara não é véu — não há cinza pintado por cima, a foto
+   simplesmente não está onde o texto está.
+
+   O recorte vem do `object-position`, não de um corte no arquivo: o que sai
+   do quadro é céu vazio, que é justamente o que a máscara de cima já apagaria.
+   O original segue intacto em `design/originais/`.
+   -------------------------------------------------------------------------- */
+
+@keyframes facade-drift {
+  from {
+    transform: scale(1.015) translate3d(0, 0.6%, 0);
+  }
+  to {
+    transform: scale(1.06) translate3d(-0.8%, -0.5%, 0);
+  }
+}
+
+.facade {
+  position: relative;
+  /* Sangra até a borda da janela. No celular dos dois lados, porque ali a foto
+     é uma faixa sob o texto e uma faixa com calha dos dois lados vira um
+     cartão. A partir de `md` só à direita: o texto continua na calha da
+     esquerda, alinhado com a barra e com a landing.
+
+     **Sem `width`.** Com largura fixa, margem negativa não alarga o elemento —
+     só encolhe a caixa externa dele, e a foto continuava parada dentro da
+     calha. Quem cumpre a sangria é o `stretch` da grade (e, no celular, o
+     `stretch` do flex em coluna) somado à margem negativa. */
+  margin-inline: calc(-1 * var(--gutter));
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    transparent 4%,
+    rgba(0, 0, 0, 0.5) 18%,
+    #000 40%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    transparent 4%,
+    rgba(0, 0, 0, 0.5) 18%,
+    #000 40%
+  );
+}
+
+@media (min-width: 768px) {
+  .facade {
+    margin-left: 0;
+    margin-right: calc(-1 * var(--gutter));
+  }
+}
+
+.facade__inner {
+  position: absolute;
+  inset: 0;
+}
+
+/* Só a partir de `md` a foto encosta na coluna do texto. No celular ela é uma
+   faixa de borda a borda: dissolver a esquerda ali só apagaria a fachada sem
+   nada do outro lado para justificar. */
+@media (min-width: 768px) {
+  .facade__inner {
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent 0%,
+      rgba(0, 0, 0, 0.3) 7%,
+      #000 24%
+    );
+    mask-image: linear-gradient(
+      to right,
+      transparent 0%,
+      rgba(0, 0, 0, 0.3) 7%,
+      #000 24%
+    );
+  }
+}
+
+.facade__inner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* A caixa é mais estreita que o arquivo (0,77 contra 1,33), então o `cover`
+     corta **na horizontal** — o segundo valor do `object-position` não tem
+     efeito nenhum aqui. O que decide o quadro é o primeiro: 46% centra o
+     letreiro e a entrada, deixando a asa esquerda fora.
+     Se a caixa um dia ficar mais larga que o arquivo, o eixo do corte troca. */
+  object-position: 46% 50%;
+  animation: facade-drift 34s cubic-bezier(0.4, 0, 0.6, 1) infinite alternate;
+  transform-origin: 50% 62%;
+  will-change: transform;
+}
+
+/* --------------------------------------------------------------------------
+   Carrossel de clientes
+   --------------------------------------------------------------------------
+   Um trilho com duas cópias da lista deslizando em laço. O deslocamento é
+   `-50%`, ou seja, exatamente uma cópia — e cada cópia leva `padding-right`
+   igual ao vão entre itens, então o vão da emenda é o mesmo dos outros. Sem
+   esse preenchimento, a marca que volta se encostaria na última que saiu.
+
+   `width: max-content` é o que deixa o trilho mais largo que a tela: dentro de
+   um flex, sem isso as cópias encolheriam até caber e não haveria o que rolar.
+
+   A velocidade é por distância, não por tempo fixo: 48s para quinze marcas é
+   lento o bastante para serem lidas sem que a faixa pareça estática.
+   -------------------------------------------------------------------------- */
+
+@keyframes marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.marquee {
+  --marquee-gap: 2rem;
+  --marquee-duration: 48s;
+
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  /* As bordas se dissolvem no papel: sem isso, a marca cortada na saída
+     parece defeito de recorte em vez de movimento. */
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    #000 7%,
+    #000 93%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    #000 7%,
+    #000 93%,
+    transparent 100%
+  );
+}
+
+.marquee__track {
+  display: flex;
+  width: max-content;
+  animation: marquee var(--marquee-duration) linear infinite;
+}
+
+/* Pausa no hover e no foco: dá tempo de ler um nome que passou rápido. */
+.marquee:hover .marquee__track,
+.marquee:focus-within .marquee__track {
+  animation-play-state: paused;
+}
+
+.marquee__group {
+  display: flex;
+  align-items: center;
+  gap: var(--marquee-gap);
+  padding-right: var(--marquee-gap);
+  list-style: none;
+  white-space: nowrap;
+}
+
+.marquee__group li {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(15, 23, 42, 0.78);
+}
+
+@media (min-width: 768px) {
+  .marquee {
+    --marquee-gap: 3.25rem;
+  }
+
+  .marquee__group li {
+    font-size: 0.875rem;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Faixa de conversão
+   --------------------------------------------------------------------------
+   O pedido, no corpo da página. A abertura passa 100vh descrevendo a empresa e
+   não pedia nada: o único caminho para o comercial era a cápsula da barra. A
+   faixa entra depois da prova social — o visitante acabou de ler quinze nomes
+   de cliente —, e é o último bloco da página.
+
+   Ela é **papel com um filete em cima**, e não uma tarja escura como a banda do
+   CTA na landing: a abertura é toda clara, e uma faixa escura aqui pesaria mais
+   que o hero. O filete de 1px é o que separa a faixa do carrossel sem precisar
+   de cor; a hierarquia fica por conta do tamanho do botão.
+
+   Duas colunas a partir de `md` — o argumento à esquerda, a ação à direita. No
+   celular é uma coluna só, e a ordem é a do HTML: texto e depois ação, que é a
+   mesma leitura da versão larga, da esquerda para a direita.
+   -------------------------------------------------------------------------- */
+
+.conversao {
+  border-top: 1px solid rgba(15, 23, 42, 0.08);
+  background: var(--surface);
+}
+
+.conversao__linha {
+  width: 100%;
+  max-width: 1512px;
+  margin-inline: auto;
+  padding-inline: clamp(1.5rem, 7.6vw, 7.5rem);
+  padding-block: clamp(2.25rem, 5vw, 3.5rem);
+
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* A mesma voz da etiqueta da faixa de clientes: 13px, peso 500, caixa alta e
+   0,12em de entreletra. É o que amarra a faixa ao resto da abertura. */
+.conversao__sobretitulo {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(15, 23, 42, 0.7);
+}
+
+.conversao__nota {
+  margin-top: 0.5rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: rgba(15, 23, 42, 0.78);
+  max-width: 34rem;
+}
+
+/* Telefone e e-mail, os dois canais que não são botão. Ficam em linha, com o
+   vão de 1.25rem, e viram duas linhas se a coluna for estreita. */
+.conversao__canais {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.25rem;
+  margin-top: 0.75rem;
+  list-style: none;
+  padding: 0;
+  font-size: 0.875rem;
+}
+
+.conversao__canais a {
+  color: var(--petrol);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(9, 80, 106, 0.3);
+  padding-bottom: 1px;
+}
+
+.conversao__canais a:hover,
+.conversao__canais a:focus-visible {
+  border-bottom-color: var(--petrol);
+}
+
+.conversao__acoes {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+@media (min-width: 768px) {
+  .conversao__linha {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2.5rem;
+  }
+
+  .conversao__acoes {
+    flex: none;
+  }
+}
+
+/* O menu aberto trava a rolagem do documento; o controle é feito pelo
+   componente, que escreve direto em `document.body.style.overflow`. */
+
+/* ==========================================================================
+   CABEÇALHO — três pílulas de vidro
+   ==========================================================================
+   A barra do Antimetal foi lida no arquivo salvo em
+   `referencias/antimetal/Antimetal.html`, não de memória, e o que se
+   aproveita é a **construção**: três grupos que flutuam sobre o conteúdo em
+   vez de uma faixa de ponta a ponta, cada um numa cápsula de vidro. A
+   identidade deles — o limão, a serifa licenciada, a marca de pontos — fica
+   onde está (regra 9 do projeto: referência, nunca identidade).
+
+   A receita do vidro, também lida do arquivo deles, tem três camadas e é a
+   terceira que faz parecer vidro:
+
+     1. a superfície — fundo translúcido + `backdrop-filter`;
+     2. o brilho  — `linear-gradient(122deg)`, branco a transparente em 44%;
+     3. a borda   — **0,5px** em gradiente, recortada com `mask` no modo
+        `content-box exclude`. Sem ela sobra um retângulo fosco: o que separa
+        "vidro" de "cinza claro" é essa aresta de meio pixel.
+
+   **Diferença de fundo, e por que os valores mudam.** No Antimetal o papel é
+   um cinza médio (`#d7d7d0`), então uma cápsula quase branca se destaca
+   sozinha. Aqui o papel é `#F8FAFC` — quase branco já. Uma cápsula branca
+   sobre papel branco desaparece. Por isso o fundo daqui é um cinza-azulado
+   levemente **mais escuro** que o papel, e não mais claro: o que se preserva é
+   o contraste entre cápsula e fundo, que é o que faz a pílula existir
+   visualmente. A sombra externa é discreta de propósito; quem desenha a forma
+   é a aresta.
+   -------------------------------------------------------------------------- */
+
+/* **A opacidade do vidro não é gosto: é contraste medido.** No Antimetal a
+   página inteira é um cinza claro uniforme, então 67% de opacidade basta. Aqui
+   não: o cabeçalho é fixo e passa por cima da fotografia da fachada ao rolar, e
+   essa foto tem preto de verdade — o 1% mais escuro mede `(4, 3, 3)`.
+
+   Com 72% de opacidade e o texto a 62%, o menu media **3,75:1** sobre essa
+   região, abaixo do 4,5:1 que a WCAG 2.2 AA exige para texto normal. Foi
+   medição, não estimativa: a conta está no README.
+
+   Com 84% e o texto a 78%, o pior caso (vidro sobre preto puro) sobe para
+   **6,86:1** — AA com folga, e AAA. O que se perde é pouca coisa do fundo
+   aparecendo; o que se mantém é a aresta e o brilho, que são o que faz o
+   material parecer vidro e não um retângulo fosco. */
+.glass {
+  position: relative;
+  border-radius: 82px;
+  /* 6px: as pílulas internas ficam 6px dentro da cápsula, e é isso que dá o
+     aspecto de "cápsula dentro de cápsula" em vez de botão colado na borda. */
+  padding: 6px;
+  background: rgba(248, 250, 252, 0.84);
+  -webkit-backdrop-filter: blur(2.6px) saturate(180%) brightness(110%);
+  backdrop-filter: blur(2.6px) saturate(180%) brightness(110%);
+  box-shadow:
+    inset 0 0 10px 0 rgba(15, 23, 42, 0.07),
+    0 6px 24px rgba(15, 23, 42, 0.06);
+}
+
+/* Cápsula quadrada — o botão do menu no celular. O raio de 82px sobre uma
+   caixa de 46px já fecha num círculo; o que muda aqui é o miolo, que recebe o
+   conteúdo em vez de outro botão, então o `padding` de 6px sai de cena. */
+.glass--round {
+  padding: 0;
+}
+
+/* As três camadas decorativas. `border-radius: inherit` em vez de repetir o
+   valor: se a cápsula mudar de raio, elas acompanham. */
+.glass__rim,
+.glass__sheen,
+.glass__light {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+/* A aresta de 0,5px. O recorte é o truque padrão de borda em gradiente:
+   `content-box exclude` subtrai a caixa de conteúdo da caixa de borda, então
+   só o anel de `padding` sobra pintado. `-webkit-mask-composite: xor` é a
+   grafia que o Chrome e o Safari entendem; `mask-composite: exclude` é a
+   padrão. As duas juntas, nesta ordem. */
+.glass__rim {
+  padding: 0.5px;
+  background: linear-gradient(
+    122deg,
+    #fff 0%,
+    rgba(255, 255, 255, 0.45) 40%,
+    rgba(255, 255, 255, 0.05) 78%
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
+}
+
+.glass__sheen {
+  background: linear-gradient(122deg, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0) 44%);
+}
+
+/* --------------------------------------------------------------------------
+   Efeito 12 — luz que segue o cursor
+   --------------------------------------------------------------------------
+   Nas pílulas de vidro, como brilho especular: é onde este efeito faz sentido
+   nesta rota, que é toda em papel claro e não tem seção escura. Na landing
+   institucional ele vai para o rodapé, que é escuro.
+
+   `--mx`/`--my` são escritos pelo componente a cada `pointermove`, direto no
+   elemento. Não passam por estado do React: um `setState` por pixel de
+   movimento custaria uma renderização por quadro, e isto é decoração.
+   -------------------------------------------------------------------------- */
+
+.glass__light {
+  opacity: 0;
+  transition: opacity 240ms ease;
+  background: radial-gradient(
+    140px circle at var(--mx, 50%) var(--my, 50%),
+    rgba(255, 255, 255, 0.72),
+    rgba(255, 255, 255, 0) 72%
+  );
+}
+
+.glass:hover .glass__light,
+.glass:focus-within .glass__light {
+  opacity: 1;
+}
+
+/* --------------------------------------------------------------------------
+   Navegação em cápsula — com marcador deslizante
+   --------------------------------------------------------------------------
+   O realce do item sob o ponteiro não acende item por item: é **um** elemento
+   que desliza até o item, medido pelo componente. É o que o Antimetal faz, e
+   a diferença aparece no movimento — um realce que anda é uma coisa só se
+   movendo; seis realces que acendem são seis coisas piscando.
+   -------------------------------------------------------------------------- */
+
+/* **Sem `display` aqui.** Com `display: block`, o `flex` do item de navegação
+   era descartado e o chevron de "Produtos" caía para a linha de baixo — ver a
+   nota sobre a camada, no topo do arquivo. Quem decide o display é quem monta
+   o item. */
+/* 78% e não 62%: ver a nota do contraste em `.glass`. O cinza da referência
+   funciona lá porque o fundo deles nunca escurece; aqui escurece. */
+.pill-link {
+  padding: 6px 14px;
+  font-size: 0.875rem;
+  letter-spacing: -0.005em;
+  color: rgba(15, 23, 42, 0.78);
+  transition: color 200ms ease;
+}
+
+.pill-link:hover,
+.pill-link:focus-visible {
+  color: #0f172a;
+}
+
+.pill-marker {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.06);
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    transform 360ms cubic-bezier(0.22, 1, 0.36, 1),
+    width 360ms cubic-bezier(0.22, 1, 0.36, 1),
+    height 360ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 200ms ease;
+}
+
+/* --------------------------------------------------------------------------
+   Pílula central — o ícone aparece, depois o nome
+   --------------------------------------------------------------------------
+   Mecanismo lido do Antimetal, literalmente: o `<a>` tem `gap`, o nome tem
+   `max-width` e `opacity`, e os três animam **juntos** em 600ms com
+   `cubic-bezier(0.65, 0, 0.35, 1)`. O que faz o nome *desenrolar* em vez de
+   aparecer é o `max-width` com `overflow: hidden` — a palavra é revelada por
+   uma janela que cresce, não por opacidade. Só opacidade daria um surgimento;
+   os dois juntos dão o desenrolar.
+
+   **A Plaswill não tem símbolo separável, e isso foi medido.** O logotipo
+   oficial é um bloco fechado: campo amarelo com "Plaswill" e "Embalagens"
+   *por dentro* da forma (246×106, o amarelo cobre 59% dos pixels e a tinta
+   atravessa x=32..224 — não sobra região que seja um grafismo à parte do
+   nome). Não dá para descolar ícone de nome sem inventar uma marca nova, e a
+   regra do projeto proíbe recriar identidade sem aprovação.
+
+   Então há **dois caminhos**, e os dois usam a mesma classe de revelação:
+
+   · **com símbolo** (`plaswill-simbolo.*` em `public/brand/`) — o literal:
+     o símbolo aparece e o nome em tipografia desenrola ao lado, como no
+     Antimetal. Este é o caminho que liga sozinho no dia em que a marca
+     tiver um símbolo isolado;
+   · **sem símbolo** (hoje) — o logotipo oficial inteiro, revelado por uma
+     janela de `max-width` que cresce. O movimento é o mesmo; o que não dá
+     para separar é o conteúdo.
+
+   A largura da cápsula no Antimetal é fixa (`min(385px, 100vw - 32px)`) e o
+   conteúdo é centrado dentro dela. Aqui a largura fixa só vale a partir de
+   `lg`: numa tela estreita, 385px é a tela inteira e a cápsula vira uma tarja.
+   Abaixo disso ela abraça o conteúdo.
+   -------------------------------------------------------------------------- */
+
+.centerpill {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+
+  /* O encolhimento da cápsula. A curva e a duração são as da referência
+     (`600ms cubic-bezier(0.65, 0, 0.35, 1)` — a mesma constante que ela usa na
+     largura, no `gap` e na opacidade do nome). Aqui só a largura anima: as duas
+     larguras centram o mesmo conteúdo, então a marca não sai do lugar e o que
+     muda é o vidro em volta dela. */
+  transition: width 600ms cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+@media (min-width: 1024px) {
+  .centerpill {
+    width: min(385px, 100vw - 32px);
+  }
+
+  /* Encolhida: 94px. É conta, não chute, e vem de igualar as folgas.
+
+     A marca tem 30px de altura dentro de uma cápsula de 54px — 12px de respiro
+     em cima e embaixo. Para 69,6px de marca (30px × 246/106), 94px de largura
+     devolvem **os mesmos 12px de cada lado**, e o badge fica opticamente
+     equilibrado em vez de comprimido no sentido horizontal.
+
+     84px era a conta anterior — a janela de 72px mais os 6px de vidro de cada
+     lado — e deixava 7,2px por lado. A marca saía apertada entre as bordas, e a
+     diferença entre 7,2 e 12 se enxerga: foi o que apareceu na captura.
+
+     Abaixo de `lg` a cápsula já abraça o conteúdo, e não há vazio a recolher: o
+     anel de progresso aparece em qualquer tamanho, mas só no desktop a cápsula
+     se move.
+
+     Duas classes na regra de propósito: o `min(385px, …)` acima tem a mesma
+     especificidade, e a ordem sozinha seria um combinado frágil entre uma media
+     query e uma classe. */
+  .centerpill.centerpill--compact {
+    width: 94px;
+  }
+
+  /* Terceiro estado: com o ponteiro em cima — ou com o foco do teclado dentro —
+     a cápsula volta ao tamanho cheio e recolhe quando o ponteiro sai.
+
+     Só CSS, e de propósito: `:hover` e `:focus-within` são o estado real do
+     navegador, sem cópia em `useState` para sair de sincronia. O `:focus-within`
+     é o que faz o mesmo acontecer com Tab, e é o que mantém o alvo de foco do
+     tamanho cheio enquanto o link da assinatura está focado.
+
+     A condição de hover não se aplica abaixo de `lg` porque lá a cápsula já
+     abraça o conteúdo e não há largura para devolver — o anel, idem: apagá-lo
+     no hover de um celular seria apagar sem nada abrir no lugar. */
+  .centerpill.centerpill--compact:hover,
+  .centerpill.centerpill--compact:focus-within {
+    width: min(385px, 100vw - 32px);
+  }
+
+  .centerpill--compact:hover .pill-ring,
+  .centerpill--compact:focus-within .pill-ring {
+    opacity: 0;
+  }
+}
+
+/* Estado mínimo: as laterais saem e fica só a marca.
+
+   Quando a cápsula encolhe, a navegação e o contato saem de cena. No topo a
+   barra diz para onde se pode ir; rolada, ela precisa dizer uma coisa só, que é
+   "Plaswill". O gesto é o complemento do encolhimento: a marca fica e o resto se
+   recolhe para as bordas de onde veio.
+
+   **A marca é também a volta.** O link da assinatura sobe a página em 1100ms, e
+   as laterais reaparecem quando o topo volta — a histerese de 110px, que já
+   existia para a cápsula não piscar. É o que torna aceitável esconder a
+   navegação: existe um caminho de volta a um clique, e ele é o mesmo alvo que já
+   estava no eixo. O CTA da barra também sai, e por isso a faixa de conversão no
+   fim da página importa tanto: ela é a via comercial de quem está rolado.
+
+   **`translate`, e não `transform`.** As duas laterais já dependem de
+   `transform: translateY(-50%)` — a utilitária `-translate-y-1/2` — para centrar,
+   e uma regra de `transform` nesta folha seria descartada pela utilitária. É o
+   defeito de cascata que já apareceu duas vezes neste arquivo (ver README). A
+   propriedade `translate` compõe com o `transform` e as duas convivem: o
+   deslocamento horizontal soma-se à centralização vertical.
+
+   300ms com `cubic-bezier(.4, 0, .2, 1)`: é movimento que responde a uma ação, e
+   rolagem é ação do visitante — na biblioteca, o que responde ao usuário leva
+   150–300ms e só a entrada é lenta. O `visibility` sai atrasado pelo mesmo
+   tempo, para as laterais não ficarem focáveis por teclado enquanto invisíveis;
+   e volta sem atraso, porque o `transition-delay` do estado não vale na volta. */
+.nav-lateral {
+  transition:
+    opacity 300ms cubic-bezier(0.4, 0, 0.2, 1),
+    translate 300ms cubic-bezier(0.4, 0, 0.2, 1),
+    visibility 0s;
+}
+
+.nav-lateral--fora {
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+  transition-delay: 0s, 0s, 300ms;
+}
+
+.nav-lateral--esquerda.nav-lateral--fora {
+  translate: -10px 0;
+}
+
+.nav-lateral--direita.nav-lateral--fora {
+  translate: 10px 0;
+}
+
+.centerpill__link {
+  display: flex;
+  align-items: center;
+  padding-block: 6px;
+}
+
+/* A revelação é **animação, não transição com estado**. A diferença importa:
+   com estado do React, sem JavaScript a marca ficaria presa em `max-width: 0`
+   — a pílula central sairia vazia no servidor e só apareceria depois da
+   hidratação, e nunca para quem tem script bloqueado. Como animação, o estado
+   final é o declarado aqui, e o navegador chega nele sozinho.
+
+   `both` faz o trabalho em três tempos: segura o quadro inicial (`max-width`
+   zero) durante o atraso, anima, e segura o final depois. O atraso é o que dá
+   a leitura de "primeiro o resto da barra, depois a marca".
+
+   `margin-left` no lugar de `gap`: um `gap` no pai não tem como ser animado
+   junto com o crescimento do filho sem uma segunda animação, e o símbolo
+   ficaria 8px fora do eixo enquanto a janela abre. */
+@keyframes centerpill-unfold {
+  from {
+    max-width: 0px;
+    opacity: 0;
+    margin-left: 0px;
+  }
+  to {
+    max-width: var(--reveal-to, 160px);
+    opacity: 1;
+    margin-left: var(--reveal-gap, 0px);
+  }
+}
+
+.centerpill__reveal {
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  max-width: var(--reveal-to, 160px);
+  opacity: 1;
+  margin-left: var(--reveal-gap, 0px);
+  animation: centerpill-unfold 600ms cubic-bezier(0.65, 0, 0.35, 1) 520ms both;
+}
+
+/* O símbolo isolado, quando a marca tiver um — e hoje não tem. Fica 26px, um
+   pouco abaixo dos 30px do logotipo inteiro: ao lado do nome, a marca
+   respira melhor um degrau menor, como na referência. */
+.centerpill__symbol {
+  display: block;
+  height: 26px;
+  width: auto;
+}
+
+/* O nome em tipografia, quando há símbolo. `--reveal-gap` abre o vão de 8px
+   entre símbolo e nome, como no Antimetal. */
+.centerpill__name {
+  --reveal-gap: 8px;
+
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  line-height: 1;
+  color: #0f172a;
+}
+
+/* O logotipo oficial, quando não há símbolo — e é o caso de hoje.
+
+   **72px é conta, não chute.** A marca é 246×106 (≈2,3208:1); a 30px de altura
+   ela mede 69,6px de largura. A janela leva 72px — 2,4px de folga para o
+   arredondamento de subpixel não cortar a última coluna. Com os 96px que eu
+   tinha posto antes sobravam 26px de vazio à direita do logotipo dentro da
+   janela, e como a cápsula central centra a **janela** e não a marca, o
+   logotipo saía cerca de 13px fora do eixo da cápsula. Só apareceu na captura.
+   Sem vão, porque não há duas peças a separar. */
+.centerpill__lockup {
+  --reveal-to: 72px;
+}
+
+.centerpill__lockup img {
+  display: block;
+  height: 30px;
+  width: auto;
+}
+
+/* O nome escrito ao lado da marca — o estado que **não existe em repouso**.
+
+   A cápsula cheia deixa 157px de vidro vazio de cada lado da marca (385px menos
+   os 69,6px dela e os 12px de vidro), e o hover só devolvia essa largura sem
+   mostrar nada de novo. O nome entra nesse vão quando o ponteiro chega.
+
+   Mesma receita da referência para revelar o nome — `max-width` de 0 até a
+   largura do texto e o vão de 0 a 8px em 600ms com
+   `cubic-bezier(0.65, 0, 0.35, 1)`. Aqui é **transição**, e não a animação de
+   entrada que a marca usa: o repouso é este, escondido, e quem abre é o
+   ponteiro. Também não passa por `useState`, pelo mesmo motivo do hover da
+   largura: `:hover` e `:focus-within` são o estado real do navegador, e uma
+   cópia em estado React só criaria a chance de os dois discordarem.
+
+   **A opacidade, porém, não vai junto com a janela.** Em 21/10 o pedido foi que
+   o nome "não aparecesse de imediato" e que tivesse um esmaecer. Uma janela de
+   `max-width` que cresce com o texto dentro escreve o nome letra a letra, e com
+   a opacidade subindo em 300ms o efeito era o de quem é digitado, não o de quem
+   aparece. O nome passou a entrar pelo **gesto de revelação da biblioteca de
+   componentes** (`referencias/antimetal-design-system.md`, §5 e §6.6):
+   `opacity 0 → 1` com `translate3d(0, 12px, 0) → 0`, **700ms**,
+   `cubic-bezier(.22, 1, .36, 1)`, mais `will-change` no estado que dispara. É o
+   único gesto não solicitado do sistema de referência, e ele é o mesmo em toda
+   a página dela — não há fade-and-slide diferente por seção; vale a mesma
+   disciplina aqui.
+
+   O deslocamento fica no eixo Y, como na biblioteca. A caixa do nome é recortada
+   na horizontal pela própria janela, mas esse recorte é dela mesma — um
+   `transform` desloca a caixa inteira e o conteúdo não é cortado por ele. E 12px
+   cabem: a cápsula tem 54px com 12px de folga acima e abaixo da marca de 30px.
+
+   A voz é a dos nomes de cliente no carrossel (Archivo, 13px, peso 500, caixa
+   alta, 0,12em de entreletra) e a cor é a dos links da navegação,
+   `rgba(15, 23, 42, .78)` — medida no pior caso em **6,86:1** sobre o vidro.
+   Não é detalhe de estilo: 13px em caixa alta é o menor corpo da barra. */
+.centerpill__lockup-name {
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  max-width: 0;
+  margin-left: 0;
+  opacity: 0;
+  transform: translate3d(0, 12px, 0);
+
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(15, 23, 42, 0.78);
+
+  /* Saída rápida e **sem atraso**: na biblioteca, o que responde a uma ação leva
+     150–300ms, e só a entrada é lenta. Com 240ms o nome sai antes de o vidro
+     começar a fechar, então nunca é visto recortado por uma janela em movimento. */
+  transition:
+    max-width 600ms cubic-bezier(0.65, 0, 0.35, 1),
+    margin-left 600ms cubic-bezier(0.65, 0, 0.35, 1),
+    opacity 240ms cubic-bezier(0.4, 0, 0.2, 1),
+    transform 240ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* A partir de `md`, e não em qualquer largura: abaixo disso a cápsula abraça o
+   conteúdo e o botão do menu está na ponta direita. Num celular não há hover; e
+   numa janela estreita com mouse o nome chegaria por baixo do hambúrguer. */
+@media (min-width: 768px) {
+  .centerpill:hover .centerpill__lockup-name,
+  .centerpill:focus-within .centerpill__lockup-name {
+    /* **190px é conta, não chute.** O texto mede 188px — medido, não estimado:
+       Archivo 13px, peso 500, 0,12em de entreletra, caixa alta. A janela leva
+       2px de folga para o arredondamento de subpixel não cortar a última letra,
+       a mesma lógica dos 72px da marca (69,6px mais 2,4). Com o vão de 8px, o
+       conteúdo todo soma 264,9px dentro dos 385px da cápsula: 60px de vidro de
+       cada lado, e a altura continua 54px porque 13px não passa dos 30px da
+       marca. */
+    max-width: 190px;
+    margin-left: 0.5rem; /* os 8px de vão da referência */
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+
+    /* Entrada lenta **e com atraso**. Os 300ms são metade dos 600ms do vidro: o
+       nome só começa a aparecer quando a janela já abriu espaço, e é isso que
+       tira o "imediato" do hover. Os 700ms e a curva são os da biblioteca
+       (§6.6); o atraso é o que ela não tem, porque lá o reveal é disparado pela
+       rolagem — um gesto que o visitante não pediu — e aqui por um ponteiro, que
+       pede.
+       `will-change` mora aqui e não na regra base de propósito: o elemento
+       existe em repouso o tempo todo, e o gesto é raro.
+       O tempo total é 300 + 700 = 1s, mas a curva é fortemente desacelerada
+       (`cubic-bezier(.22, 1, .36, 1)`), então metade do caminho acontece nos
+       primeiros 150ms e o nome já está legível quando o vidro termina de abrir. */
+    will-change: opacity, transform;
+    transition:
+      max-width 600ms cubic-bezier(0.65, 0, 0.35, 1),
+      margin-left 600ms cubic-bezier(0.65, 0, 0.35, 1),
+      opacity 700ms cubic-bezier(0.22, 1, 0.36, 1) 300ms,
+      transform 700ms cubic-bezier(0.22, 1, 0.36, 1) 300ms;
+  }
+}
+
+/* O anel de progresso. Vive dentro da cápsula, fora do fluxo — um filho
+   `absolute` não é item de flex, então não entra na conta de largura nem desloca
+   a marca. `top`/`left` em zero caem na borda da caixa de preenchimento, e como
+   `.glass` não tem borda isso é a borda externa do vidro, que é onde ele deve
+   encostar.
+
+   O `overflow: visible` fica no atributo do próprio SVG: a linha é centrada no
+   caminho, então 1px dela cai fora da cápsula — é ali que ela encontra a aresta
+   de 0,5px do vidro. Recortar mataria justamente a metade de fora.
+
+   A opacidade é o único estado que muda, com os mesmos 600ms do encolhimento:
+   é isso que faz o anel aparecer *durante* o movimento da cápsula, e não depois
+   dele. `pointer-events: none` porque ele cobre a cápsula inteira e não é
+   clicável. */
+/* `pill-ring`, e não `ring`, por um motivo concreto: **`ring` é uma classe
+   utilitária do Tailwind** (a que desenha anel de foco com `box-shadow`). Como
+   as utilitárias são emitidas depois desta camada, um `.ring` aqui levaria por
+   cima um `box-shadow: 0 0 0 3px rgb(59 130 246 / .5)` — um anel azul quadrado
+   em volta de todo o SVG, do tamanho da cápsula. Ele ficava escondido porque o
+   anel nasce com opacidade 0; apareceria justamente no estado encolhido, que é
+   quando ele acende. Quem mostrou foi o CSS emitido: `.ring{--tw-ring-offset-
+   shadow:…}` no byte 16589, depois de todas as regras daqui. */
+.pill-ring {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+
+  /* Nasce invisível. Quem o acende é o estado encolhido, logo abaixo — a
+     opacidade saiu do `style` inline do componente de propósito: assim ela é
+     governada pela mesma condição que governa a largura da cápsula (a classe
+     `centerpill--compact` e os pseudo-estados dela), e as duas não têm como
+     discordar. Com a opacidade no inline, `:hover` não teria como apagá-la sem
+     `!important`. */
+  opacity: 0;
+  transition: opacity 600ms cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+/* O anel só faz sentido na cápsula encolhida: ele é o progresso da página
+   desenhado no contorno que sobrou. Cheia, não há contorno para ele percorrer. */
+.centerpill--compact .pill-ring {
+  opacity: 1;
+}
+
+/* --------------------------------------------------------------------------
+   Efeito 14 — botão elástico
+   --------------------------------------------------------------------------
+   Pressão no clique, volta com curva de ultrapassagem. O `scale` fica no
+   próprio botão, então nada em volta se desloca. É um realce de toque: não
+   carrega informação nenhuma, e por isso pode sumir sem prejuízo com
+   movimento reduzido.
+   -------------------------------------------------------------------------- */
+
+.elastic {
+  transition:
+    transform 220ms cubic-bezier(0.34, 1.56, 0.64, 1),
+    background-color 200ms ease,
+    color 200ms ease;
+}
+
+.elastic:active {
+  transform: scale(0.955);
+  transition-duration: 90ms;
+  transition-timing-function: ease-out;
+}
+
+/* ==========================================================================
+   EFEITOS DE ENTRADA DA BIBLIOTECA
+   ==========================================================================
+   Os efeitos 05 (máscara que revela) e 16 (revelar palavra por palavra) vêm da
+   vitrine da naocodei — que é JavaScript puro. Aqui eles são **reescritos em
+   CSS**: a biblioteca roda sobre elementos que ela mesma cria, e esta página
+   é React com renderização no servidor. O que se aproveita é o movimento, não
+   o código.
+   -------------------------------------------------------------------------- */
+
+/* --------------------------------------------------------------------------
+   Efeito 16 — o título, palavra por palavra
+   --------------------------------------------------------------------------
+   **Por que `clip-path` e não `overflow: hidden`.** A receita clássica do
+   efeito é uma caixa com `overflow: hidden` e a palavra subindo de dentro
+   dela. Aqui isso corta os descendentes: o título tem "que", "paga" e
+   "chega", e o `line-height` é 1.04 — apertado de propósito, pelo desenho. A
+   caixa de linha fica mais baixa que a fonte, e o rabo do "q" e do "g" some.
+
+   `clip-path: inset()` resolve porque aceita valor negativo: o estado final
+   usa insets negativos e **nada** é recortado no repouso; o corte só existe
+   durante o movimento, subindo de baixo para cima.
+   -------------------------------------------------------------------------- */
+
+@keyframes word-clip {
+  from {
+    clip-path: inset(0 0 100% 0);
+    transform: translate3d(0, 0.32em, 0);
+  }
+  to {
+    clip-path: inset(-0.4em -0.2em -0.4em -0.2em);
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.reveal-word {
+  display: inline-block;
+  animation: word-clip 0.75s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* --------------------------------------------------------------------------
+   Efeito 05 — a máscara que revela, nas fotografias
+   --------------------------------------------------------------------------
+   As duas caixas de fotografia **já têm** `mask-image` (a dissolução do topo
+   e a da esquerda). `mask-image` não compõe duas direções, e uma terceira
+   máscara na mesma caixa apagaria as duas — está explicado na seção da
+   fachada. Por isso a revelação não é máscara: é `clip-path`, que é uma
+   propriedade independente e **compõe** com as máscaras que já estão lá. O
+   recorte abre, as dissoluções continuam valendo dentro dele.
+
+   A fachada entra da direita (é de onde ela vem na composição); a faixa aérea
+   entra da esquerda, alinhada com o texto que ela acompanha.
+   -------------------------------------------------------------------------- */
+
+@keyframes reveal-from-right {
+  from {
+    clip-path: inset(0 0 0 100%);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes reveal-from-left {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+.reveal-right {
+  animation: reveal-from-right 1.1s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: 320ms;
+}
+
+.reveal-left {
+  animation: reveal-from-left 1.1s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: 320ms;
+}
+
+/* --------------------------------------------------------------------------
+   Movimento reduzido
+   --------------------------------------------------------------------------
+   A referência não trata disto; o briefing do projeto exige (WCAG 2.2 AA e
+   "atenção às preferências de movimento reduzido"). As animações de entrada
+   usam `both`, ou seja, começam em `opacity: 0` — desligá-las exige devolver o
+   estado final, senão o conteúdo some.
+   -------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .animate-fade-up,
+  .animate-fade-down {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  .media-drift {
+    animation: none;
+    transform: none;
+  }
+
+  /* A deriva de câmera é a única coisa que a foto faz; sem ela a imagem
+     continua lá, parada. Nada mais depende de animação para ser lido. */
+  .facade__inner img {
+    animation: none;
+    transform: none;
+  }
+
+  /* Efeito 16. Os dois lados importam: sem `animation: none` a palavra fica
+     presa em `clip-path: inset(0 0 100% 0)` do quadro inicial, porque o
+     `both` mantém o estado de partida; e o `clip-path` final precisa ser
+     devolvido explicitamente, senão o recorte herdado continua valendo. */
+  .reveal-word {
+    animation: none;
+    clip-path: none;
+    transform: none;
+  }
+
+  /* Efeito 05. Vale o mesmo raciocínio — `both` prende o quadro inicial, que
+     aqui é o recorte fechado. Sem devolver `clip-path`, a fotografia some. */
+  .reveal-right,
+  .reveal-left {
+    animation: none;
+    clip-path: none;
+  }
+
+  /* Efeito 14 e efeito 12. Nenhum dos dois carrega informação: o botão
+     continua sendo um botão, o vidro continua sendo vidro. */
+  .elastic,
+  .elastic:active {
+    transition: none;
+    transform: none;
+  }
+
+  .glass__light {
+    display: none;
+  }
+
+  .pill-marker {
+    transition: none;
+  }
+
+  /* A revelação da pílula central. Desligar a animação basta: o estado final
+     é o que está declarado na regra base do elemento (`max-width` cheio,
+     opacidade 1), então ele aparece inteiro e imediatamente, sem o atraso de
+     520ms e sem o crescimento. Nada aqui depende de estado do React. */
+  .centerpill__reveal {
+    animation: none;
+  }
+
+  /* O encolhimento da cápsula continua acontecendo — ele é informação (a página
+     rolou), não enfeite, e esconder a marca de quem pediu menos movimento seria
+     trocar acessibilidade por omissão. O que sai é o trajeto de 600ms: a cápsula
+     troca de largura na hora e o anel aparece junto com ela. */
+  .centerpill,
+  .pill-ring {
+    transition: none;
+  }
+
+  /* O nome ao lado da marca continua aparecendo no hover — ele diz o nome da
+     empresa, que é informação. O que sai é o desenrolar: o texto entra inteiro,
+     no mesmo instante em que a cápsula troca de largura.
+     Os três seletores são necessários: o de `:hover` tem peso maior que o da
+     regra base, então desligar só na base deixaria o gesto de 700ms correndo
+     para quem pediu menos movimento. */
+  .centerpill__lockup-name,
+  .centerpill:hover .centerpill__lockup-name,
+  .centerpill:focus-within .centerpill__lockup-name {
+    transition: none;
+  }
+
+  /* As laterais continuam saindo quando a página rola — é informação (o topo
+     voltou a ser o único destino), não enfeite. O que sai é o trajeto de 300ms:
+     elas somem no instante em que a cápsula troca de largura. */
+  .nav-lateral {
+    transition: none;
+  }
+
+  /* Com movimento reduzido o carrossel para e passa a ser rolável na mão.
+     A segunda cópia some: ela só existe para o laço fechar, e parada ela
+     apareceria repetida ao lado da primeira. */
+  .marquee {
+    overflow-x: auto;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+
+  .marquee__track {
+    animation: none;
+  }
+
+  .marquee__group[aria-hidden="true"] {
+    display: none;
+  }
+}
+}

@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Abertura — o cabeçalho em tamanho real</title>
+<!--
+  MOLDURA DE CONFERÊNCIA — não faz parte do site.
+
+  O painel de pré-visualização renderiza numa largura fixa (~443px), e a 0,3×
+  as cápsulas do cabeçalho saem com 14px de altura — não dá para julgar aresta
+  de meio pixel, espaçamento nem contraste nesse tamanho.
+
+  As quatro primeiras faixas carregam a página compilada num iframe de 1440px de
+  largura (onde as media queries avaliam no layout de desktop) e recortam três
+  fatias de 432px em escala 1:1: a esquerda, o centro e a direita do cabeçalho.
+  O que se vê ali é pixel de verdade, sem redução.
+
+  A quinta faixa é o **estado encolhido**, que nenhuma captura do servidor mostra:
+  o encolhimento depende de onde a página está rolada, e o servidor não sabe
+  disso. Ver `snapshot.py --compacto`.
+
+  A sexta é o **nome revelado ao lado da marca**, que depende do ponteiro em cima
+  da cápsula — e ponteiro não se fotografa. Ver `snapshot.py --hover`.
+
+  O que NÃO se confere aqui: movimento. As faixas do iframe são estáticas, então
+  qualquer animação está parada no estado final. E o **anel de progresso não
+  aparece nas faixas**, porque ele só existe depois da hidratação — depende de
+  medir a cápsula. É o que a sonda do fim desta página verifica: ela desenha o
+  contorno com a função real do projeto (`pillRingPath`) e posiciona o arco e o
+  ponto com a mesma conta do componente, executada pelo navegador de verdade.
+-->
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:#e2e8ec;padding:10px;font:10px/1.4 ui-monospace,monospace;color:#334155}
+  .rotulo{margin:10px 0 3px;text-transform:uppercase;letter-spacing:.1em}
+  .nota{margin:0 0 6px;color:#64748b;text-transform:none;letter-spacing:0;font-size:9.5px;max-width:430px}
+  .faixa{position:relative;width:432px;height:84px;overflow:hidden;background:#F8FAFC;
+         box-shadow:0 1px 2px rgba(0,0,0,.12)}
+  .faixa iframe{position:absolute;top:0;width:1440px;height:1000px;border:0}
+  .esq iframe{left:0}
+  .ctr iframe{left:-504px}
+  .dir iframe{left:-1008px}
+  .todo{width:432px;height:40px}
+  .todo iframe{transform:scale(.3);transform-origin:top left}
+
+  /* ── a sonda do anel ─────────────────────────────────────────────────── */
+  .sonda{background:#F8FAFC;box-shadow:0 1px 2px rgba(0,0,0,.12);padding:10px 8px;width:432px}
+  .linha{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .linha + .linha{margin-top:14px}
+  .cel{position:relative}
+  /* A cápsula de mentira, com o mesmo material do site: fundo claro a 84%,
+     raio 82px. É o fundo contra o qual o arco tem de se sustentar. */
+  .celha{position:absolute;inset:0;border-radius:82px;background:rgba(248,250,252,.84);
+         box-shadow:inset 0 0 10px 0 rgba(15,23,42,.07),0 6px 24px rgba(15,23,42,.06)}
+  .cel svg{position:relative;display:block;overflow:visible}
+  .p{font-size:9px;color:#64748b;text-align:center;margin-top:3px}
+</style>
+</head>
+<body>
+  <p class="rotulo">a barra inteira (1440px reduzido a 0,3×) — posição dos grupos</p>
+  <div class="faixa todo"><iframe src="abertura-rodando.html?v=20261021p" title="Cabeçalho inteiro, reduzido"></iframe></div>
+
+  <p class="rotulo">esquerda — navegação</p>
+  <div class="faixa esq"><iframe src="abertura-rodando.html?v=20261021p" title="Cabeçalho, canto esquerdo"></iframe></div>
+
+  <p class="rotulo">centro — assinatura, cápsula cheia</p>
+  <div class="faixa ctr"><iframe src="abertura-rodando.html?v=20261021p" title="Cabeçalho, centro"></iframe></div>
+
+  <p class="rotulo">direita — contato e CTA</p>
+  <div class="faixa dir"><iframe src="abertura-rodando.html?v=20261021p" title="Cabeçalho, canto direito"></iframe></div>
+
+  <p class="rotulo">centro — assinatura, cápsula encolhida (94px)</p>
+  <p class="nota">O estado que o servidor nunca renderiza. A largura foi forçada
+     em CSS; a marca, o vidro e o espaçamento são os de verdade. É aqui que se vê
+     se o logotipo cabe nos 94px com a mesma folga de 12px que ele já tem em cima
+     e embaixo.</p>
+  <div class="faixa ctr"><iframe src="abertura-compacto.html?v=20261021p" title="Cápsula central encolhida"></iframe></div>
+
+  <p class="rotulo">centro — assinatura, com o ponteiro em cima (a marca e o nome)</p>
+  <p class="nota">O quarto estado do cabeçalho: com o ponteiro na cápsula, o nome
+     escrito entra no vão de vidro à direita da marca. Só a revelação do nome é
+     forçada em CSS — a largura da cápsula não, porque no estado cheio ela já é o
+     padrão do servidor e pairar a cápsula encolhida a devolve justamente a ele.
+     A mesma faixa em <b>prototipo.html</b>, e é lá que a sonda imprime a largura
+     natural do texto ao lado do número da regra: se o texto passar da janela, a
+     última letra corta no hover de verdade.</p>
+  <div class="faixa ctr"><iframe src="abertura-hover.html?v=20261021p" title="Cápsula central com o nome revelado"></iframe></div>
+
+  <p class="rotulo">o protótipo</p>
+  <p class="nota">As mesmas faixas para <code>design/abertura.html</code> moram em
+     <b>prototipo.html</b>, e não aqui: o painel de pré-visualização não rola, e
+     empilhadas neste arquivo elas ficavam abaixo da dobra, sem como conferi-las.
+     Uma moldura por implementação — a comparação é entre as duas.</p>
+
+  <p class="rotulo">sonda — o anel de progresso</p>
+  <p class="nota">Desenho sintético, em navegador de verdade. O contorno é a saída
+     real de <code>pillRingPath()</code> do projeto; o arco e o ponto usam a mesma
+     conta do componente (<code>dasharray = comprimento</code>,
+     <code>dashoffset = comprimento × (1 − progresso)</code>, ponto em
+     <code>getPointAtLength(comprimento × progresso)</code>). Sem o brilho do halo,
+     que é decoração. A cápsula encolhida vem primeiro — é o estado em que o anel
+     existe de verdade.</p>
+  <div class="sonda" id="sonda"></div>
+
+<script>
+/* Os dois contornos, na saída exata de `pillRingPath(largura, altura, 82)`.
+   A altura de 54px é a que a cápsula tem de verdade: 30px do logotipo mais 6px
+   de respiro do link de cada lado, mais 6px de vidro de cada lado. O raio
+   efetivo vira 27px nos dois casos, limitado pela metade da altura — as pontas
+   são semicírculos. */
+const CONTORNOS = [
+  { nome: "encolhida — 94×54", d: "M 47 0 L 67 0 A 27 27 0 0 1 94 27 L 94 27 A 27 27 0 0 1 67 54 L 27 54 A 27 27 0 0 1 0 27 L 0 27 A 27 27 0 0 1 27 0 L 47 0", w: 94, h: 54 },
+  { nome: "cheia — 385×54", d: "M 192.5 0 L 358 0 A 27 27 0 0 1 385 27 L 385 27 A 27 27 0 0 1 358 54 L 27 54 A 27 27 0 0 1 0 27 L 0 27 A 27 27 0 0 1 27 0 L 192.5 0", w: 385, h: 54 },
+];
+const PASSOS = [0, 0.25, 0.5, 0.75, 1];
+
+const SVGS = "http://www.w3.org/2000/svg";
+const alvo = document.getElementById("sonda");
+const comprimentos = [];
+
+for (const contorno of CONTORNOS) {
+  const linha = document.createElement("div");
+  linha.className = "linha";
+
+  for (const progresso of PASSOS) {
+    const cel = document.createElement("div");
+    cel.className = "cel";
+
+    const fundo = document.createElement("div");
+    fundo.className = "celha";
+    cel.appendChild(fundo);
+
+    const svg = document.createElementNS(SVGS, "svg");
+    svg.setAttribute("width", contorno.w);
+    svg.setAttribute("height", contorno.h);
+    svg.setAttribute("viewBox", `0 0 ${contorno.w} ${contorno.h}`);
+    svg.setAttribute("aria-hidden", "true");
+
+    const trilho = document.createElementNS(SVGS, "path");
+    trilho.setAttribute("d", contorno.d);
+    trilho.setAttribute("fill", "none");
+    trilho.setAttribute("stroke", "#0f172a");
+    trilho.setAttribute("stroke-opacity", "0.1");
+    trilho.setAttribute("stroke-width", "1");
+
+    const arco = document.createElementNS(SVGS, "path");
+    arco.setAttribute("d", contorno.d);
+    arco.setAttribute("fill", "none");
+    arco.setAttribute("stroke", "#0f172a");
+    arco.setAttribute("stroke-width", "2");
+    arco.setAttribute("stroke-linecap", "round");
+
+    const ponto = document.createElementNS(SVGS, "circle");
+    ponto.setAttribute("r", "2.75");
+    ponto.setAttribute("fill", "#0f172a");
+
+    svg.append(trilho, arco, ponto);
+    cel.appendChild(svg);
+
+    const etiqueta = document.createElement("div");
+    etiqueta.className = "p";
+    etiqueta.textContent = progresso === 0 ? "0" : String(progresso);
+    cel.appendChild(etiqueta);
+
+    linha.appendChild(cel);
+
+    /* A mesma conta do componente, palavra por palavra. */
+    const total = arco.getTotalLength();
+    arco.style.strokeDasharray = String(total);
+    arco.style.strokeDashoffset = String(total * (1 - progresso));
+
+    const p = arco.getPointAtLength(total * progresso);
+    ponto.setAttribute("cx", String(p.x));
+    ponto.setAttribute("cy", String(p.y));
+
+    comprimentos.push({ nome: contorno.nome, total });
+  }
+
+  alvo.appendChild(linha);
+}
+
+const unicos = [...new Map(comprimentos.map((c) => [c.nome, c.total])).entries()];
+document.querySelector(".nota code").textContent = "pillRingPath()";
+const resumo = document.createElement("p");
+resumo.className = "nota";
+resumo.style.marginTop = "10px";
+resumo.textContent =
+  "perímetros medidos pelo navegador — " +
+  unicos.map(([nome, total]) => `${nome}: ${total.toFixed(1)}px`).join(" · ");
+alvo.appendChild(resumo);
+</script>
+</body>
+</html>

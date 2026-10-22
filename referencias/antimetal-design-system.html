@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Amostras de sistema — Antimetal (referência)</title>
+<style>
+  :root{
+    /* Núcleo declarado na fonte */
+    --color-bg:#d7d7d0;
+    --color-fg:#1a1614;
+    --color-cream:#f4f4e7;
+    --color-card:#fdfcfa;
+    --color-accent:#e2e67d;
+    --color-border:#1a16141a;
+    --color-nav-bg:#cfcfc8bd;
+    /* Camada alt (superfícies claras) */
+    --alt-card-bg:#ffffff;
+    --alt-card-border:#1a16140f;
+    --alt-card-shadow:0 1px 2px rgba(0,0,0,.04);
+    --alt-chip-bg:#f5f5f5;
+    --alt-chip-bg-hover:#eaeaea;
+    --alt-nav-pill-bg:rgba(255,255,255,.75);
+    /* Sub-paleta de módulo (dado) */
+    --mod-orange:#bd4a28;
+    --mod-green:#6e7a34;
+    /* Tinta de ilustração (medida nos pixels) */
+    --ill-ink:#5b7ba6;
+    --ill-ink-2:#7792b6;
+    --ill-paper:#e5e6e1;
+    /* Tipografia: a serif real é "Test Signifier" (build de teste, licenciada).
+       Aqui cai no fallback que o próprio sistema declara. */
+    --font-sans:"Geist",ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+    --font-serif:"Test Signifier","Noto Serif",Georgia,serif;
+    --font-mono:"Geist Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+    --spacing:.25rem;
+  }
+  *,*::before,*::after{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%;scrollbar-gutter:stable}
+  body{
+    margin:0;background:var(--color-bg);color:var(--color-fg);
+    font-family:var(--font-sans);
+    font-size:clamp(1.25rem,.8333rem + 1.0417vw,1.5rem);
+    line-height:1.2;
+    -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+  }
+  h1,h2,h3,p,ul,li,figure{margin:0}
+  ul{list-style:none;padding:0}
+
+  /* ---- utilitários de tipo, valores literais do sistema ---- */
+  .text-heading{font-family:var(--font-serif);font-weight:400;letter-spacing:-.037em;
+    font-size:clamp(2.5rem,1.0417rem + 3.6458vw,3.375rem);line-height:1.1}
+  .text-subhead{font-family:var(--font-serif);font-weight:400;letter-spacing:-.021em;
+    font-size:clamp(2.125rem,.6667rem + 3.6458vw,3rem);line-height:1.1}
+  .text-pullquote{font-family:var(--font-serif);font-weight:400;
+    font-size:clamp(1.75rem,.9167rem + 2.0833vw,2.25rem);line-height:1.1}
+  .text-body{font-family:var(--font-serif);font-weight:400;
+    font-size:clamp(1.25rem,.8333rem + 1.0417vw,1.5rem);line-height:1.2}
+  .text-body-sans{font-family:var(--font-sans);font-weight:400;
+    font-size:clamp(1.0625rem,.75rem + .7813vw,1.25rem);line-height:1.5}
+  .text-credit{font-family:var(--font-sans);font-size:clamp(1rem,.7917rem + .5208vw,1.125rem);line-height:1.5}
+  .text-caption{font-family:var(--font-sans);font-size:.875rem;line-height:1.5}
+  .text-button{font-family:var(--font-sans);font-size:.875rem;font-weight:500;line-height:1.5}
+  .text-eyebrow{font-family:var(--font-mono);font-size:.625rem;letter-spacing:.1em;
+    text-transform:uppercase;line-height:normal}
+  .text-meta{font-family:var(--font-sans);font-size:.625rem;letter-spacing:.1em;
+    text-transform:uppercase;line-height:normal}
+
+  /* ---- layout ---- */
+  .wrap{max-width:1512px;margin-inline:auto;padding-inline:clamp(24px,4vw,120px)}
+  section{padding-block:clamp(48px,6vw,80px)}
+  .rule{border:0;border-top:1px dashed var(--color-border);margin:0}
+  .label-row{display:flex;align-items:center;gap:2rem;color:color-mix(in oklab,var(--color-fg) 60%,transparent)}
+  .dot{width:2px;height:2px;border-radius:50%;background:color-mix(in oklab,var(--color-fg) 20%,transparent);display:block;flex:none}
+
+  /* ---- pílula com marcas de registro ---- */
+  .pill{
+    position:relative;display:inline-flex;align-items:center;justify-content:center;
+    white-space:nowrap;border-radius:9999px;border:1px dashed var(--color-border);
+    padding:12.5px 16.5px;cursor:pointer;color:var(--color-fg);
+    background:transparent;transition:background-color 200ms cubic-bezier(.4,0,.2,1);
+  }
+  .pill:hover{background:rgba(255,255,255,.2)}
+  .pill:focus-visible{background:var(--color-fg);color:var(--color-cream);outline:none}
+  .tick{position:absolute;pointer-events:none;line-height:0}
+  .tick.tl{top:-1px;left:-1px}.tick.tr{top:-1px;right:-1px}
+  .tick.bl{bottom:-1px;left:-1px}.tick.br{bottom:-1px;right:-1px}
+  .tick path{stroke:currentColor;stroke-width:1.5;stroke-linecap:butt;stroke-linejoin:miter;fill:none}
+
+  /* ---- card editorial ---- */
+  .card{display:flex;flex-direction:column;max-width:418px;width:100%;text-decoration:none;
+    color:inherit;transition:background-color 300ms cubic-bezier(.4,0,.2,1)}
+  .card:hover{background:rgba(255,255,255,.16)}
+  .card figure{aspect-ratio:500/300;overflow:hidden;margin:0}
+  .card figure svg{width:100%;height:100%;display:block}
+  .card-body{border:1px dashed var(--color-border);border-top:0;padding:1.5rem;
+    display:flex;flex-direction:column;gap:1.5rem;flex:1}
+  .avatar{width:24px;height:24px;border-radius:50%;overflow:hidden;flex:none;display:block}
+
+  /* ---- navegação ---- */
+  .nav{width:min(385px,100vw - 32px);margin-inline:auto;background:var(--color-nav-bg);
+    border:1px dashed var(--color-border);border-radius:9999px;
+    backdrop-filter:blur(3.6px) saturate(142%) brightness(102%);
+    -webkit-backdrop-filter:blur(3.6px) saturate(142%) brightness(102%);
+    display:flex;align-items:center;justify-content:center;gap:1.5rem;padding:12px 20px}
+
+  /* ---- amostras ---- */
+  .grid{display:grid;gap:1.5rem}
+  .cols-2{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+  .cols-3{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+  .swatch{border:1px solid var(--color-border);background:var(--color-card)}
+  .swatch .chip{height:88px;display:block}
+  .swatch .info{padding:.75rem 1rem;border-top:1px dashed var(--color-border)}
+  table{width:100%;border-collapse:collapse;font-size:.875rem;line-height:1.5}
+  th,td{text-align:left;padding:.6rem .5rem;border-bottom:1px dashed var(--color-border);vertical-align:top}
+  th{font-weight:500}
+  code{font-family:var(--font-mono);font-size:.9em;background:rgba(255,255,255,.4);padding:1px 4px}
+  .muted{color:color-mix(in oklab,var(--color-fg) 70%,transparent)}
+  .pass{color:#2a6e2a;font-weight:500}
+  .fail{color:#bd4a28;font-weight:500}
+
+  /* ---- acordeão ---- */
+  details{border-bottom:1px dashed var(--color-border)}
+  details summary{cursor:pointer;padding:1.5rem 1.25rem;display:flex;justify-content:space-between;
+    align-items:center;gap:1.5rem;list-style:none}
+  details summary::-webkit-details-marker{display:none}
+  details summary:focus-visible{outline:1px solid var(--color-fg);outline-offset:-2px}
+  .plus{position:relative;width:12px;height:12px;flex:none}
+  .plus i{position:absolute;background:currentColor;display:block}
+  .plus .h{left:0;top:50%;width:100%;height:1px;transform:translateY(-50%)}
+  .plus .v{left:50%;top:0;width:1px;height:100%;transform:translateX(-50%);
+    transition:transform 300ms cubic-bezier(0,0,.2,1)}
+  details[open] .plus .v{transform:translateX(-50%) scaleY(0)}
+  .faq-body{padding:0 1.25rem 1.75rem;display:flex;flex-direction:column;gap:1rem;
+    max-width:70ch;color:color-mix(in oklab,var(--color-fg) 74%,transparent)}
+  footer{padding-block:80px}
+  .dark{background:#0d1418;color:var(--color-cream)}
+  .accent{color:var(--color-accent)}
+  .sketch{background:var(--ill-paper)}
+  .sketch rect,.sketch line,.sketch path{stroke:var(--ill-ink);fill:none;stroke-width:1.2;
+    stroke-dasharray:3 3;vector-effect:non-scaling-stroke}
+  .sketch .solid{stroke-dasharray:none}
+  .sketch .node{fill:var(--ill-ink);stroke:none}
+</style>
+</head>
+<body>
+
+<div class="wrap" style="padding-top:48px">
+  <div class="nav">
+    <span class="text-caption">Product</span>
+    <span class="text-caption muted">Docs</span>
+    <span class="text-caption muted">Blog</span>
+    <span class="text-caption muted">Careers</span>
+  </div>
+</div>
+
+<section class="wrap">
+  <div class="label-row"><span class="text-eyebrow">00</span><span class="dot"></span><span class="text-eyebrow">Folha de amostras</span></div>
+  <h1 class="text-heading" style="margin-top:1.5rem;max-width:22ch">Sistema de design, valores reais.</h1>
+  <p class="text-body muted" style="margin-top:2rem;max-width:60ch">Tudo nesta página usa os tokens extraídos do CSS da antimetal.com. A serif verdadeira é a <em>Test Signifier</em>, que é build de teste licenciada e por isso não está embutida aqui — o navegador cai no fallback que o próprio sistema declara (Noto Serif / Georgia). O resto é idêntico à fonte.</p>
+
+  <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-top:2.5rem">
+    <button class="pill text-button">View All
+      <span class="tick tl" aria-hidden="true"><svg width="7" height="7" viewBox="0 0 10 10" overflow="visible"><path d="M 1.25 10 L 1.25 1.25 L 10 1.25"/></svg></span>
+      <span class="tick tr" aria-hidden="true"><svg width="7" height="7" viewBox="0 0 10 10" overflow="visible"><path d="M 0 1.25 L 8.75 1.25 L 8.75 10"/></svg></span>
+      <span class="tick bl" aria-hidden="true"><svg width="7" height="7" viewBox="0 0 10 10" overflow="visible"><path d="M 1.25 0 L 1.25 8.75 L 10 8.75"/></svg></span>
+      <span class="tick br" aria-hidden="true"><svg width="7" height="7" viewBox="0 0 10 10" overflow="visible"><path d="M 0 8.75 L 8.75 8.75 L 8.75 0"/></svg></span>
+    </button>
+    <button class="pill text-button">Book a demo
+      <span class="tick tl" aria-hidden="true"><svg width="7" height="7" viewBox="0 0 10 10" overflow="visible"><path d="M 1.25 10 L 1.25 1.25 L 10 1.25"/></svg></span>
+      <span class="tick br" aria-hidden="true"><svg width="7" height="7" viewBox="0 0 10 10" overflow="visible"><path d="M 0 8.75 L 8.75 8.75 L 8.75 0"/></svg></span>
+    </button>
+  </div>
+</section>
+
+<hr class="rule">
+
+<section class="wrap">
+  <div class="label-row"><span class="text-eyebrow">01</span><span class="dot"></span><span class="text-eyebrow">Cor</span></div>
+  <h2 class="text-subhead" style="margin-top:1rem">Cinco valores e um acento.</h2>
+
+  <div class="grid cols-3" style="margin-top:2rem">
+    <div class="swatch"><span class="chip" style="background:#d7d7d0"></span><div class="info"><div class="text-caption"><code>--color-bg</code> · #d7d7d0</div><div class="text-caption muted">Fundo. Cinza-esverdeado quente.</div></div></div>
+    <div class="swatch"><span class="chip" style="background:#1a1614"></span><div class="info"><div class="text-caption"><code>--color-fg</code> · #1a1614</div><div class="text-caption muted">Texto e traços. Marrom-preto.</div></div></div>
+    <div class="swatch"><span class="chip" style="background:#f4f4e7"></span><div class="info"><div class="text-caption"><code>--color-cream</code> · #f4f4e7</div><div class="text-caption muted">Superfície clara e texto sobre fg.</div></div></div>
+    <div class="swatch"><span class="chip" style="background:#fdfcfa"></span><div class="info"><div class="text-caption"><code>--color-card</code> · #fdfcfa</div><div class="text-caption muted">Superfície de card.</div></div></div>
+    <div class="swatch"><span class="chip" style="background:#e2e67d"></span><div class="info"><div class="text-caption"><code>--color-accent</code> · #e2e67d</div><div class="text-caption muted">Acento ácido. Só sobre o escuro.</div></div></div>
+    <div class="swatch"><span class="chip" style="background:linear-gradient(90deg,#1a16141a 0 33%,#1a16140f 33% 66%,#cfcfc8bd 66% 100%)"></span><div class="info"><div class="text-caption"><code>--color-border</code> · #1a16141a · <code>--color-nav-bg</code> · #cfcfc8bd</div><div class="text-caption muted">Borda = fg a 10%. Nav = 74%.</div></div></div>
+  </div>
+
+  <div class="grid cols-2" style="margin-top:1.5rem">
+    <div class="swatch">
+      <div class="info" style="border-top:0;padding:1rem">
+        <div class="text-eyebrow muted">Camada alt · superfícies claras</div>
+        <div class="text-caption" style="margin-top:.5rem">
+          <code>--alt-card-bg</code> white · <code>--alt-card-border</code> rgba(26,22,20,.06) ·
+          <code>--alt-card-shadow</code> 0 1px 2px rgba(0,0,0,.04) · <code>--alt-chip-bg</code> #F5F5F5 ·
+          <code>--alt-chip-bg-hover</code> #EAEAEA · <code>--alt-nav-pill-bg</code> rgba(255,255,255,.75) ·
+          <code>--alt-prompt-bg</code> rgba(255,255,255,.8) · <code>--alt-row-bg</code> #FAFAFA
+        </div>
+        <div class="text-caption muted" style="margin-top:.5rem">A única sombra do sistema está aqui.</div>
+      </div>
+    </div>
+    <div class="swatch">
+      <div class="info" style="border-top:0;padding:1rem">
+        <div class="text-eyebrow muted">Sub-paleta de módulo · dado</div>
+        <div style="display:flex;gap:8px;margin-top:.75rem">
+          <span style="width:44px;height:44px;background:#bd4a28;display:block"></span>
+          <span style="width:44px;height:44px;background:#6e7a34;display:block"></span>
+          <span style="width:44px;height:44px;background:#0d1418;display:block"></span>
+          <span style="width:44px;height:44px;background:#e5e6e1;border:1px solid #1a16141a;display:block"></span>
+        </div>
+        <div class="text-caption" style="margin-top:.5rem">Terracota #bd4a28 e oliva #6e7a34 (gráfico) · <code>#0d1418</code> (painel de mídia, uso único) · tinta de ilustração medida: <span style="color:#5b7ba6">#567095</span> / <span style="color:#7792b6">#7792b6</span> sobre papel #e5e6e1.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="dark" style="margin-top:1.5rem;border:1px dashed rgba(244,244,231,.12);padding:1.5rem">
+    <div class="text-eyebrow" style="color:rgba(244,244,231,.6)">Tema escuro por classe · <code style="background:rgba(255,255,255,.1)">.dark</code> · inversão exata dos tokens</div>
+    <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-top:1rem;align-items:center">
+      <span style="width:44px;height:44px;background:#1a1614;display:block;border:1px solid rgba(244,244,231,.12)"></span>
+      <span style="width:44px;height:44px;background:#211c19;display:block;border:1px solid rgba(244,244,231,.12)"></span>
+      <span style="width:44px;height:44px;background:#f4f4e7;display:block"></span>
+      <span style="width:44px;height:44px;background:#e2e67d;display:block"></span>
+      <span class="text-caption" style="color:rgba(244,244,231,.7)">bg #1a1614 · card #211c19 · fg #f4f4e7 · <span class="accent">accent #e2e67d → 13,56:1 aqui</span></span>
+    </div>
+    <div class="text-caption" style="color:rgba(244,244,231,.55);margin-top:.75rem">A classe .dark não é acionada por prefers-color-scheme (zero ocorrências no CSS) nem por variante dark: do Tailwind (zero), e não aparece no HTML da home capturada.</div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<section class="wrap">
+  <div class="label-row"><span class="text-eyebrow">02</span><span class="dot"></span><span class="text-eyebrow">Tipografia</span></div>
+  <h2 class="text-subhead" style="margin-top:1rem">Voz e ferramenta.</h2>
+  <p class="text-body-sans muted" style="margin-top:1rem;max-width:60ch">A serif carrega a voz (tracking negativo, entrelinha curta, corpo grande). A sans carrega a ferramenta (tracking zero, entrelinha 1.5, corpo menor). O mono existe só para rótulos minúsculos.</p>
+
+  <div style="display:grid;gap:2.5rem;margin-top:2.5rem">
+    <div>
+      <div class="text-eyebrow muted">.text-heading · serif · -0.037em · clamp(40px → 54px) · lh 1.1</div>
+      <div class="text-heading" style="margin-top:.5rem">Production that runs itself.</div>
+    </div>
+    <div>
+      <div class="text-eyebrow muted">.text-subhead · serif · -0.021em · clamp(34px → 48px) · lh 1.1</div>
+      <div class="text-subhead" style="margin-top:.5rem">From the research log.</div>
+    </div>
+    <div>
+      <div class="text-eyebrow muted">.text-pullquote · serif · 0 · clamp(28px → 36px) · lh 1.1</div>
+      <div class="text-pullquote" style="margin-top:.5rem">We used Antimetal to resolve 76% of our production errors in one day.</div>
+    </div>
+    <div>
+      <div class="text-eyebrow muted">.text-body · serif · 0 · clamp(20px → 24px) · lh 1.2</div>
+      <div class="text-body" style="margin-top:.5rem;max-width:46ch">Compressing production telemetry for agents. How we fit 10 to 100x more telemetry into the same context window.</div>
+    </div>
+    <div>
+      <div class="text-eyebrow muted">.text-body-sans · sans · 0 · clamp(17px → 20px) · lh 1.5</div>
+      <div class="text-body-sans muted" style="margin-top:.5rem;max-width:64ch">Antimetal is the autonomous system for production. Continuously understanding, operating, and improving your environment.</div>
+    </div>
+    <div>
+      <div class="text-eyebrow muted">.text-caption · sans · 14px · lh 1.5 &nbsp;|&nbsp; .text-button · sans · 14px/500 &nbsp;|&nbsp; .text-credit · sans · clamp(16px → 18px)</div>
+      <div class="text-caption muted" style="margin-top:.5rem">Legenda de card e resumo. <span class="text-button">Rótulo de botão.</span> <span class="text-credit">Crédito de autor.</span></div>
+    </div>
+    <div>
+      <div class="text-eyebrow muted">.text-eyebrow · mono 10px · +0.1em · uppercase</div>
+      <div class="label-row" style="margin-top:.75rem"><span class="text-eyebrow">06</span><span class="dot"></span><span class="text-eyebrow">Stay up to date</span></div>
+      <div class="label-row" style="margin-top:.5rem"><span class="text-eyebrow">Research</span><span class="dot"></span><span class="text-eyebrow">08/03/2026</span></div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<section class="wrap">
+  <div class="label-row"><span class="text-eyebrow">03</span><span class="dot"></span><span class="text-eyebrow">Contraste medido</span></div>
+  <h2 class="text-subhead" style="margin-top:1rem">O que passa e o que não passa.</h2>
+  <p class="text-body-sans muted" style="margin-top:1rem;max-width:70ch">Calculado com a fórmula de luminância relativa da WCAG 2.2 sobre os valores reais. A regra prática que sai daí: texto com opacidade de fg nunca abaixo de 70%.</p>
+
+  <table style="margin-top:2rem">
+    <thead><tr><th>Combinação</th><th>Razão</th><th>AA normal (4,5:1)</th><th>Onde aparece</th></tr></thead>
+    <tbody>
+      <tr><td>fg #1a1614 sobre bg #d7d7d0</td><td>12,42:1</td><td class="pass">passa</td><td>Toda a página</td></tr>
+      <tr><td>cream #f4f4e7 sobre fg</td><td>16,21:1</td><td class="pass">passa</td><td>Painéis escuros, foco invertido</td></tr>
+      <tr><td>card #fdfcfa sobre fg</td><td>17,52:1</td><td class="pass">passa</td><td>Superfícies claras</td></tr>
+      <tr><td>accent #e2e67d sobre fg</td><td>13,56:1</td><td class="pass">passa</td><td>Destaque sobre o escuro</td></tr>
+      <tr><td>accent sobre bg</td><td>1,09:1</td><td class="fail">falha</td><td>— (por isso o acento só existe no escuro)</td></tr>
+      <tr><td>fg/70 sobre bg</td><td>5,54:1</td><td class="pass">passa</td><td>Texto secundário</td></tr>
+      <tr><td>fg/60 sobre bg</td><td>4,13:1</td><td class="fail">falha</td><td>Resumo de card e eyebrow de 10px</td></tr>
+      <tr><td>fg/45 sobre bg</td><td>2,73:1</td><td class="fail">falha</td><td>Placeholder de campo</td></tr>
+      <tr><td>fg/35 sobre bg</td><td>2,12:1</td><td class="fail">falha</td><td>Ornamento, texto inativo</td></tr>
+    </tbody>
+  </table>
+
+  <div class="text-caption muted" style="margin-top:1rem">Placeholder ao vivo, para comparar o olho com o número:
+    <span style="color:color-mix(in oklab,#1a1614 35%,transparent)">fg/35</span> ·
+    <span style="color:color-mix(in oklab,#1a1614 45%,transparent)">fg/45</span> ·
+    <span style="color:color-mix(in oklab,#1a1614 60%,transparent)">fg/60 (falha)</span> ·
+    <span style="color:color-mix(in oklab,#1a1614 70%,transparent)">fg/70 (passa)</span>
+  </div>
+</section>
+
+<hr class="rule">
+
+<section class="wrap">
+  <div class="label-row"><span class="text-eyebrow">04</span><span class="dot"></span><span class="text-eyebrow">Formas e movimento</span></div>
+  <h2 class="text-subhead" style="margin-top:1rem">Sem sombra, com traço.</h2>
+
+  <div class="grid cols-3" style="margin-top:2rem">
+    <div>
+      <div class="text-eyebrow muted">Raios</div>
+      <div class="text-caption" style="margin-top:.75rem">Blocos com canto vivo. Raio só em cápsula interativa:</div>
+      <div style="display:flex;gap:.75rem;margin-top:.75rem;align-items:flex-end">
+        <span style="width:56px;height:40px;border:1px solid var(--color-border);background:var(--color-card)"></span>
+        <span style="width:56px;height:40px;border:1px solid var(--color-border);border-radius:9999px;background:var(--color-card)"></span>
+        <span style="width:24px;height:24px;border-radius:50%;background:var(--color-fg)"></span>
+      </div>
+    </div>
+    <div>
+      <div class="text-eyebrow muted">Bordas</div>
+      <div class="text-caption" style="margin-top:.75rem">Hairline de 1px, sólida para conteúdo e tracejada para estrutura:</div>
+      <div style="height:40px;border:1px solid var(--color-border);background:var(--color-card);margin-top:.75rem"></div>
+      <div style="height:40px;border:1px dashed var(--color-border);margin-top:.5rem"></div>
+    </div>
+    <div>
+      <div class="text-eyebrow muted">Reveal de seção</div>
+      <div class="text-caption" style="margin-top:.75rem">opacity 0→1 + translateY 12px · 700ms · cubic-bezier(.22, 1, .36, 1). Clique para repetir:</div>
+      <button class="pill text-button" style="margin-top:.75rem" id="replay">Replay</button>
+      <div id="demo-reveal" class="text-body-sans" style="margin-top:.75rem">Entrada de conteúdo.</div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<section class="wrap">
+  <div class="label-row"><span class="text-eyebrow">05</span><span class="dot"></span><span class="text-eyebrow">Componentes</span></div>
+
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:2rem;flex-wrap:wrap;margin-top:1.5rem">
+    <h2 class="text-subhead">From the research log.</h2>
+    <button class="pill text-button">View All
+      <span class="tick tl" aria-hidden="true"><svg width="7" height="7" viewBox="0 0 10 10" overflow="visible"><path d="M 1.25 10 L 1.25 1.25 L 10 1.25"/></svg></span>
+      <span class="tick br" aria-hidden="true"><svg width="7" height="7" viewBox="0 0 10 10" overflow="visible"><path d="M 0 8.75 L 8.75 8.75 L 8.75 0"/></svg></span>
+    </button>
+  </div>
+
+  <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:10px;margin-top:2rem">
+    <a class="card" href="#">
+      <figure class="sketch">
+        <svg viewBox="0 0 500 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <line class="solid" x1="0" y1="150" x2="500" y2="150"/><line class="solid" x1="0" y1="170" x2="500" y2="170"/>
+          <path class="solid" d="M0 160 C 160 160, 240 60, 500 60"/><path class="solid" d="M0 160 C 160 160, 240 240, 500 240"/>
+          <line x1="120" y1="40" x2="120" y2="270"/><line x1="170" y1="40" x2="170" y2="270"/>
+          <line x1="120" y1="90" x2="170" y2="90"/><line x1="120" y1="230" x2="170" y2="230"/>
+          <rect x="330" y="220" width="60" height="34"/><rect x="60" y="30" width="40" height="24"/>
+          <circle class="node" cx="130" cy="150" r="3"/><circle class="node" cx="300" cy="120" r="3"/>
+          <rect class="node" x="60" y="80" width="5" height="5"/><rect class="node" x="30" y="52" width="5" height="5"/>
+        </svg>
+      </figure>
+      <div class="card-body">
+        <div style="display:flex;flex-direction:column;gap:1rem">
+          <div class="label-row"><span class="text-eyebrow muted">Research</span><span class="dot"></span><span class="text-eyebrow muted">08/03/2026</span></div>
+          <h3 class="text-body">Compressing production telemetry for agents</h3>
+        </div>
+        <p class="text-caption" style="color:color-mix(in oklab,#1a1614 60%,transparent)">How we fit 10 to 100x more telemetry into the same context window, and why that changes what agents can debug.</p>
+        <div style="margin-top:auto;display:flex;align-items:center;gap:1rem;padding-top:.5rem">
+          <span class="avatar" style="background:#c9c6bb"></span>
+          <span class="text-caption muted">Thibaud Roy</span>
+        </div>
+      </div>
+    </a>
+
+    <div style="max-width:418px;width:100%">
+      <div class="dark" style="aspect-ratio:500/300;display:flex;align-items:center;justify-content:center;padding:1.5rem">
+        <div class="text-caption">Painel escuro <span class="accent">#0d1418 + acento #e2e67d</span></div>
+      </div>
+      <div class="card-body">
+        <div class="text-eyebrow muted">Contexto do acento</div>
+        <p class="text-body">O lime só aparece sobre o escuro — 13,56:1 sobre o ink, 1,09:1 sobre o papel.</p>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:3rem;border-top:1px dashed var(--color-border)">
+    <details open>
+      <summary><span class="text-body">Why isn't a coding agent enough?</span><span class="plus" aria-hidden="true"><i class="h"></i><i class="v"></i></span></summary>
+      <div class="faq-body text-body-sans">
+        <p>Coding agents are good at generating code. Operating production is different: it requires continuous understanding of a live system.</p>
+        <p>Padrão de acessibilidade do sistema: <code>button</code> com <code>aria-expanded</code> e <code>aria-controls</code>, painel com <code>role="region"</code> e <code>aria-labelledby</code>. Anima <code>grid-template-rows: 0fr → 1fr</code> em 300ms, nunca a altura.</p>
+      </div>
+    </details>
+    <details>
+      <summary><span class="text-body">What can Antimetal do autonomously?</span><span class="plus" aria-hidden="true"><i class="h"></i><i class="v"></i></span></summary>
+      <div class="faq-body text-body-sans">
+        <p>Investigate incidents, trace failures, propose fixes, open pull requests.</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<hr class="rule">
+<footer class="wrap">
+  <p class="text-caption muted">Documento de referência do projeto Plaswill. Os valores vêm da antimetal.com (home) e servem de estudo de direção — não de identidade a copiar.</p>
+</footer>
+
+<script>
+  // Reveal de seção, com os valores literais: 700ms cubic-bezier(.22,1,.36,1), 12px
+  const el = document.getElementById('demo-reveal');
+  const ease = 'cubic-bezier(0.22, 1, 0.36, 1)';
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function play(){
+    if (reduce) { el.style.opacity = 1; el.style.transform = 'none'; return; }
+    el.style.transition = 'none';
+    el.style.opacity = 0;
+    el.style.transform = 'translate3d(0,12px,0)';
+    el.style.willChange = 'opacity, transform';
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      el.style.transition = 'opacity 700ms ' + ease + ', transform 700ms ' + ease;
+      el.style.opacity = 1;
+      el.style.transform = 'translate3d(0,0,0)';
+    }));
+  }
+  document.getElementById('replay').addEventListener('click', play);
+  play();
+</script>
+</body>
+</html>

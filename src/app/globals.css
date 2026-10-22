@@ -1,0 +1,1783 @@
+/* ==========================================================================
+   PLASWILL — camada de tokens e base
+   --------------------------------------------------------------------------
+   Mecânica herdada do sistema de referência (ver referencias/antimetal-design-system.md):
+   · fundo que não é branco, com cards mais claros que o fundo
+   · voz editorial (serif) para títulos + ferramenta (sans) para interface
+   · micro-rótulo mono com tracking largo para dado técnico
+   · hierarquia por hairline tracejada e canto vivo, não por sombra e raio
+   · um único acento, reservado ao fundo escuro
+   Cores institucionais do dossiê: #09506A · #FFDE00 · #1E293B/#0F172A · #F1F5F9/#F8FAFC
+   ========================================================================== */
+
+:root {
+  /* --- Cor institucional (dossiê §9.1) --------------------------------- */
+  --petrol: #09506a;        /* azul petróleo primário */
+  --yellow: #ffde00;        /* amarelo industrial — acento */
+  --yellow-strong: #facc15;
+  --slate: #0f172a;
+  --slate-2: #1e293b;
+  --ice: #f1f5f9;
+  --ice-2: #f8fafc;
+
+  /* --- Papéis de superfície ------------------------------------------- */
+  /* Fundo derivado de #F1F5F9, um passo mais fundo para o card (#FFF)
+     destacar sem precisar de sombra. Alternativa literal do dossiê: #f1f5f9 */
+  --bg: #edf1f3;
+  --surface: #ffffff;
+  --surface-2: var(--ice-2);
+  --draft: #f8fafc;        /* papel de desenho dos diagramas técnicos */
+
+  /* --- Texto ---------------------------------------------------------- */
+  --fg: var(--slate);
+  --fg-2: var(--slate-2);
+  /* Piso medido: 70% de fg sobre --bg ainda entrega 6,7:1.
+     Abaixo disso é ornamento, nunca texto. */
+  --muted: color-mix(in oklab, var(--fg) 72%, transparent);
+  --tertiary: color-mix(in oklab, var(--fg) 66%, transparent);
+  --faint: color-mix(in oklab, var(--fg) 45%, transparent); /* ornamento */
+
+  /* --- Traço ---------------------------------------------------------- */
+  --line: color-mix(in oklab, var(--fg) 18%, transparent);       /* estrutura */
+  --line-dash: color-mix(in oklab, var(--fg) 26%, transparent);  /* tracejado */
+  --line-strong: color-mix(in oklab, var(--fg) 55%, transparent); /* limite de componente interativo */
+  --line-draft: color-mix(in oklab, var(--petrol) 30%, transparent);
+
+  /* --- Acento (só sobre fundo escuro) --------------------------------- */
+  --accent: var(--yellow);
+  --accent-ink: var(--slate);          /* texto sobre amarelo: 13,35:1 */
+  --band: var(--petrol);               /* fundo escuro com a marca */
+  --band-ink: var(--ice);              /* texto sobre petrol: 8,10:1 */
+  --band-muted: color-mix(in oklab, var(--band-ink) 80%, transparent); /* 5,8:1 */
+
+  /* --- Vidro ---------------------------------------------------------- */
+  --glass: color-mix(in oklab, var(--surface) 74%, transparent);
+  --glass-blur: blur(12px) saturate(140%);
+
+  /* --- Espaço e forma ------------------------------------------------- */
+  --space: 0.25rem;
+  --container: 1512px;
+  --gutter: clamp(1.5rem, 7.6vw, 7.5rem); /* 24px → 120px */
+  --section-y: clamp(4rem, 7vw, 7.5rem);  /* 64px → 120px */
+  --radius-pill: 9999px;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-ui: cubic-bezier(0.4, 0, 0.2, 1);
+  --dur-reveal: 700ms;
+  --dur-ui: 200ms;
+}
+
+/* ==========================================================================
+   Reset e base
+   ========================================================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+  scroll-padding-top: 6rem;
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  font-size: clamp(1rem, 0.97rem + 0.2vw, 1.0625rem);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "kern" 1;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-size: inherit;
+  font-weight: inherit;
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+  letter-spacing: inherit;
+  background: none;
+  border: 0;
+  border-radius: 0;
+}
+
+img,
+svg,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+ul,
+ol {
+  list-style: none;
+  padding: 0;
+}
+
+::selection {
+  background: var(--yellow);
+  color: var(--slate);
+}
+
+/* Foco: o sistema inverte o controle em vez de desenhar outline.
+   Mantido aqui porque é inequívoco em botão e link, e porque o anel de 1px
+   garante visibilidade em qualquer fundo. */
+:focus-visible {
+  outline: 1px solid var(--line-strong);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ==========================================================================
+   Tipografia — voz, ferramenta e micro-rótulo
+   ========================================================================== */
+
+/* Voz: títulos em serif de display, tracking negativo, entrelinha curta. */
+.t-display {
+  font-family: var(--font-display), Georgia, serif;
+  font-weight: 400;
+  font-size: clamp(2.5rem, 1.05rem + 4.2vw, 4.25rem);
+  line-height: 1.04;
+  letter-spacing: -0.028em;
+}
+
+.t-heading {
+  font-family: var(--font-display), Georgia, serif;
+  font-weight: 400;
+  font-size: clamp(1.875rem, 1.1rem + 2.5vw, 3rem);
+  line-height: 1.08;
+  letter-spacing: -0.022em;
+}
+
+.t-subhead {
+  font-family: var(--font-display), Georgia, serif;
+  font-weight: 400;
+  font-size: clamp(1.375rem, 1.1rem + 0.9vw, 1.75rem);
+  line-height: 1.2;
+  letter-spacing: -0.016em;
+}
+
+/* Ferramenta: interface e leitura em sans, tracking zero, entrelinha 1.65. */
+.t-lead {
+  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  font-size: clamp(1.0625rem, 0.98rem + 0.45vw, 1.3125rem);
+  line-height: 1.55;
+}
+
+.t-body {
+  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  font-size: clamp(1rem, 0.97rem + 0.2vw, 1.0625rem);
+  line-height: 1.65;
+}
+
+.t-small {
+  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  font-size: 0.9375rem;
+  line-height: 1.55;
+}
+
+.t-caption {
+  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+}
+
+.t-button {
+  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+/* Micro-rótulo: mono, caixa alta, tracking largo. Reservado para dado
+   técnico e numeração de seção — não para enfeitar card. */
+.t-eyebrow {
+  font-family: var(--font-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  line-height: 1.2;
+}
+
+/* Ficha técnica: mono com algarismos tabulares, para micragem e medida. */
+.t-spec {
+  font-family: var(--font-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.8125rem;
+  letter-spacing: 0.01em;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.45;
+}
+
+.t-code {
+  font-family: var(--font-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.c-muted {
+  color: var(--muted);
+}
+.c-tertiary {
+  color: var(--tertiary);
+}
+.c-petrol {
+  color: var(--petrol);
+}
+.c-accent {
+  color: var(--accent);
+}
+
+/* ==========================================================================
+   Layout
+   ========================================================================== */
+
+.wrap {
+  width: 100%;
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.section {
+  padding-block: var(--section-y);
+}
+
+.rule {
+  border: 0;
+  border-top: 1px dashed var(--line-dash);
+  margin: 0;
+}
+
+.eyebrow-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--muted);
+}
+
+.eyebrow-row .node {
+  width: 3px;
+  height: 3px;
+  background: var(--line-strong);
+  flex: none;
+}
+
+.section-head {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.section-head-grid {
+  display: grid;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+@media (min-width: 48rem) {
+  .section-head {
+    gap: 2rem;
+  }
+}
+
+/* ==========================================================================
+   Assinatura: marcas de registro de canto
+   --------------------------------------------------------------------------
+   Desenho próprio da Plaswill: quadrado sólido na quina + dois fios que
+   saem ao longo das bordas deixando um vão em volta do nó. Lê como marca
+   de corte e de dobra de chapa, não como o "L" de outra marca.
+   ========================================================================== */
+
+.mark {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  pointer-events: none;
+  color: currentColor;
+  opacity: 0.5;
+  transition: opacity var(--dur-ui) var(--ease-ui);
+}
+
+.mark-tl {
+  top: -1px;
+  left: -1px;
+}
+.mark-tr {
+  top: -1px;
+  right: -1px;
+}
+.mark-bl {
+  bottom: -1px;
+  left: -1px;
+}
+.mark-br {
+  bottom: -1px;
+  right: -1px;
+}
+
+.mark line,
+.mark rect {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1;
+  shape-rendering: crispEdges;
+}
+
+.mark rect {
+  fill: currentColor;
+  stroke: none;
+}
+
+/* ==========================================================================
+   Botões
+   ========================================================================== */
+
+.pill {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.78125rem 1.03125rem; /* 12,5px / 16,5px */
+  border: 1px dashed var(--line-dash);
+  border-radius: var(--radius-pill);
+  white-space: nowrap;
+  cursor: pointer;
+  color: var(--fg);
+  transition:
+    background-color var(--dur-ui) var(--ease-ui),
+    border-color var(--dur-ui) var(--ease-ui),
+    color var(--dur-ui) var(--ease-ui);
+}
+
+.pill:hover {
+  background: color-mix(in oklab, var(--surface) 55%, transparent);
+  border-color: var(--line-strong);
+}
+
+.pill:hover .mark {
+  opacity: 1;
+}
+
+.pill:focus-visible {
+  background: var(--fg);
+  color: var(--ice);
+  outline-color: var(--fg);
+}
+
+/* Ação primária: amarelo institucional com tinta escura por cima — 13,35:1.
+   O amarelo nunca é usado como texto sobre fundo claro (1,18:1). */
+.pill-primary {
+  background: var(--accent);
+  border-color: transparent;
+  border-style: solid;
+  color: var(--accent-ink);
+  font-weight: 500;
+}
+
+.pill-primary:hover {
+  background: var(--yellow-strong);
+  border-color: transparent;
+}
+
+.pill-primary:focus-visible {
+  background: var(--accent);
+  color: var(--accent-ink);
+  outline-color: var(--accent-ink);
+}
+
+/* Sobre fundo escuro: contorno claro, texto claro. */
+.pill-on-band {
+  color: var(--band-ink);
+  border-color: color-mix(in oklab, var(--band-ink) 34%, transparent);
+}
+
+.pill-on-band:hover {
+  background: color-mix(in oklab, var(--band-ink) 12%, transparent);
+  border-color: color-mix(in oklab, var(--band-ink) 55%, transparent);
+}
+
+.pill-block {
+  width: 100%;
+}
+
+/* ==========================================================================
+   Faixas escuras — onde o amarelo vive
+   ========================================================================== */
+
+.band {
+  background: var(--band);
+  color: var(--band-ink);
+}
+
+.band .rule {
+  border-top-color: color-mix(in oklab, var(--band-ink) 22%, transparent);
+}
+
+.band .c-muted {
+  color: var(--band-muted);
+}
+
+.band .eyebrow-row {
+  color: var(--band-muted);
+}
+
+.band .eyebrow-row .node {
+  background: color-mix(in oklab, var(--band-ink) 45%, transparent);
+}
+
+.band-slate {
+  background: var(--slate);
+  color: var(--ice);
+}
+
+.band-slate .rule {
+  border-top-color: color-mix(in oklab, var(--ice) 18%, transparent);
+}
+
+.band-slate .c-muted {
+  color: color-mix(in oklab, var(--ice) 72%, transparent);
+}
+
+/* ==========================================================================
+   Cards e blocos
+   ========================================================================== */
+
+.grid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.grid-products {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+}
+
+.spec-list {
+  display: grid;
+  gap: 0;
+  border-top: 1px dashed var(--line-dash);
+}
+
+.spec-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-block: 0.5rem;
+  border-bottom: 1px dashed var(--line-dash);
+}
+
+.spec-row dt {
+  color: var(--muted);
+}
+
+.spec-row dd {
+  text-align: right;
+  color: var(--fg);
+}
+
+.tag-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.375rem;
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.5rem;
+  border: 1px solid var(--line);
+  color: var(--muted);
+  background: var(--surface-2);
+}
+
+/* ==========================================================================
+   Listas editoriais (diferenciais, clientes, FAQ)
+   ========================================================================== */
+
+.row-list {
+  display: grid;
+  border-top: 1px dashed var(--line-dash);
+}
+
+.row {
+  display: grid;
+  gap: 1rem;
+  padding-block: 1.75rem;
+  border-bottom: 1px dashed var(--line-dash);
+}
+
+@media (min-width: 64rem) {
+  .row {
+    grid-template-columns: minmax(0, 0.4fr) minmax(0, 0.6fr);
+    gap: 3rem;
+    padding-block: 2.25rem;
+  }
+}
+
+.client-list {
+  display: grid;
+  gap: 2rem;
+  border-top: 1px dashed var(--line-dash);
+  padding-top: 2rem;
+}
+
+@media (min-width: 48rem) {
+  .client-list {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+  }
+}
+
+.client-name {
+  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+/* ==========================================================================
+   Formulário
+   ========================================================================== */
+
+.form-grid {
+  display: grid;
+  gap: 1.25rem;
+}
+
+@media (min-width: 48rem) {
+  .form-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .form-span {
+    grid-column: span 2;
+  }
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.field label {
+  color: var(--band-muted);
+}
+
+.input,
+.select,
+.textarea {
+  width: 100%;
+  padding: 0.75rem 0.875rem;
+  border: 1px solid color-mix(in oklab, var(--band-ink) 34%, transparent);
+  background: color-mix(in oklab, var(--band-ink) 8%, transparent);
+  color: var(--band-ink);
+  transition:
+    border-color var(--dur-ui) var(--ease-ui),
+    background-color var(--dur-ui) var(--ease-ui);
+}
+
+.textarea {
+  min-height: 6.5rem;
+  resize: vertical;
+}
+
+.input::placeholder,
+.textarea::placeholder {
+  color: color-mix(in oklab, var(--band-ink) 52%, transparent);
+}
+
+.input:hover,
+.select:hover,
+.textarea:hover {
+  border-color: color-mix(in oklab, var(--band-ink) 55%, transparent);
+}
+
+.input:focus-visible,
+.select:focus-visible,
+.textarea:focus-visible {
+  outline: 1px solid var(--accent);
+  outline-offset: 1px;
+  border-color: color-mix(in oklab, var(--band-ink) 70%, transparent);
+}
+
+.input[aria-invalid="true"],
+.select[aria-invalid="true"],
+.textarea[aria-invalid="true"] {
+  border-color: var(--accent);
+  border-style: dashed;
+}
+
+.field-error {
+  color: var(--accent);
+}
+
+.select {
+  appearance: none;
+  background-image: linear-gradient(45deg, transparent 50%, currentColor 50%),
+    linear-gradient(135deg, currentColor 50%, transparent 50%);
+  background-position:
+    calc(100% - 18px) calc(50% + 2px),
+    calc(100% - 13px) calc(50% + 2px);
+  background-size: 5px 5px, 5px 5px;
+  background-repeat: no-repeat;
+  padding-right: 2.25rem;
+}
+
+.select option {
+  color: var(--slate);
+  background: var(--surface);
+}
+
+.form-success {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1.75rem;
+  border: 1px dashed color-mix(in oklab, var(--accent) 55%, transparent);
+  background: color-mix(in oklab, var(--band-ink) 8%, transparent);
+}
+
+/* ==========================================================================
+   FAQ
+   ========================================================================== */
+
+.faq-item {
+  border-bottom: 1px dashed var(--line-dash);
+}
+
+.faq-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  width: 100%;
+  padding-block: 1.5rem;
+  text-align: left;
+  cursor: pointer;
+  transition: color var(--dur-ui) var(--ease-ui);
+}
+
+.faq-trigger:hover {
+  color: var(--petrol);
+}
+
+.faq-plus {
+  position: relative;
+  width: 13px;
+  height: 13px;
+  flex: none;
+  color: var(--petrol);
+}
+
+.faq-plus span {
+  position: absolute;
+  background: currentColor;
+}
+
+.faq-plus .h {
+  inset-inline: 0;
+  top: 50%;
+  height: 1px;
+  transform: translateY(-50%);
+}
+
+.faq-plus .v {
+  inset-block: 0;
+  left: 50%;
+  width: 1px;
+  transform: translateX(-50%);
+  transition: transform 300ms var(--ease-ui);
+}
+
+.faq-item[data-open="true"] .faq-plus .v {
+  transform: translateX(-50%) scaleY(0);
+}
+
+.faq-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 300ms var(--ease-ui);
+}
+
+.faq-item[data-open="true"] .faq-panel {
+  grid-template-rows: 1fr;
+}
+
+.faq-panel-inner {
+  overflow: hidden;
+}
+
+.faq-answer {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 68ch;
+  padding-bottom: 1.75rem;
+  color: var(--muted);
+}
+
+/* ==========================================================================
+   Reveal de seção — o único gesto não solicitado pelo usuário
+   --------------------------------------------------------------------------
+   Só esconde o conteúdo quando existe JavaScript. A classe .js entra por um
+   script inline no começo do <body>, então sem JS a página aparece inteira
+   em vez de ficar invisível.
+   ========================================================================== */
+
+.js .reveal {
+  opacity: 0;
+  transform: translate3d(0, 12px, 0);
+  transition:
+    opacity var(--dur-reveal) var(--ease-out),
+    transform var(--dur-reveal) var(--ease-out);
+  will-change: opacity, transform;
+}
+
+.js .reveal[data-visible="true"] {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* ==========================================================================
+   Navegação
+   ========================================================================== */
+
+.nav-shell {
+  position: fixed;
+  inset-inline: 0;
+  top: 1rem;
+  z-index: 60;
+  display: flex;
+  justify-content: center;
+  padding-inline: 1rem;
+  pointer-events: none;
+}
+
+.nav-pill {
+  width: min(1180px, 100vw - 2rem);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.5rem 0.5rem 0.5rem 0.75rem;
+  background: var(--glass);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px dashed var(--line-dash);
+  border-radius: var(--radius-pill);
+  pointer-events: auto;
+}
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+  flex: none;
+}
+
+.nav-links {
+  display: none;
+  align-items: center;
+  gap: 0.125rem;
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex: none;
+}
+
+.nav-cta {
+  display: none;
+}
+
+@media (min-width: 48rem) {
+  .nav-cta {
+    display: inline-flex;
+  }
+}
+
+@media (min-width: 64rem) {
+  .nav-links {
+    display: flex;
+  }
+}
+
+.nav-link {
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--radius-pill);
+  color: var(--muted);
+  white-space: nowrap;
+  transition:
+    color var(--dur-ui) var(--ease-ui),
+    background-color var(--dur-ui) var(--ease-ui);
+}
+
+.nav-link:hover {
+  color: var(--fg);
+  background: color-mix(in oklab, var(--surface) 70%, transparent);
+}
+
+.nav-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.875rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+}
+
+/* Precisa vir depois da regra acima: mesma especificidade, a ordem decide. */
+@media (min-width: 64rem) {
+  .nav-toggle {
+    display: none;
+  }
+}
+
+.nav-panel {
+  position: fixed;
+  inset-inline: 1rem;
+  top: 4.75rem;
+  z-index: 55;
+  padding: 1rem;
+  background: var(--surface);
+  border: 1px dashed var(--line-dash);
+}
+
+.nav-panel-list {
+  display: grid;
+}
+
+.nav-panel-link {
+  padding-block: 0.875rem;
+  border-bottom: 1px dashed var(--line-dash);
+}
+
+/* ==========================================================================
+   Rodapé
+   ========================================================================== */
+
+.footer-grid {
+  display: grid;
+  gap: 2.5rem;
+}
+
+@media (min-width: 48rem) {
+  .footer-grid {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+  }
+}
+
+.footer-link {
+  color: color-mix(in oklab, var(--ice) 82%, transparent);
+  transition: color var(--dur-ui) var(--ease-ui);
+}
+
+.footer-link:hover {
+  color: var(--ice);
+  text-decoration: underline;
+  text-decoration-color: color-mix(in oklab, var(--ice) 35%, transparent);
+  text-underline-offset: 3px;
+}
+
+/* ==========================================================================
+   Desenho técnico
+   ========================================================================== */
+
+.draft {
+  background: var(--draft);
+}
+
+.draft-line {
+  fill: none;
+  stroke: var(--line-draft);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+
+.draft-line-dashed {
+  fill: none;
+  stroke: var(--line-draft);
+  stroke-width: 1;
+  stroke-dasharray: 4 4;
+  vector-effect: non-scaling-stroke;
+}
+
+.draft-line-strong {
+  fill: none;
+  stroke: color-mix(in oklab, var(--petrol) 62%, transparent);
+  stroke-width: 1.25;
+  vector-effect: non-scaling-stroke;
+}
+
+.draft-fill {
+  fill: color-mix(in oklab, var(--petrol) 8%, transparent);
+  stroke: none;
+}
+
+.draft-node {
+  fill: color-mix(in oklab, var(--petrol) 70%, transparent);
+  stroke: none;
+}
+
+.draft-label {
+  fill: color-mix(in oklab, var(--petrol) 72%, transparent);
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* ==========================================================================
+   Utilitários
+   ========================================================================== */
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+  padding: 0.5rem 0.875rem;
+  background: var(--accent);
+  color: var(--accent-ink);
+  transform: translateY(-150%);
+}
+
+.skip-link:focus-visible {
+  transform: translateY(0);
+}
+
+.stack-sm {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.stack-lg {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+.cluster {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: center;
+}
+.max-measure {
+  max-width: 68ch;
+}
+.max-measure-tight {
+  max-width: 54ch;
+}
+.link-underline {
+  text-decoration: underline;
+  text-decoration-color: color-mix(in oklab, var(--band-ink) 35%, transparent);
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+.link-underline:hover {
+  text-decoration-color: var(--band-ink);
+}
+
+/* ==========================================================================
+   Blocos de seção — layout específico de cada parte da página
+   ========================================================================== */
+
+/* --- Abertura ------------------------------------------------------- */
+
+.hero {
+  padding-top: clamp(7rem, 12vw, 11rem);
+  /* o campo de grânulos sangra para a borda direita; clip evita rolagem lateral */
+  overflow-x: clip;
+}
+
+.hero-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.hero-lead {
+  max-width: 56ch;
+}
+
+.hero-actions {
+  margin-top: 0.5rem;
+}
+
+/* ---------------------------------------------------------------------
+   Campo de matéria-prima
+   ---------------------------------------------------------------------
+   Grânulos de polietileno soltos no fundo, sem moldura e sem traço de
+   ligação. Três camadas animam devagar em profundidades diferentes: é o
+   único movimento da abertura e ele para em prefers-reduced-motion.
+   --------------------------------------------------------------------- */
+
+.hero-visual {
+  width: 100%;
+  justify-self: center;
+}
+
+.hero-field {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  /* a altura vem da regra da abertura, mais abaixo no arquivo */
+}
+
+@media (min-width: 64rem) {
+  .hero-visual {
+    justify-self: stretch;
+  }
+}
+
+.field-svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Contorno mais firme que 34%: abaixo disso os grânulos leem como bolha
+   d'água em vez de pellet de polietileno. */
+.pellet {
+  fill: none;
+  stroke: color-mix(in oklab, var(--petrol) 48%, transparent);
+  stroke-width: 1;
+}
+
+.pellet-fill {
+  fill: color-mix(in oklab, var(--petrol) 88%, transparent);
+  stroke: none;
+}
+
+.field-layer {
+  will-change: transform;
+  animation: field-drift 22s var(--ease-ui) infinite alternate;
+}
+
+.field-back {
+  opacity: 0.6;
+  animation-duration: 31s;
+  animation-delay: -4s;
+}
+
+.field-mid {
+  opacity: 0.86;
+  animation-duration: 23s;
+  animation-delay: -9s;
+}
+
+.field-front {
+  animation-duration: 16s;
+  animation-delay: -2s;
+}
+
+@keyframes field-drift {
+  from {
+    transform: translate3d(0, -7px, 0);
+  }
+  to {
+    transform: translate3d(0, 7px, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .field-layer {
+    animation: none;
+  }
+}
+
+/* Prancha de desenho: papel de rascunho, contorno tracejado, legenda em mono. */
+.plate {
+  position: relative;
+  margin: 0;
+  padding: 1.25rem;
+  background: var(--draft);
+  border: 1px dashed var(--line-dash);
+}
+
+.plate-caption {
+  margin-top: 1rem;
+  padding-top: 0.75rem;
+  border-top: 1px dashed var(--line-dash);
+  color: var(--tertiary);
+}
+
+/* Ficha rápida sob o título: quatro dados em mono, separados por traço. */
+.facts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+  padding-top: 1.5rem;
+  border-top: 1px dashed var(--line-dash);
+}
+
+@media (min-width: 48rem) {
+  .facts {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.fact {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
+.fact-value {
+  color: var(--fg);
+}
+
+/* --- Sobre ---------------------------------------------------------- */
+
+.about-grid {
+  display: grid;
+  gap: 2.5rem;
+}
+
+@media (min-width: 64rem) {
+  .about-grid {
+    grid-template-columns: minmax(0, 0.44fr) minmax(0, 0.56fr);
+    gap: 4rem;
+  }
+}
+
+.about-text {
+  max-width: 60ch;
+}
+
+.capability-list {
+  display: grid;
+  border-top: 1px dashed var(--line-dash);
+}
+
+.capability {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 1.25rem;
+  padding-block: 1.5rem;
+  border-bottom: 1px dashed var(--line-dash);
+}
+
+.capability-code {
+  padding-top: 0.35rem;
+}
+
+@media (min-width: 48rem) {
+  .capability {
+    grid-template-columns: 3rem minmax(0, 1fr);
+    gap: 2rem;
+  }
+}
+
+/* --- Dúvidas frequentes --------------------------------------------- */
+
+.faq-list {
+  max-width: 58rem;
+  border-top: 1px dashed var(--line-dash);
+}
+
+/* --- Conversão ------------------------------------------------------ */
+
+.contact-grid {
+  display: grid;
+  gap: 3rem;
+}
+
+@media (min-width: 64rem) {
+  .contact-grid {
+    grid-template-columns: minmax(0, 0.42fr) minmax(0, 0.58fr);
+    gap: 4rem;
+  }
+}
+
+.channel-list {
+  display: grid;
+  margin-top: 1rem;
+  border-top: 1px dashed color-mix(in oklab, var(--band-ink) 22%, transparent);
+}
+
+.channel {
+  display: grid;
+  gap: 0.375rem;
+  padding-block: 1rem;
+  border-bottom: 1px dashed color-mix(in oklab, var(--band-ink) 22%, transparent);
+}
+
+@media (min-width: 48rem) {
+  .channel {
+    grid-template-columns: minmax(0, 0.42fr) minmax(0, 0.58fr);
+    gap: 1.5rem;
+    align-items: baseline;
+  }
+}
+
+/* Amarelo como tinta de link só sobre o petróleo: 6,63:1. Nunca no fundo claro. */
+.channel-link {
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-color: color-mix(in oklab, var(--accent) 45%, transparent);
+  text-underline-offset: 3px;
+}
+
+.channel-link:hover {
+  text-decoration-color: var(--accent);
+}
+
+.channel-static {
+  color: var(--band-ink);
+}
+
+.form-panel {
+  padding: 1.5rem;
+  background: color-mix(in oklab, var(--band-ink) 5%, transparent);
+  border: 1px dashed color-mix(in oklab, var(--band-ink) 30%, transparent);
+}
+
+@media (min-width: 48rem) {
+  .form-panel {
+    padding: 2rem;
+  }
+}
+
+.quote-form {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.quote-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.quote-consent {
+  max-width: 46ch;
+}
+
+/* --- Rodapé --------------------------------------------------------- */
+
+.site-footer {
+  padding-block: clamp(3.5rem, 6vw, 5rem);
+}
+
+.footer-tagline {
+  max-width: 34ch;
+}
+
+.footer-address {
+  font-style: normal;
+}
+
+.footer-base {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px dashed color-mix(in oklab, var(--ice) 18%, transparent);
+}
+
+.footer-credit {
+  text-align: right;
+}
+
+/* --- Documento legal ------------------------------------------------ */
+
+/* Vem depois de .wrap de propósito: limita a medida de leitura a 76ch. */
+.legal {
+  max-width: 76ch;
+}
+
+.legal-body {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  margin-top: 3rem;
+}
+
+.legal-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding-top: 1.5rem;
+  border-top: 1px dashed var(--line-dash);
+}
+
+.legal-contact {
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px dashed var(--line-dash);
+}
+
+/* O cabeçalho de seção coloca a ação à direita em telas largas. */
+@media (min-width: 64rem) {
+  .section-head-grid {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: end;
+  }
+  .section-head-action {
+    justify-self: end;
+  }
+}
+
+/* ==========================================================================
+   Implementação da versão aprovada (protótipo de 19/10)
+   --------------------------------------------------------------------------
+   Abertura empilhada, catálogo em tabela/lista com ficha no lugar,
+   estrutura com prancha técnica, segmentos em coluna e barra fixa mobile.
+   ========================================================================== */
+
+/* --- Abertura empilhada --------------------------------------------- */
+
+.hero-copy {
+  max-width: 62rem;
+}
+
+.hero-title {
+  max-width: 20ch;
+  font-size: clamp(2.1rem, 1rem + 4.4vw, 4.25rem);
+}
+
+.hero-line {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.06em;
+  margin-bottom: -0.06em;
+}
+
+.hero-line > span {
+  display: block;
+  transform: translateY(112%);
+  animation: hero-line-rise 900ms var(--ease-out) forwards;
+}
+
+@keyframes hero-line-rise {
+  to {
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-line > span {
+    transform: none;
+    animation: none;
+  }
+}
+
+/* Empilhado no mobile: o texto ocupa a largura e o campo de matéria-prima
+   desce abaixo das CTAs, sangrando de borda a borda. */
+.hero-grid {
+  display: grid;
+  gap: clamp(2rem, 4vw, 3rem);
+}
+
+.hero-visual {
+  margin-top: 0;
+}
+
+.hero-field {
+  height: clamp(16rem, 27vw, 26rem);
+  margin-inline: calc(-1 * var(--gutter));
+}
+
+/* Duas colunas no desktop: o título respira à esquerda e a matéria-prima fica
+   ao lado, sangrando só até a borda direita da janela. O desenho usa
+   preserveAspectRatio="slice", então o corte é horizontal e o campo mostra a
+   faixa central da composição — a mais densa. O H1 encolhe para caber na
+   coluna: as três linhas da máscara não podem quebrar dentro da máscara. */
+@media (min-width: 64rem) {
+  .hero-grid {
+    grid-template-columns: minmax(0, 1.02fr) minmax(0, 0.98fr);
+    gap: clamp(2.5rem, 3.5vw, 4rem);
+    align-items: center;
+  }
+
+  .hero-title {
+    font-size: clamp(2.4rem, 1rem + 2.4vw, 3.6rem);
+    max-width: 18ch;
+  }
+
+  .hero-field {
+    height: clamp(24rem, 30vw, 32rem);
+    margin-inline: 0 calc(-1 * var(--gutter));
+  }
+}
+
+/* --- Produtos: tabela no desktop, lista no mobile ------------------- */
+
+.prod-table {
+  border-top: 1px dashed var(--line-dash);
+}
+
+.prod-head {
+  display: grid;
+  grid-template-columns: 5.5rem minmax(0, 1fr) 11rem 13rem 1.25rem;
+  gap: 1.5rem;
+  padding: 0 0 0.75rem;
+  border-bottom: 1px solid var(--line);
+  color: var(--tertiary);
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.prod {
+  border-bottom: 1px dashed var(--line-dash);
+}
+
+.prod-row {
+  display: grid;
+  grid-template-columns: 5.5rem minmax(0, 1fr) 11rem 13rem 1.25rem;
+  gap: 1.5rem;
+  align-items: center;
+  width: 100%;
+  padding: 1.15rem 0;
+  border: 0;
+  background: none;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 250ms var(--ease-ui);
+}
+
+.prod-row:hover {
+  background: color-mix(in oklab, var(--surface) 70%, transparent);
+}
+
+.prod[data-open="true"] .prod-row {
+  background: var(--surface);
+}
+
+.prod-name {
+  font-size: clamp(1.0625rem, 0.95rem + 0.35vw, 1.25rem);
+}
+
+.prod-arrow {
+  justify-self: end;
+  color: var(--petrol);
+  opacity: 0.6;
+  transition: transform 300ms var(--ease-out), opacity 200ms var(--ease-ui);
+}
+
+.prod[data-open="true"] .prod-arrow {
+  transform: rotate(90deg);
+  opacity: 1;
+}
+
+.prod-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 450ms var(--ease-out);
+}
+
+.prod-panel[data-open="true"] {
+  grid-template-rows: 1fr;
+}
+
+.prod-panel-clip {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.prod-panel-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr);
+  gap: 2rem;
+  margin: 0 0 1.25rem;
+  padding: 1.5rem;
+  border: 1px dashed var(--line-dash);
+  background: var(--draft);
+}
+
+.prod-tags {
+  margin-top: 1rem;
+}
+
+.prod-actions {
+  margin-top: 1.25rem;
+}
+
+.prod-sheet {
+  display: grid;
+  gap: 1rem;
+  align-content: start;
+}
+
+.prod-drawing {
+  border-top: 1px dashed var(--line-dash);
+  padding-top: 1rem;
+}
+
+.prod-drawing svg {
+  width: 100%;
+  height: auto;
+  max-height: 10.5rem;
+}
+
+@media (max-width: 47.99rem) {
+  .prod-head {
+    display: none;
+  }
+  .prod-table {
+    border-top: 0;
+  }
+  .prod-row {
+    grid-template-columns: 3.5rem minmax(0, 1fr) 1.25rem;
+    grid-template-rows: auto auto auto;
+    gap: 0.2rem 0.9rem;
+    padding: 1rem 0;
+  }
+  .prod-code {
+    grid-row: 1 / span 2;
+    padding-top: 0.35rem;
+  }
+  .prod-name {
+    grid-column: 2;
+    grid-row: 1;
+  }
+  .prod-spec {
+    grid-column: 2;
+    grid-row: 2;
+  }
+  .prod-app {
+    grid-column: 2;
+    grid-row: 3;
+    color: var(--faint);
+  }
+  .prod-arrow {
+    grid-column: 3;
+    grid-row: 1 / span 2;
+    align-self: center;
+  }
+  .prod-panel-body {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding: 1.1rem;
+  }
+}
+
+/* --- Estrutura: prancha + etapas ----------------------------------- */
+
+.struct-grid {
+  display: grid;
+  gap: 2.5rem;
+}
+
+@media (min-width: 64rem) {
+  .struct-grid {
+    grid-template-columns: minmax(0, 1.02fr) minmax(0, 0.98fr);
+    gap: 4rem;
+    align-items: start;
+  }
+}
+
+.struct-plate {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.struct-plate svg {
+  max-height: 30rem;
+}
+
+.struct-plate .plate-caption {
+  margin-top: 0;
+}
+
+.struct-steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.struct-step {
+  position: relative;
+  padding-bottom: 1.9rem;
+}
+
+.struct-step:not(:last-child)::before {
+  content: "";
+  position: absolute;
+  left: 1.375rem;
+  top: 2.75rem;
+  bottom: 0;
+  border-left: 1px dashed var(--line-dash);
+}
+
+.struct-step > .reveal {
+  display: grid;
+  grid-template-columns: 2.75rem minmax(0, 1fr);
+  gap: 1.1rem;
+  align-items: start;
+}
+
+.struct-num {
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  display: grid;
+  place-items: center;
+  background: var(--bg);
+  color: var(--muted);
+  position: relative;
+  z-index: 1;
+}
+
+.struct-step-copy {
+  padding-top: 0.55rem;
+}
+
+/* --- Segmentos em coluna ------------------------------------------- */
+
+.segment-list {
+  border-top: 1px dashed var(--line-dash);
+}
+
+.segment-row {
+  display: grid;
+  grid-template-columns: 5rem minmax(0, 1fr);
+  gap: 1.25rem;
+  padding: 1.25rem 0;
+  border-bottom: 1px dashed var(--line-dash);
+}
+
+.segment-code {
+  padding-top: 0.3rem;
+}
+
+@media (max-width: 47.99rem) {
+  .segment-row {
+    grid-template-columns: 4rem minmax(0, 1fr);
+    gap: 1rem;
+  }
+}
+
+/* --- Clientes: agrupamento por carteira ---------------------------- */
+
+.client-group {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  min-width: 0;
+}
+
+.client-names {
+  color: var(--fg);
+}
+
+/* --- Ajustes das seções convertidas -------------------------------- */
+
+.struct-figure {
+  min-width: 0;
+}
+
+.prod-benefit {
+  display: grid;
+  gap: 1rem;
+  align-content: start;
+}
+
+/* --- Conversão: canais antes do formulário ------------------------- */
+
+.contact-actions {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  gap: 0.75rem;
+}
+
+/* --- Barra fixa mobile --------------------------------------------- */
+
+.sticky-cta {
+  position: fixed;
+  left: 0.75rem;
+  right: 0.75rem;
+  bottom: 0.75rem;
+  z-index: 60;
+  display: none;
+  padding: 0.5rem;
+  background: var(--glass);
+  backdrop-filter: var(--glass-blur);
+  border: 1px dashed var(--line-dash);
+  border-radius: var(--radius-pill);
+  transform: translateY(130%);
+  transition: transform 450ms var(--ease-out);
+}
+
+.sticky-cta[data-show="true"] {
+  transform: none;
+}
+
+@media (max-width: 63.99rem) {
+  .sticky-cta {
+    display: block;
+  }
+}

@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Abertura — enquadramento de desktop</title>
+<!--
+  MOLDURA DE CONFERÊNCIA — não faz parte do site.
+
+  O painel de pré-visualização renderiza numa largura fixa (443px), o que só
+  mostra o desenho de celular. Esta moldura carrega `abertura.html` dentro de um
+  iframe de 1440×1000, onde as media queries avaliam no layout de desktop, e
+  reduz o conjunto por `transform: scale` para caber na tela.
+
+  Desenho reduzido serve para conferir enquadramento, hierarquia e alinhamento —
+  não para julgar corpo de texto.
+-->
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:#e2e8ec;display:flex;align-items:flex-start;justify-content:center;padding:16px}
+  .frame{position:relative;width:432px;height:300px;overflow:hidden;background:#F8FAFC;
+         box-shadow:0 1px 2px rgba(0,0,0,.12)}
+  iframe{position:absolute;top:0;left:0;width:1440px;height:1000px;border:0;
+         transform:scale(.3);transform-origin:top left}
+</style>
+</head>
+<body>
+  <div class="frame">
+    <iframe src="abertura.html" title="Abertura da Plaswill em 1440px de largura"></iframe>
+  </div>
+</body>
+</html>

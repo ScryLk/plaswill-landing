@@ -1,0 +1,11 @@
+packages:
+  - '.'
+
+supportedArchitectures:
+  os:
+    - darwin
+    - linux
+  cpu:
+    - arm64
+  libc:
+    - glibc

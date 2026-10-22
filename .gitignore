@@ -1,0 +1,43 @@
+# dependências
+node_modules/
+
+# build do Next
+.next/
+out/
+build/
+dist/
+
+# ambiente — nunca versionar credenciais
+.env
+.env.local
+.env*.local
+
+# sistema e editores
+.DS_Store
+*.pem
+.idea/
+.vscode/
+
+# logs
+npm-debug.log*
+yarn-error.log*
+*.log
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+
+# store local do pnpm
+.pnpm-store/
+
+# cópia baixada de site de terceiro — material de estudo, não de publicação
+referencias/antimetal/
+
+# capturas do protótipo de estado: ~1,1 MB cada, geradas por design/prototipo-estado.py
+design/abertura-rodando.html
+design/abertura-compacto.html
+design/abertura-hover.html
+
+# documento mestre de estratégia — interno. Se o repositório for privado,
+# inclua com: git add -f dossie_contexto_plaswill.md
+dossie_contexto_plaswill.md
