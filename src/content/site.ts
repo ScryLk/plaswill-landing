@@ -7,6 +7,8 @@
  * e estão listados no README, na seção "Revisar antes de publicar".
  */
 
+import { approvedImage } from "@/lib/media-manifest";
+
 export const site = {
   name: "Plaswill",
   legalName: "Plaswill Indústria de Embalagens Plásticas Ltda.",
@@ -241,7 +243,7 @@ export type Product = {
   imageAlt?: string;
 };
 
-export const products: Product[] = [
+const productSeeds: Product[] = [
   /* --- C1 · Proteção e transporte ---------------------------------- */
   {
     id: "filme-stretch",
@@ -558,6 +560,24 @@ export const products: Product[] = [
   },
 ];
 
+/**
+ * Os quatorze produtos, com a imagem que sobrou da auditoria do acervo.
+ *
+ * A foto não é digitada aqui. Ela vem do manifesto (`src/lib/media-manifest.ts`),
+ * que é onde estão o veredito de cada arquivo e o texto alternativo. Duas fontes
+ * para o mesmo dado divergem com o tempo: alguém troca a imagem e esquece a
+ * descrição, ou o contrário. Uma fonte, e o tipo `Product` continua sendo o que
+ * o componente consome.
+ *
+ * Produto cuja imagem foi reprovada — hoje só o saco para pedra — chega aqui sem
+ * `image`, e o card desenha a prancha técnica. Não é uma lacuna a preencher
+ * depois: é o comportamento correto enquanto não houver foto autorizada.
+ */
+export const products: Product[] = productSeeds.map((product) => {
+  const media = approvedImage(product.id);
+  return media ? { ...product, image: media.src, imageAlt: media.alt } : product;
+});
+
 /** Os produtos de uma categoria, na ordem em que aparecem no catálogo. */
 export function productsByCategory(category: ProductCategoryId): Product[] {
   return products.filter((product) => product.category === category);
@@ -802,6 +822,34 @@ export const segments = {
 } as const;
 
 /* ------------------------------------------------------------------ */
+/* Notícias                                                           */
+/* ------------------------------------------------------------------ */
+
+/**
+ * A seção que trouxe o arquivo de notícias para dentro da landing.
+ *
+ * O título vem do que essas doze publicações realmente são: registro de
+ * operação — aniversário de fundação, projeto de coleta de tampinhas, doação
+ * mensal, confraternização. Não é release de produto e não é blog. Chamar de
+ * "Nossa história em movimento" diz isso sem prometer mais do que existe.
+ *
+ * A seção mostra três itens e um caminho para o arquivo completo. Não há
+ * carrossel, não há rotação automática: notícia antiga que se move sozinha na
+ * tela é o oposto de arquivo.
+ */
+export const news = {
+  eyebrow: "08",
+  eyebrowLabel: "Notícias",
+  title: "Nossa história em movimento.",
+  lead:
+    "O que acontece na fábrica além da produção: aniversário da empresa, projetos com a comunidade, ações internas e o que muda na operação.",
+  cta: "Ver todas as notícias",
+  archiveTitle: "Todas as notícias.",
+  archiveLead:
+    "Doze publicações, da mais recente para a mais antiga. As datas são as de publicação original.",
+} as const;
+
+/* ------------------------------------------------------------------ */
 /* Clientes homologados                                               */
 /* ------------------------------------------------------------------ */
 
@@ -859,7 +907,7 @@ export const clients = {
 export type FaqItem = { question: string; answer: string[] };
 
 export const faq = {
-  eyebrow: "08",
+  eyebrow: "09",
   eyebrowLabel: "Perguntas frequentes",
   /*
    * O título era "As objeções que ouvimos toda semana." — e o FAQ inteiro estava
@@ -929,7 +977,7 @@ export const faq = {
 /* ------------------------------------------------------------------ */
 
 export const quoteForm = {
-  eyebrow: "09",
+  eyebrow: "10",
   eyebrowLabel: "Orçamento",
   title: "Peça uma cotação com amostra técnica.",
   lead:

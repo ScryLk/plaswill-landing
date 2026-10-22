@@ -281,6 +281,12 @@ ol {
   padding-block: var(--section-y);
 }
 
+/* Coluna de leitura da notícia. Texto corrido em 1512 px de largura vira linha
+   de 200 caracteres; 68ch é o limite em que o olho ainda volta sem se perder. */
+.wrap--narrow {
+  max-width: 68ch;
+}
+
 .rule {
   border: 0;
   border-top: 1px dashed var(--line-dash);
@@ -1570,9 +1576,39 @@ ol {
   align-content: start;
 }
 
+/* --- Foto do produto ------------------------------------------------- */
+
+/* A moldura tem proporção fixa e fundo de papel, não de prancha: o recorte de
+   produto chega com fundo transparente e precisa de uma superfície neutra para
+   não brigar com o tracejado técnico que fica logo abaixo. `contain` preserva
+   a peça inteira — cortar a aba de um saco seria mentir sobre o formato. */
+.prod-photo {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  margin: 0 0 0.25rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  overflow: hidden;
+}
+
+.prod-photo__img {
+  object-fit: contain;
+  padding: clamp(0.5rem, 2vw, 1.25rem);
+}
+
+@media print {
+  /* Papel não tem hover nem transição; a ficha impressa mostra a foto e a
+     prancha juntas, que é como a pessoa leva o produto para a reunião. */
+  .prod-photo {
+    break-inside: avoid;
+  }
+}
+
 .prod-drawing {
   border-top: 1px dashed var(--line-dash);
   padding-top: 1rem;
+  display: grid;
+  gap: 0.75rem;
 }
 
 .prod-drawing svg {
@@ -1893,5 +1929,249 @@ ol {
 @media (max-width: 63.99rem) {
   .sticky-cta {
     display: block;
+  }
+}
+
+/* ==========================================================================
+   Notícias — seção da home, arquivo e página de notícia
+   ========================================================================== */
+
+/* --- Cartões de destaque na home ------------------------------------ */
+
+.news-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 2rem;
+  margin-top: 2.5rem;
+}
+
+.news-card {
+  border-top: 1px dashed var(--line-dash);
+  padding-top: 1.25rem;
+  height: 100%;
+}
+
+.news-card__link {
+  display: grid;
+  gap: 0.5rem;
+  align-content: start;
+  height: 100%;
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Proporção fixa no cartão: capas do acervo vão de 640 × 436 a retrato
+   1080 × 1350, e sem proporção fixa a grade fica com degraus. `cover` aqui é
+   aceitável — é miniatura de notícia, não foto de produto em ficha técnica. */
+.news-card__media {
+  position: relative;
+  display: block;
+  aspect-ratio: 4 / 3;
+  margin-bottom: 0.75rem;
+  overflow: hidden;
+  background: var(--surface);
+  border: 1px solid var(--line);
+}
+
+.news-card__img {
+  object-fit: cover;
+  transition: transform 600ms var(--ease-out);
+}
+
+.news-card__link:hover .news-card__img {
+  transform: scale(1.03);
+}
+
+.news-card__title {
+  text-wrap: balance;
+}
+
+.news-card__excerpt {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.news-card__more {
+  margin-top: 0.25rem;
+  text-decoration: underline;
+  text-underline-offset: 0.25em;
+}
+
+.news-card__link:hover .news-card__more {
+  text-decoration-thickness: 2px;
+}
+
+.news-card__link:focus-visible {
+  outline: 2px solid var(--petrol);
+  outline-offset: 4px;
+}
+
+/* --- Arquivo completo ----------------------------------------------- */
+
+.news-list {
+  list-style: none;
+  margin: 2.5rem 0 0;
+  padding: 0;
+  border-top: 1px dashed var(--line-dash);
+}
+
+.news-row {
+  border-bottom: 1px dashed var(--line-dash);
+}
+
+.news-row__link {
+  display: grid;
+  grid-template-columns: 15rem minmax(0, 1fr) 1.5rem;
+  gap: 1.75rem;
+  align-items: start;
+  padding-block: 1.5rem;
+  color: inherit;
+  text-decoration: none;
+}
+
+.news-row__media {
+  position: relative;
+  display: block;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: var(--surface);
+  border: 1px solid var(--line);
+}
+
+.news-row__media--empty {
+  background: none;
+  border: 0;
+}
+
+.news-row__img {
+  object-fit: cover;
+}
+
+.news-row__body {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.news-row__title {
+  text-wrap: balance;
+}
+
+.news-row__excerpt {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.news-row__arrow {
+  align-self: center;
+  color: var(--petrol);
+  transition: transform var(--dur-ui) var(--ease-ui);
+}
+
+.news-row__link:hover .news-row__arrow {
+  transform: translateX(4px);
+}
+
+.news-row__link:hover .news-row__title,
+.news-row__link:focus-visible .news-row__title {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.news-row__link:focus-visible {
+  outline: 2px solid var(--petrol);
+  outline-offset: 4px;
+}
+
+/* --- Página da notícia ---------------------------------------------- */
+
+.news-back {
+  display: inline-block;
+  margin-bottom: 2rem;
+  text-decoration: none;
+}
+
+.news-back:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.25em;
+}
+
+.news-article__head {
+  display: grid;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+}
+
+.news-article__title {
+  text-wrap: balance;
+}
+
+.news-article__figure {
+  margin: 0 0 2rem;
+  border: 1px solid var(--line);
+  background: var(--surface);
+}
+
+.news-article__img {
+  width: 100%;
+  height: auto;
+}
+
+.news-article__body p + p {
+  margin-top: 1.15rem;
+}
+
+.news-article__note {
+  margin-top: 2.5rem;
+  padding-top: 1rem;
+  border-top: 1px dashed var(--line-dash);
+}
+
+.news-article__back {
+  margin-top: 2rem;
+}
+
+.news-article__back a {
+  text-decoration: none;
+}
+
+.news-article__back a:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.25em;
+}
+
+@media (max-width: 63.99rem) {
+  .news-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .news-row__link {
+    grid-template-columns: 10rem minmax(0, 1fr) 1.5rem;
+    gap: 1.25rem;
+  }
+}
+
+@media (max-width: 47.99rem) {
+  .news-grid {
+    grid-template-columns: 1fr;
+    gap: 1.75rem;
+  }
+
+  .news-row__link {
+    grid-template-columns: 6rem minmax(0, 1fr);
+    gap: 1rem;
+  }
+
+  /* A seta sai: no mobile ela empurraria o texto para uma coluna estreita
+     demais, e o cartão inteiro já é clicável. */
+  .news-row__arrow {
+    display: none;
+  }
+
+  .news-row__excerpt {
+    -webkit-line-clamp: 3;
   }
 }

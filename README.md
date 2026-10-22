@@ -428,6 +428,28 @@ navegador: capturas em 360, 390, 768, 1024 e 1440px continuam pendentes.
 
 ---
 
+## Acervo visual e notícias — 22/10
+
+A landing passou a usar as imagens de produto e as doze notícias que estavam
+publicadas em `plaswill.com.br`. O registro completo — veredito de cada imagem,
+o que foi recusado e por quê, e o que ficou pendente — está em
+[`ACERVO.md`](ACERVO.md). O resumo:
+
+- **13 das 15 imagens de produto entraram.** Três com ressalva (marca de
+  terceiro ou falta de identificação Plaswill), uma descartada por ser banner e
+  uma **recusada por ser provável imagem gerada** — o saco para pedra, que fica
+  com a prancha técnica até aparecer foto autorizada.
+- **As doze notícias foram migradas** com as datas originais, para a seção
+  "Nossa história em movimento" na home, mais `/noticias` e `/noticias/[slug]`.
+  O post sobre saúde mental ficou **sem capa**: a imagem destacada no WordPress
+  é uma foto da comemoração dos 19 anos.
+- **Nada foi ampliado.** As imagens saem em AVIF no tamanho original, ou
+  reduzidas quando passavam de 900 px (produtos) e 1400 px (capas).
+- **Os originais ficam em `acervo/originais/`**, fora de `/public`, e o
+  WordPress não foi tocado.
+
+---
+
 ## Revisar antes de publicar
 
 Estes pontos dependem de decisão ou autorização de vocês. Estão aqui e não no código de propósito.
@@ -452,6 +474,11 @@ Estes pontos dependem de decisão ou autorização de vocês. Estão aqui e não
 16. **Símbolo da marca — a pergunta é de branding, não de código.** A pílula central hoje mostra o logotipo inteiro, tanto cheia quanto encolhida. Com um símbolo isolado ela mostraria símbolo + nome, como na referência, e no estado encolhido viraria o **círculo de 56px só com o símbolo** — que é o que o Antimetal faz e o que o Plaswill não pode fazer hoje. Isso não é decisão técnica: significa que a Plaswill passaria a ter **duas assinaturas** em circulação — o bloco fechado amarelo (rodapé, landing) e a combinação símbolo + nome em tipografia (barra da abertura). Ou a marca adota um símbolo de verdade e ele vale em toda parte, ou a barra fica com o bloco fechado. Ver `public/brand/LEIA-ME.md`.
 17. **O WhatsApp da landing não é o do site atual.** Aqui é `(55) 98427-5963` (`wa.me/5555984275963`); em plaswill.com.br os botões apontam para `wa.me/5555996034140`, e o telefone publicado lá é `(55) 99603-4140`. Os dois não podem estar certos, e publicar o número errado custa o contato comercial inteiro. Corrigir é uma linha em `site.whatsapp`, mas a escolha é da empresa.
 18. **O bairro diverge.** O site atual diz "Esperança"; a landing diz "Distrito Industrial", com CEP 98280-000, que o site atual não publica. Confirmar antes de publicar — endereço errado em dado estruturado é pior que endereço ausente.
+19. **Foto com marca de terceiro.** A imagem das capas de fardo mostra embalagem com a marca **AVENA**, de um cliente. Publicar depende de autorização — está aprovada com ressalva em `src/lib/media-manifest.ts`.
+20. **Autoria das peças de resíduo.** As fotos dos sacos infectante (50 L) e tóxico (classe 6.1) não trazem marca Plaswill, e a do tóxico tem o bloco de CNPJ de outro fabricante impresso na base. Confirmar antes de publicar.
+21. **Saco para pedra sem foto.** A única imagem disponível é uma provável ilustração gerada e foi recusada. O card mostra a prancha técnica. Falta foto autorizada do saco com pedra.
+22. **Capa do post de saúde mental.** No WordPress, a imagem destacada desse post é uma foto dos 19 anos, sem relação com o assunto. A capa foi omitida; escolher a imagem certa e reativá-la em `src/content/news.ts`.
+23. **"Notícias" não está no menu.** A seção existe na home e o arquivo tem URL própria, mas o item não entrou na navegação principal: sete itens em 1024 px arriscam quebrar a barra, e não houve conferência visual neste ambiente.
 
 ---
 

@@ -12,6 +12,7 @@ import {
 
 import { ProductDrawing } from "./drawings";
 import { PillButton } from "./PillButton";
+import { ProductImage } from "./ProductImage";
 import { Reveal } from "./Reveal";
 import { SectionHeader } from "./SectionHeader";
 
@@ -190,6 +191,12 @@ function ProductRow({
               </div>
 
               <div className="prod-sheet">
+                {/* A foto vem do acervo auditado. Quando não há imagem
+                    publicável — hoje só o saco para pedra —, o bloco não
+                    existe e a prancha técnica é a peça principal da ficha. */}
+                {product.image && product.imageAlt ? (
+                  <ProductImage src={product.image} alt={product.imageAlt} />
+                ) : null}
                 <p className="t-eyebrow c-tertiary">Ficha técnica</p>
                 <dl className="spec-list">
                   {product.specs.map((spec) => (
@@ -200,6 +207,12 @@ function ProductRow({
                   ))}
                 </dl>
                 <div className="prod-drawing">
+                  {/* Com foto, a prancha passa a ser complemento — e diz isso.
+                      Sem foto, ela é a própria imagem do produto e não precisa
+                      de rótulo. */}
+                  {product.image ? (
+                    <p className="t-eyebrow c-tertiary">Prancha técnica</p>
+                  ) : null}
                   <ProductDrawing id={product.drawing} subject={product.name} />
                 </div>
               </div>
