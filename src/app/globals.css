@@ -1933,22 +1933,91 @@ ol {
 }
 
 /* ==========================================================================
-   Notícias — seção da home, arquivo e página de notícia
+   Notícias — carrossel da home e página da notícia
    ========================================================================== */
 
-/* --- Cartões de destaque na home ------------------------------------ */
+/* --- Carrossel de notícias na home ---------------------------------- */
 
-.news-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 2rem;
+.news-carousel {
   margin-top: 2.5rem;
+}
+
+.news-carousel__controls {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+}
+
+/* Alvo de 44 px, acima dos 24 px que a WCAG 2.2 pede. O estado desabilitado
+   usa `aria-disabled` em vez de `disabled`: o botão continua sendo anunciado
+   como indisponível, em vez de sumir da leitura, e o clique é ignorado no JS. */
+.news-nav {
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--petrol);
+  cursor: pointer;
+  transition:
+    border-color var(--dur-ui) var(--ease-ui),
+    color var(--dur-ui) var(--ease-ui);
+}
+
+.news-nav:hover {
+  border-color: var(--petrol);
+}
+
+.news-nav[aria-disabled="true"] {
+  color: var(--line);
+  border-color: var(--line);
+  cursor: default;
+}
+
+.news-nav:focus-visible {
+  outline: 2px solid var(--petrol);
+  outline-offset: 3px;
+}
+
+/* O trilho rola no eixo x e para por aí: `contain` impede que o gesto no fim
+   da lista vire rolagem da página inteira. A largura das colunas é derivada
+   do vão, para três cartões caberem exatos — sem sobra nem corte. */
+.news-track {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: calc((100% - 4rem) / 3);
+  gap: 2rem;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  padding-bottom: 0.5rem;
+}
+
+.news-track:focus-visible {
+  outline: 2px solid var(--petrol);
+  outline-offset: 4px;
+}
+
+.news-track > * {
+  scroll-snap-align: start;
 }
 
 .news-card {
   border-top: 1px dashed var(--line-dash);
   padding-top: 1.25rem;
   height: 100%;
+}
+
+/* Movimento reduzido: a rolagem das setas passa a ser instantânea. As
+   transições já caem no bloco global de `prefers-reduced-motion`. */
+@media (prefers-reduced-motion: reduce) {
+  .news-track {
+    scroll-behavior: auto;
+  }
 }
 
 .news-card__link {
@@ -2010,87 +2079,6 @@ ol {
   outline-offset: 4px;
 }
 
-/* --- Arquivo completo ----------------------------------------------- */
-
-.news-list {
-  list-style: none;
-  margin: 2.5rem 0 0;
-  padding: 0;
-  border-top: 1px dashed var(--line-dash);
-}
-
-.news-row {
-  border-bottom: 1px dashed var(--line-dash);
-}
-
-.news-row__link {
-  display: grid;
-  grid-template-columns: 15rem minmax(0, 1fr) 1.5rem;
-  gap: 1.75rem;
-  align-items: start;
-  padding-block: 1.5rem;
-  color: inherit;
-  text-decoration: none;
-}
-
-.news-row__media {
-  position: relative;
-  display: block;
-  aspect-ratio: 4 / 3;
-  overflow: hidden;
-  background: var(--ice);
-  border: 1px solid var(--line);
-}
-
-/* Sem capa, o texto começa na margem: não fica uma coluna vazia fingindo
-   imagem que não existe. */
-.news-row__link.news-row__link--no-media {
-  /* Duas classes para vencer as colunas definidas nas media queries abaixo,
-     sem depender da ordem do arquivo. */
-  grid-template-columns: minmax(0, 1fr) 1.5rem;
-}
-
-.news-row__img {
-  object-fit: cover;
-}
-
-.news-row__body {
-  display: grid;
-  gap: 0.35rem;
-}
-
-.news-row__title {
-  text-wrap: balance;
-}
-
-.news-row__excerpt {
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-.news-row__arrow {
-  align-self: center;
-  color: var(--petrol);
-  transition: transform var(--dur-ui) var(--ease-ui);
-}
-
-.news-row__link:hover .news-row__arrow {
-  transform: translateX(4px);
-}
-
-.news-row__link:hover .news-row__title,
-.news-row__link:focus-visible .news-row__title {
-  text-decoration: underline;
-  text-underline-offset: 0.2em;
-}
-
-.news-row__link:focus-visible {
-  outline: 2px solid var(--petrol);
-  outline-offset: 4px;
-}
-
 /* --- Página da notícia ---------------------------------------------- */
 
 .news-back {
@@ -2148,35 +2136,19 @@ ol {
   text-underline-offset: 0.25em;
 }
 
+/* Dois cartões visíveis no tablet, um no celular. No celular o cartão fica
+   um pouco mais estreito que a tela de propósito: a sobra à direita é a pista
+   de que existe mais notícia para o lado, e é o que ensina o swipe. */
 @media (max-width: 63.99rem) {
-  .news-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .news-row__link {
-    grid-template-columns: 10rem minmax(0, 1fr) 1.5rem;
-    gap: 1.25rem;
+  .news-track {
+    grid-auto-columns: calc((100% - 1.5rem) / 2);
+    gap: 1.5rem;
   }
 }
 
 @media (max-width: 47.99rem) {
-  .news-grid {
-    grid-template-columns: 1fr;
-    gap: 1.75rem;
-  }
-
-  .news-row__link {
-    grid-template-columns: 6rem minmax(0, 1fr);
-    gap: 1rem;
-  }
-
-  /* A seta sai: no mobile ela empurraria o texto para uma coluna estreita
-     demais, e o cartão inteiro já é clicável. */
-  .news-row__arrow {
-    display: none;
-  }
-
-  .news-row__excerpt {
-    -webkit-line-clamp: 3;
+  .news-track {
+    grid-auto-columns: calc(100% - 2.5rem);
+    gap: 1.5rem;
   }
 }

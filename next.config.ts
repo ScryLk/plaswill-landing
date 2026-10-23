@@ -14,6 +14,15 @@ const nextConfig: NextConfig = {
     // Enquanto não houver fotos, os cards de produto usam os desenhos técnicos em SVG.
     formats: ["image/avif", "image/webp"],
   },
+  async redirects() {
+    // A listagem de notícias saiu: os doze posts vivem no carrossel da home,
+    // e o arquivo separado repetia os mesmos cartões. O endereço antigo
+    // continua valendo, apontando para a seção. `permanent: true` responde
+    // 308, que os buscadores tratam como 301 e preserva o método da requisição.
+    return [
+      { source: "/noticias", destination: "/#noticias", permanent: true },
+    ];
+  },
   async headers() {
     return [
       {

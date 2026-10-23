@@ -14,6 +14,10 @@ import { seo } from "@/content/site";
  *
  * A home e a política continuam com a data do build, porque são páginas vivas
  * que mudam sem um registro de data próprio.
+ *
+ * `/noticias` saiu do mapa: virou redirecionamento permanente para a seção da
+ * home, e endereço que redireciona não é endereço a indexar. As páginas de
+ * artigo continuam, uma a uma.
  */
 export default function sitemap(): MetadataRoute.Sitemap {
   const lastModified = new Date();
@@ -24,12 +28,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified,
       changeFrequency: "monthly",
       priority: 1,
-    },
-    {
-      url: `${seo.siteUrl}/noticias`,
-      lastModified,
-      changeFrequency: "monthly",
-      priority: 0.6,
     },
     ...newsPosts.map((post) => ({
       url: `${seo.siteUrl}/noticias/${post.slug}`,
