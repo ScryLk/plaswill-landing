@@ -10,7 +10,7 @@ import { ArrowRight } from "./icons";
  *
  * Composição herdada do spec de referência — coluna alinhada à esquerda, altura
  * da janela, mídia sangrando de borda a borda, na ordem
- * `aviso → título → clientes`. Sem véu, sem gradiente decorativo, sem cartão.
+ * `aviso → título → descrição → ações → clientes`. Sem cartão decorativo.
  *
  * **A altura é dividida em fluxo, não sobreposta.** A seção é uma coluna: o
  * texto ocupa o que precisa e a faixa de mídia recebe o resto. Na referência a
@@ -30,9 +30,8 @@ import { ArrowRight } from "./icons";
  * · **Voz tipográfica.** O título sai em Source Serif 4 (a voz de display do
  *   site), e não na grotesca leve da referência. Tamanhos e alinhamento são os
  *   do spec.
- * · **Sem botão no corpo.** A referência não quer CTA dentro do hero; a
- *   conversão fica por conta do botão da barra. É a única fraqueza de CRO que
- *   este formato aceita — está anotada no README.
+ * · **Ações no corpo.** O hero oferece acesso direto aos produtos e ao contato
+ *   comercial, reutilizando texto e destino da fonte editorial do site.
  */
 export function AberturaHero({
   photoSrc,
@@ -68,13 +67,13 @@ export function AberturaHero({
   );
 
   return (
-    <section className="relative h-screen min-h-[700px] w-full overflow-hidden bg-brand-surface">
+    <section className="relative min-h-[100svh] w-full overflow-hidden bg-brand-surface">
       {/* A grade só existe a partir de `md`: no celular é uma coluna, e a foto
           desce para baixo do carrossel. `grid-rows-[minmax(0,1fr)]` prende a
           linha à altura da seção, que é o que faz a foto esticar junto com o
           texto sem depender de `height: 100%` em cadeia. */}
-      <div className="shell relative z-10 flex h-full flex-col md:grid md:grid-cols-[minmax(0,1.08fr)_minmax(0,1fr)] md:grid-rows-[minmax(0,1fr)]">
-        <div className="flex shrink-0 flex-col items-start pt-28 md:pt-36">
+      <div className="shell relative z-10 flex min-h-[100svh] flex-col md:grid md:grid-cols-[minmax(0,1.08fr)_minmax(0,1fr)] md:grid-rows-[minmax(0,1fr)]">
+        <div className="flex shrink-0 flex-col items-start pb-8 pt-28 md:pb-10 md:pt-36">
           {/* Aviso comercial */}
           <a
             className="mb-5 inline-flex animate-fade-up items-center gap-2 rounded-full border border-solid border-brand-slate/15 bg-white/60 px-4 py-2 stagger-3 backdrop-blur-sm transition-colors hover:bg-white/80 md:mb-6"
@@ -119,6 +118,36 @@ export function AberturaHero({
             ))}
           </h1>
 
+          {/* Complemento objetivo: explica a atuação da empresa sem disputar com o H1. */}
+          <p
+            className="mt-6 max-w-xl animate-fade-up font-sans text-[0.95rem] leading-[1.65] text-brand-slate/75 md:mt-7 md:max-w-[34rem] md:text-base"
+            style={{ animationDelay: "640ms" }}
+          >
+            {abertura.heroLead}
+          </p>
+
+          {/* Duas ações úteis na primeira dobra, sem adicionar cards ou dados não verificados. */}
+          <div
+            className="mt-5 flex w-full flex-wrap items-center gap-3 animate-fade-up md:mt-6"
+            style={{ animationDelay: "740ms" }}
+          >
+            <a
+              className="inline-flex min-h-[44px] items-center justify-center gap-2 rounded-full bg-brand-petrol px-5 py-3 font-sans text-sm font-medium text-white transition-colors hover:bg-brand-slate focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-petrol"
+              href={abertura.productsCta.href}
+            >
+              {abertura.productsCta.label}
+              <ArrowRight className="h-4 w-4" />
+            </a>
+            <a
+              className="inline-flex min-h-[44px] items-center justify-center rounded-full border border-solid border-brand-slate/25 bg-white/60 px-5 py-3 font-sans text-sm font-medium text-brand-slate transition-colors hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-petrol"
+              href={abertura.commercialCta.href}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {abertura.commercialCta.label}
+            </a>
+          </div>
+
           {/* Clientes — carrossel contínuo de nomes.
 
               **Por que nomes e não logotipos.** A arte das quinze marcas existia
@@ -137,8 +166,9 @@ export function AberturaHero({
 
               A segunda cópia é `aria-hidden`: para o leitor de tela a lista tem
               quinze nomes, não trinta. */}
-          <div className="mt-8 w-full max-w-full animate-fade-up stagger-5 md:mt-10">
-            <p className="mb-5 font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-brand-slate/70 md:mb-7">
+          <div className="mt-7 w-full max-w-full animate-fade-up md:mt-8"
+            style={{ animationDelay: "840ms" }}>
+            <p className="mb-4 font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-brand-slate/70 md:mb-5">
               {abertura.clientsLabel}
             </p>
 
