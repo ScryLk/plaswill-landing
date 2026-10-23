@@ -74,6 +74,11 @@ export function Footer({ logoSrc }: { logoSrc?: string | null }) {
                 </li>
               ))}
               <li>
+                <Link className="t-caption footer-link" href="/perguntas-frequentes">
+                  Perguntas frequentes
+                </Link>
+              </li>
+              <li>
                 <Link className="t-caption footer-link" href="/politica-de-privacidade">
                   Política de privacidade
                 </Link>
