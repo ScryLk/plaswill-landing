@@ -843,10 +843,6 @@ export const news = {
   title: "Nossa história em movimento.",
   lead:
     "O que acontece na fábrica além da produção: aniversário da empresa, projetos com a comunidade, ações internas e o que muda na operação.",
-  cta: "Ver todas as notícias",
-  archiveTitle: "Todas as notícias.",
-  archiveLead:
-    "Doze publicações, da mais recente para a mais antiga. As datas são as de publicação original.",
 } as const;
 
 /* ------------------------------------------------------------------ */

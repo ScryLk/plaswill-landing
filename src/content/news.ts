@@ -269,15 +269,6 @@ export const newsPosts: NewsPost[] = [
   }
 ];
 
-/**
- * Os três posts mais recentes — os que aparecem na home.
- *
- * A lista já está em ordem decrescente de data, então basta cortar. Não há
- * curadoria manual aqui de propósito: destaque escolhido a dedo vira destaque
- * desatualizado assim que alguém esquece de trocar.
- */
-export const featuredNews = newsPosts.slice(0, 3);
-
 /** Data por extenso, em português, sem depender do locale do servidor. */
 export function formatNewsDate(iso: string): string {
   const [year, month, day] = iso.split("-");

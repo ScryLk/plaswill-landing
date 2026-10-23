@@ -1,26 +1,23 @@
-import Image from "next/image";
-import Link from "next/link";
-
-import { featuredNews, formatNewsDate } from "@/content/news";
+import { newsPosts } from "@/content/news";
 import { news } from "@/content/site";
 
-import { PillButton } from "./PillButton";
-import { Reveal } from "./Reveal";
+import { NewsCarousel } from "./NewsCarousel";
 import { SectionHeader } from "./SectionHeader";
 
 /**
- * "Nossa história em movimento" — três notícias e o caminho para o arquivo.
+ * "Nossa história em movimento" — o arquivo de notícias na home.
  *
- * Três decisões que explicam a forma:
+ * Este bloco já foi contra o carrossel: a versão anterior recusava a ideia
+ * porque rotação automática tira do leitor a decisão de quando avançar. O
+ * problema era o autoplay, não o formato. Agora o carrossel é manual — nada
+ * anda sozinho, o fim é o fim e a rolagem é do leitor (setas, swipe, trackpad
+ * ou teclado) —, e a lista completa ganhou um lugar só, aqui, em vez de uma
+ * página de arquivo separada que repetia os mesmos doze cartões.
  *
- * · **Sem carrossel.** Rotação automática tira do leitor a decisão de quando
- *   avançar e esconde duas das três notícias dentro de um cronômetro. Três
- *   cartões fixos mostram tudo de uma vez e funcionam sem JavaScript.
- * · **Data visível em cada cartão.** É o que separa arquivo de publicidade.
- *   Uma notícia de 2024 continua sendo de 2024.
- * · **A capa é opcional.** Um dos doze posts não tem imagem aproveitável; o
- *   cartão resolve isso sem buraco, sem imagem quebrada e sem foto de outro
- *   assunto no lugar.
+ * Duas coisas continuam valendo da versão anterior: a data visível em cada
+ * cartão, porque é o que separa arquivo de publicidade, e a capa opcional —
+ * um dos doze posts não tem imagem aproveitável, e o cartão resolve isso sem
+ * buraco e sem foto de outro assunto no lugar.
  */
 export function News() {
   return (
@@ -31,45 +28,9 @@ export function News() {
           label={news.eyebrowLabel}
           title={news.title}
           lead={news.lead}
-          action={
-            <PillButton href="/noticias" marks={["tl", "br"]}>
-              {news.cta}
-            </PillButton>
-          }
         />
 
-        <div className="news-grid">
-          {featuredNews.map((post, index) => (
-            <Reveal key={post.slug} delay={index * 60}>
-              <article className="news-card">
-                <Link className="news-card__link" href={`/noticias/${post.slug}`}>
-                  {post.cover ? (
-                    <span className="news-card__media">
-                      <Image
-                        src={post.cover.src}
-                        alt={post.cover.alt}
-                        fill
-                        sizes="(min-width: 1024px) 380px, (min-width: 640px) 45vw, 90vw"
-                        className="news-card__img"
-                      />
-                    </span>
-                  ) : null}
-
-                  <time className="t-code c-tertiary" dateTime={post.date}>
-                    {formatNewsDate(post.date)}
-                  </time>
-                  <h3 className="t-subhead news-card__title">{post.title}</h3>
-                  <p className="t-small c-muted news-card__excerpt">
-                    {post.paragraphs[0]}
-                  </p>
-                  <span className="news-card__more t-caption c-petrol">
-                    Ler a notícia
-                  </span>
-                </Link>
-              </article>
-            </Reveal>
-          ))}
-        </div>
+        <NewsCarousel posts={newsPosts} />
       </div>
     </section>
   );

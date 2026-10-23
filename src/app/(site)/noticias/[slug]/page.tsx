@@ -98,7 +98,7 @@ export default async function NoticiaPage({ params }: PageProps) {
       />
 
       <div className="wrap wrap--narrow">
-        <Link className="t-caption c-petrol news-back" href="/noticias">
+        <Link className="t-caption c-petrol news-back" href="/#noticias">
           ← Todas as notícias
         </Link>
 
@@ -138,7 +138,7 @@ export default async function NoticiaPage({ params }: PageProps) {
         ) : null}
 
         <p className="news-article__back">
-          <Link className="t-caption c-petrol" href="/noticias">
+          <Link className="t-caption c-petrol" href="/#noticias">
             Ver todas as notícias
           </Link>
         </p>
