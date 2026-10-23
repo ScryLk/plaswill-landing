@@ -90,6 +90,7 @@ export default function HomePage() {
         <hr className="rule" />
         {/* Notícias institucionais ficam na home; segmentos e FAQ têm páginas próprias. */}
         <News />
+        <hr className="rule" />
         <Contact />
       </main>
 
