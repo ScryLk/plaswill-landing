@@ -166,8 +166,10 @@ export function AberturaHero({
 
               A segunda cópia é `aria-hidden`: para o leitor de tela a lista tem
               quinze nomes, não trinta. */}
-          <div className="mt-7 w-full max-w-full animate-fade-up md:mt-8"
-            style={{ animationDelay: "840ms" }}>
+          <div
+            className="mt-7 w-full max-w-full animate-fade-up md:mt-8"
+            style={{ animationDelay: "840ms" }}
+          >
             <p className="mb-4 font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-brand-slate/70 md:mb-5">
               {abertura.clientsLabel}
             </p>
