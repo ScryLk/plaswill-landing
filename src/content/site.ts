@@ -1048,6 +1048,9 @@ export const abertura = {
   /* O título reusa a chamada já aprovada da landing, com as mesmas quebras. */
   headline: hero.headline,
   headlineLines: hero.headlineLines,
+  heroLead: hero.lead,
+  productsCta: { label: hero.primaryCta.label, href: "/#produtos" },
+  commercialCta: hero.secondaryCta,
 
   cta: { label: "Solicitar orçamento", href: "/#orcamento" },
 
@@ -1074,7 +1077,7 @@ export const abertura = {
    *
    * Publicar marca de cliente depende de autorização contratual — confirmar antes.
    */
-  clientsLabel: "Fornecedor homologado de",
+  clientsLabel: "Empresas que confiam na Plaswill",
   clients: [
     "Saur",
     "Fockink",
