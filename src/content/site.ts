@@ -47,12 +47,12 @@ export const contact = {
 /* ------------------------------------------------------------------ */
 
 export const nav = [
-  { id: "sobre", label: "A Plaswill", href: "#sobre" },
-  { id: "produtos", label: "Produtos", href: "#produtos" },
-  { id: "diferenciais", label: "Diferenciais", href: "#diferenciais" },
-  { id: "estrutura", label: "Estrutura", href: "#estrutura" },
-  { id: "segmentos", label: "Segmentos", href: "#segmentos" },
-  { id: "orcamento", label: "Orçamento", href: "#orcamento" },
+  { id: "sobre", label: "A Plaswill", href: "/#sobre" },
+  { id: "produtos", label: "Produtos", href: "/#produtos" },
+  { id: "diferenciais", label: "Diferenciais", href: "/#diferenciais" },
+  { id: "estrutura", label: "Estrutura", href: "/#estrutura" },
+  { id: "segmentos", label: "Segmentos", href: "/segmentos" },
+  { id: "orcamento", label: "Orçamento", href: "/#orcamento" },
 ] as const;
 
 /* ------------------------------------------------------------------ */
@@ -82,7 +82,7 @@ export const hero = {
   ],
   lead:
     "Soluções em embalagens plásticas para a indústria, o comércio e o agronegócio. Conheça nossos produtos e encontre a alternativa adequada à sua operação.",
-  primaryCta: { label: "Conhecer produtos", href: "#produtos" },
+  primaryCta: { label: "Conhecer produtos", href: "/#produtos" },
   secondaryCta: { label: "Falar com o comercial", href: site.whatsapp.href },
   facts: [
     { label: "Fundação", value: "2007" },
@@ -777,7 +777,7 @@ export const materials = {
       "Destinação dos resíduos da própria fábrica — depende de documento da empresa.",
     ],
   },
-  cta: { label: "Falar sobre materiais e aplicação", href: "#orcamento" },
+  cta: { label: "Falar sobre materiais e aplicação", href: "/#orcamento" },
 } as const;
 
 /* ------------------------------------------------------------------ */
@@ -1029,7 +1029,7 @@ export const quoteForm = {
 export const aberturaNav = [
   { id: "produtos", label: "Produtos", href: "/#produtos", chevron: true },
   { id: "estrutura", label: "Estrutura", href: "/#estrutura", chevron: false },
-  { id: "segmentos", label: "Segmentos", href: "/#segmentos", chevron: false },
+  { id: "segmentos", label: "Segmentos", href: "/segmentos", chevron: false },
 ] as const;
 
 /**
