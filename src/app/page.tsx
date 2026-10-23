@@ -1,12 +1,10 @@
 import { About } from "@/components/About";
 import { Contact } from "@/components/Contact";
 import { Differentials } from "@/components/Differentials";
-import { Faq } from "@/components/Faq";
 import { Footer } from "@/components/Footer";
 import { Materials } from "@/components/Materials";
 import { News } from "@/components/News";
 import { Products } from "@/components/Products";
-import { Segments } from "@/components/Segments";
 import { Structure } from "@/components/Structure";
 import { AberturaContato } from "@/components/abertura/AberturaContato";
 import { AberturaHero } from "@/components/abertura/AberturaHero";
@@ -90,15 +88,9 @@ export default function HomePage() {
         <hr className="rule" />
         <Materials />
         <hr className="rule" />
-        <Segments />
-        <hr className="rule" />
-        {/* Notícias depois dos segmentos e antes do FAQ: é conteúdo
-            institucional, não comercial. Quem está decidindo compra lê até
-            segmentos e segue para a dúvida; quem está avaliando a empresa
-            encontra aqui o que ela tem feito. */}
+        {/* Notícias institucionais ficam na home; segmentos e FAQ têm páginas próprias. */}
         <News />
         <hr className="rule" />
-        <Faq />
         <Contact />
       </main>
 

@@ -35,6 +35,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "yearly" as const,
       priority: 0.4,
     })),
+    ...["segmentos", "perguntas-frequentes"].map((path) => ({
+      url: `${seo.siteUrl}/${path}`,
+      lastModified,
+      changeFrequency: "yearly" as const,
+      priority: 0.6,
+    })),
     {
       url: `${seo.siteUrl}/politica-de-privacidade`,
       lastModified,

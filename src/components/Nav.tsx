@@ -29,7 +29,7 @@ export function Nav({ logoSrc }: { logoSrc?: string | null }) {
     <>
       <div className="nav-shell">
         <nav className="nav-pill" aria-label="Navegação principal">
-          <a className="nav-brand" href="#topo" aria-label={`${site.name} — início`}>
+          <a className="nav-brand" href="/#topo" aria-label={`${site.name} — início`}>
             <Wordmark src={logoSrc} />
           </a>
 
@@ -43,7 +43,7 @@ export function Nav({ logoSrc }: { logoSrc?: string | null }) {
 
           <div className="nav-actions">
             <PillButton
-              href="#orcamento"
+              href="/#orcamento"
               variant="primary"
               className="nav-cta"
               marks={["tl", "br"]}
