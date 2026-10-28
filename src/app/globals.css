@@ -2152,3 +2152,10 @@ ol {
     gap: 1.5rem;
   }
 }
+
+/* Optional analytics consent, above the mobile contact bar. */
+.analytics-preferences { position: fixed; bottom: 5.5rem; left: 1rem; z-index: 80; padding: .45rem .7rem; border: 1px solid #435b63; border-radius: 4px; background: #f5f6f3; color: #193b45; font-size: .75rem; box-shadow: 0 2px 8px #0002; }
+.analytics-consent { position: fixed; bottom: 1rem; left: 1rem; right: 1rem; z-index: 90; max-width: 40rem; max-height: calc(100dvh - 2rem); overflow-y: auto; padding: 1.25rem; background: #f5f6f3; color: #193b45; border: 1px solid #435b63; border-radius: 8px; box-shadow: 0 8px 32px #0003; display: grid; gap: .8rem; }
+.analytics-consent-actions { display: flex; flex-wrap: wrap; gap: .75rem; }
+.analytics-consent-actions .pill { flex: 1 1 12rem; }
+.analytics-consent button:focus-visible, .analytics-preferences:focus-visible { outline: 3px solid #193b45; outline-offset: 3px; }

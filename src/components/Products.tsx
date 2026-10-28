@@ -1,6 +1,7 @@
 "use client";
 
 import { Fragment, useState } from "react";
+import { track } from "@/lib/analytics";
 
 import {
   catalog,
@@ -101,9 +102,10 @@ export function Products() {
                     product={product}
                     index={index}
                     open={openId === product.id}
-                    onToggle={() =>
-                      setOpenId(openId === product.id ? null : product.id)
-                    }
+                    onToggle={() => {
+                      if (openId !== product.id) track("product_details_opened", { product: product.id, section: "produtos" });
+                      setOpenId(openId === product.id ? null : product.id);
+                    }}
                   />
                 ))}
               </Fragment>
@@ -139,6 +141,7 @@ function ProductRow({
    */
   const requestSample = () => {
     if (typeof window === "undefined") return;
+    track("sample_request_started", { product: product.id, section: "produtos" });
     window.dispatchEvent(
       new CustomEvent("plaswill:produto", { detail: product.name }),
     );
@@ -146,7 +149,7 @@ function ProductRow({
 
   return (
     <Reveal delay={index * 40}>
-      <div className="prod" data-open={open ? "true" : "false"} id={product.id}>
+      <div className="prod" data-product-id={product.id} data-open={open ? "true" : "false"} id={product.id}>
         <button
           type="button"
           className="prod-row"
