@@ -23,11 +23,11 @@ export const site = {
     postalCode: "98280-000",
     country: "BR",
   },
-  phone: { label: "(55) 3375-8522", href: "tel:+555533758522" },
+  phone: { label: "(55) 99603-4140", href: "tel:+5555996034140" },
   whatsapp: {
-    label: "(55) 98427-5963",
-    // área 55 + número 98427-5963
-    href: "https://wa.me/5555984275963",
+    label: "(55) 99603-4140",
+    // área 55 + número 99603-4140
+    href: "https://wa.me/5555996034140",
   },
   emails: {
     commercial: "comercial@plaswill.com.br",
