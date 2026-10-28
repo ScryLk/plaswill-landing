@@ -30,14 +30,14 @@ const sections: Section[] = [
   {
     title: "Quais dados coletamos",
     body: [
-      "Coletamos apenas os dados que você informa voluntariamente nos canais de contato e no formulário de orçamento: nome, empresa, e-mail, telefone, segmento de atuação, produto de interesse, volume estimado e o detalhe técnico que você escrever.",
+      "Nos canais comerciais, coletamos os dados que você informa voluntariamente nos canais de contato e no formulário de orçamento: nome, empresa, e-mail, telefone, segmento de atuação, produto de interesse, volume estimado e o detalhe técnico que você escrever.",
       "Não coletamos dados sensíveis nem dados de crianças e adolescentes. Não pedimos informações de pagamento por este site.",
     ],
   },
   {
     title: "Para que usamos",
     body: [
-      "Usamos os dados exclusivamente para responder à sua solicitação comercial: elaborar e enviar a cotação, esclarecer dúvidas técnicas, providenciar amostras e dar seguimento ao atendimento.",
+      "Usamos os dados de contato para responder à sua solicitação comercial: elaborar e enviar a cotação, esclarecer dúvidas técnicas, providenciar amostras e dar seguimento ao atendimento.",
       "Não usamos os dados para envio de publicidade sem o seu consentimento, e não os vendemos ou cedemos a terceiros para fins próprios deles.",
     ],
   },
@@ -70,7 +70,10 @@ const sections: Section[] = [
   {
     title: "Cookies e medição",
     body: [
-      "Esta versão do site não ativa cookies de publicidade nem rastreadores de terceiros. Quando ferramentas de medição forem habilitadas, esta política será atualizada com a lista de ferramentas, a finalidade e a forma de recusar, e a coleta dependerá do seu consentimento prévio quando exigido.",
+      "Quando habilitada pela Plaswill, a medição opcional usa o PostHog Cloud somente após seu consentimento (art. 7º, I, da LGPD). Medimos visitas, interações com produtos e canais comerciais para melhorar o site e apresentar indicadores agregados. A coleta inclui identificadores analíticos pseudônimos, páginas sem parâmetros ou fragmentos, dispositivo, navegador e códigos de campanha; identificadores não equivalem a pessoas comprovadas.",
+      "Não enviamos campos do formulário, mensagens, e-mails, telefones ou o conteúdo dos links de contato ao PostHog. A integração não ativa gravações de sessão, mapas de calor ou captura automática de cliques e formulários. Cliques e tentativas de abertura do WhatsApp não comprovam atendimento, pedido recebido ou venda.",
+      "A escolha de consentimento e, após autorização, identificadores analíticos ficam no armazenamento local do navegador. Você pode recusar sem perder acesso ao site e rever ou revogar sua autorização em Preferências de privacidade. A revogação interrompe novas coletas neste navegador; para dados já coletados, utilize o canal indicado em Seus direitos.",
+      "O PostHog Cloud pode processar dados fora do Brasil, conforme a região contratada. Antes da ativação, a Plaswill deve confirmar a região, as condições de transferência internacional e o prazo de retenção aplicável. Os painéis corporativos devem utilizar somente dados agregados.",
     ],
   },
   {

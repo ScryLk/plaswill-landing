@@ -22,6 +22,12 @@ services:
       NODE_ENV: production
       PORT: "3000"
       HOSTNAME: 0.0.0.0
+      # Public ingestion token only; no personal API key belongs in the landing.
+      POSTHOG_ENABLED: ${POSTHOG_ENABLED:-false}
+      POSTHOG_PROJECT_TOKEN: ${POSTHOG_PROJECT_TOKEN:-}
+      POSTHOG_INGESTION_HOST: ${POSTHOG_INGESTION_HOST:-}
+      POSTHOG_SITE_HOST: ${POSTHOG_SITE_HOST:-site.plaswill.tech}
+      POSTHOG_ENVIRONMENT: ${POSTHOG_ENVIRONMENT:-production}
     # O Next não guarda estado: só o processo em memória.
     read_only: true
     tmpfs:

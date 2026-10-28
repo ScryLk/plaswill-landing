@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
+import { track } from "@/lib/analytics";
 
 import { contact, quoteForm, site } from "@/content/site";
 
@@ -64,6 +65,7 @@ export function QuoteForm() {
   const [errors, setErrors] = useState<Errors>({});
   const [sent, setSent] = useState(false);
   const [waHref, setWaHref] = useState<string | null>(null);
+  const started = useRef(false);
 
   /**
    * O catálogo avisa aqui qual produto gerou o "Pedir amostra".
@@ -111,11 +113,14 @@ export function QuoteForm() {
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (!validate()) return;
+    const valid = validate();
+    track("quote_validation_attempted", { section: "orcamento", product: values.product, valid });
+    if (!valid) return;
 
     const href = `${site.whatsapp.href}?text=${encodeURIComponent(buildMessage(values))}`;
     setWaHref(href);
     setSent(true);
+    track("quote_whatsapp_open_attempted", { section: "orcamento", product: values.product });
     window.open(href, "_blank", "noopener,noreferrer");
   }
 
@@ -152,7 +157,12 @@ export function QuoteForm() {
   }
 
   return (
-    <form className="quote-form" onSubmit={handleSubmit} noValidate>
+    <form className="quote-form" onSubmit={handleSubmit} noValidate onFocus={() => {
+      if (!started.current) {
+        started.current = true;
+        track("quote_form_started", { section: "orcamento", product: values.product });
+      }
+    }}>
       <div className="form-grid">
         <div className="field">
           <label className="t-eyebrow" htmlFor="f-name">

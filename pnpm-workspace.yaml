@@ -1,6 +1,10 @@
 packages:
   - '.'
 
+# core-js only runs an informational postinstall; no build artifact is required.
+allowBuilds:
+  core-js: false
+
 # O projeto nasceu no Mac (darwin/arm64) e o sandbox de build também é arm64 —
 # por isso a lista original tinha só essa arquitetura. A VPS é linux/x64, e sem
 # x64 aqui o `pnpm install` baixa os binários nativos errados: o `next build`

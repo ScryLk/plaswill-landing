@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import localFont from "next/font/local";
 
 import { seo, site } from "@/content/site";
+import { AnalyticsConsent } from "@/components/AnalyticsConsent";
 
 import "./globals.css";
 
@@ -110,6 +111,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           }}
         />
         {children}
+        <AnalyticsConsent />
       </body>
     </html>
   );
