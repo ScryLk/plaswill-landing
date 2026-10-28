@@ -1,5 +1,7 @@
 # Plaswill — landing page
 
+Preparação de analytics: veja [POSTHOG.md](POSTHOG.md) para configuração, consentimento e contrato de eventos; [PROMPT-VPS-INDICATORS.md](PROMPT-VPS-INDICATORS.md) contém o prompt de continuação na VPS. A coleta é desativada por padrão e a integração real com o Indicators depende de homologação.
+
 Landing page institucional e comercial da Plaswill, construída sobre a mecânica do sistema de design extraído da antimetal.com (documentado em `referencias/antimetal-design-system.md`) e sobre os dados verificados do dossiê corporativo (`dossie_contexto_plaswill.md`).
 
 **Status: publicada como prévia em `https://site.plaswill.tech`; o domínio comercial não foi tocado.** A página do Next.js foi convergida para a versão aprovada em 19/10 (`design/prototipo-plaswill.html`): abertura em duas colunas no desktop — título à esquerda, campo de grânulos à direita sangrando até a borda da janela — e empilhada no mobile, catálogo em tabela/lista com ficha que abre na própria linha, estrutura em prancha técnica ao lado das etapas, segmentos em coluna e barra fixa de conversão no mobile.

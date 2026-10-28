@@ -52,7 +52,7 @@ export function AnalyticsConsent() {
       if (/^https:\/\/(wa\.me|api\.whatsapp\.com)(\/|$)/.test(href)) track("whatsapp_click", { section, product });
       else if (href.startsWith("tel:")) track("phone_click", { section });
       else if (href.startsWith("mailto:")) track("email_click", { section });
-      else if (href === "#orcamento" && !product) track("quote_cta_clicked", { section });
+      else if ((href === "#orcamento" || href === "/#orcamento") && !product) track("quote_cta_clicked", { section });
     };
     window.addEventListener("storage", onStorage);
     document.addEventListener("click", onClick);
