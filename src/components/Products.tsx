@@ -8,6 +8,8 @@ import {
   productCategories,
   productsByCategory,
   site,
+  trashBagComparisonFeatures,
+  trashBagLines,
   type Product,
 } from "@/content/site";
 
@@ -95,6 +97,8 @@ export function Products() {
                     {items.length} {items.length === 1 ? "produto" : "produtos"}
                   </span>
                 </div>
+
+                {category.id === "residuos" ? <TrashBagLineShowcase /> : null}
 
                 {items.map((product, index) => (
                   <ProductRow
@@ -229,7 +233,7 @@ function ProductRow({
                   <div className="prod-variants">
                     <div className="prod-variants__header">
                       <p className="t-eyebrow c-petrol">
-                        Selecione a espessura · {activeVariant.dimensions}
+                        {activeVariant.tableRows ? "Selecione a linha" : "Selecione a espessura"} · {activeVariant.dimensions}
                       </p>
                       <span className="t-code c-tertiary">
                         {activeVariant.weight}
@@ -237,8 +241,9 @@ function ProductRow({
                     </div>
                     <div
                       className="prod-variants__tabs"
+                      data-cols={product.variants.length}
                       role="tablist"
-                      aria-label="Espessuras disponíveis de plástico bolha"
+                      aria-label={`Opções disponíveis de ${product.name}`}
                     >
                       {product.variants.map((variant) => {
                         const active = variant.id === activeVariant.id;
@@ -263,34 +268,65 @@ function ProductRow({
                       })}
                     </div>
 
-                    <div className="prod-variant-gallery" key={activeVariant.id}>
-                      <div className="prod-variant-card">
-                        <ProductImage
-                          src={activeVariant.image}
-                          alt={activeVariant.imageAlt}
-                          sizes="(min-width: 1024px) 220px, 45vw"
-                        />
-                        <div className="prod-variant-caption">
-                          <span className="t-eyebrow">Bobina {activeVariant.dimensions}</span>
-                          <span className="t-code c-petrol">{activeVariant.weight}</span>
+                    {activeVariant.tableRows ? (
+                      <div className="prod-line-matrix" key={activeVariant.id}>
+                        <div className="prod-line-matrix__head">
+                          <span>Capacidade</span>
+                          <span>Modelo</span>
+                          <span>Carga Suportada</span>
                         </div>
+                        <div className="prod-line-matrix__body">
+                          {activeVariant.tableRows.map((row) => (
+                            <div
+                              className="prod-line-matrix__row"
+                              key={`${row.capacity}-${row.model}`}
+                            >
+                              <span className="t-spec">{row.capacity}</span>
+                              <span className="t-code c-petrol">{row.model}</span>
+                              <span className="t-spec">{row.loadKg}</span>
+                            </div>
+                          ))}
+                        </div>
+                        {activeVariant.idealFor && activeVariant.idealFor.length > 0 ? (
+                          <div className="prod-line-matrix__ideal">
+                            <span className="t-eyebrow c-tertiary">Ideal para:</span>
+                            <span className="t-caption c-muted">
+                              {activeVariant.idealFor.join(" · ")}
+                            </span>
+                          </div>
+                        ) : null}
                       </div>
-                      {activeVariant.detailImage && activeVariant.detailImageAlt ? (
+                    ) : activeVariant.image && activeVariant.imageAlt ? (
+                      <div className="prod-variant-gallery" key={activeVariant.id}>
                         <div className="prod-variant-card">
                           <ProductImage
-                            src={activeVariant.detailImage}
-                            alt={activeVariant.detailImageAlt}
+                            src={activeVariant.image}
+                            alt={activeVariant.imageAlt}
                             sizes="(min-width: 1024px) 220px, 45vw"
                           />
                           <div className="prod-variant-caption">
-                            <span className="t-eyebrow">Espessura real</span>
-                            <span className="t-code c-petrol">{activeVariant.label}</span>
+                            <span className="t-eyebrow">Bobina {activeVariant.dimensions}</span>
+                            <span className="t-code c-petrol">{activeVariant.weight}</span>
                           </div>
                         </div>
-                      ) : null}
-                    </div>
+                        {activeVariant.detailImage && activeVariant.detailImageAlt ? (
+                          <div className="prod-variant-card">
+                            <ProductImage
+                              src={activeVariant.detailImage}
+                              alt={activeVariant.detailImageAlt}
+                              sizes="(min-width: 1024px) 220px, 45vw"
+                            />
+                            <div className="prod-variant-caption">
+                              <span className="t-eyebrow">Espessura real</span>
+                              <span className="t-code c-petrol">{activeVariant.label}</span>
+                            </div>
+                          </div>
+                        ) : null}
+                      </div>
+                    ) : null}
                   </div>
-                ) : product.image && product.imageAlt ? (
+                ) : null}
+                {(!product.variants || activeVariant?.tableRows) && product.image && product.imageAlt ? (
                   <ProductImage src={product.image} alt={product.imageAlt} />
                 ) : null}
                 <p className="t-eyebrow c-tertiary">
@@ -318,3 +354,177 @@ function ProductRow({
     </Reveal>
   );
 }
+
+/**
+ * Quadro informativo e comparativo das duas linhas de Sacos para Lixo
+ * (Linha Econômica e Linha Premium Reforçada), posicionado no topo da
+ * categoria C3 — Resíduos e coleta.
+ */
+function TrashBagLineShowcase() {
+  const [showCompareTable, setShowCompareTable] = useState(true);
+
+  const requestLineQuote = (lineTitle: string) => {
+    if (typeof window === "undefined") return;
+    track("sample_request_started", {
+      product: `sacos-para-lixo-${lineTitle.toLowerCase()}`,
+      section: "comparativo-sacos-lixo",
+    });
+    window.dispatchEvent(
+      new CustomEvent("plaswill:produto", { detail: "Sacos para lixo" }),
+    );
+  };
+
+  const buildWhatsappHref = (lineTitle: string) => {
+    const text = encodeURIComponent(
+      `Olá! Gostaria de solicitar uma cotação da ${lineTitle} de Sacos para Lixo Plaswill (pacotes com 100 unidades).`,
+    );
+    return `${site.whatsapp.href}?text=${text}`;
+  };
+
+  return (
+    <div className="trash-showcase" id="linhas-sacos-lixo">
+      <div className="trash-showcase__header">
+        <div className="stack-xs">
+          <p className="t-eyebrow c-petrol">
+            Informativo técnico · Sacos para lixo (Pacotes com 100 unidades)
+          </p>
+          <h4 className="t-subhead trash-showcase__title">
+            Duas linhas calibradas para o perfil do seu resíduo: Econômica e Premium Reforçada.
+          </h4>
+          <p className="t-small c-muted trash-showcase__lead">
+            Compare a especificação de modelos (<strong>M8, M10, M12 e M15</strong>), capacidades de{" "}
+            <strong>20 L a 200 L</strong> e carga suportada de{" "}
+            <strong>3 kg a 50 kg</strong> antes de cotar seu lote direto da fábrica.
+          </p>
+        </div>
+        <button
+          type="button"
+          className="trash-showcase__toggle t-eyebrow"
+          aria-expanded={showCompareTable}
+          onClick={() => setShowCompareTable((prev) => !prev)}
+        >
+          {showCompareTable ? "Ocultar comparativo direto" : "Ver comparativo direto"}
+        </button>
+      </div>
+
+      <div className="trash-showcase__grid">
+        {Object.values(trashBagLines).map((line) => (
+          <article
+            key={line.id}
+            className="trash-line-card"
+            data-line={line.id}
+          >
+            <header className="trash-line-card__head">
+              <div className="trash-line-card__badges">
+                <span className="trash-line-card__badge t-code">
+                  {line.badge}
+                </span>
+                <span className="trash-line-card__pack t-eyebrow">
+                  {line.packaging}
+                </span>
+              </div>
+              <h5 className="trash-line-card__title">{line.name}</h5>
+              <p className="t-small c-muted">{line.tagline}</p>
+            </header>
+
+            <ul className="trash-line-card__highlights">
+              {line.highlights.map((item) => (
+                <li key={item.title} className="t-caption">
+                  <span className="trash-line-card__check" aria-hidden="true">
+                    ✓
+                  </span>
+                  <span>
+                    <strong>{item.title}:</strong> {item.detail}
+                  </span>
+                </li>
+              ))}
+            </ul>
+
+            <div className="trash-line-table" role="region" aria-label={`Tabela de especificações da ${line.name}`}>
+              <div className="trash-line-table__head">
+                <span>Capacidade</span>
+                <span>Modelo</span>
+                <span>Carga Suportada</span>
+              </div>
+              <div className="trash-line-table__body">
+                {line.rows.map((row) => (
+                  <div
+                    className="trash-line-table__row"
+                    key={`${line.id}-${row.capacity}-${row.model}`}
+                  >
+                    <span className="t-spec">{row.capacity}</span>
+                    <span className="t-code trash-line-table__model">
+                      {row.model}
+                    </span>
+                    <span className="t-spec trash-line-table__load">
+                      {row.loadKg}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="trash-line-card__ideal">
+              <p className="t-eyebrow c-tertiary">Ideal para</p>
+              <ul className="tag-row">
+                {line.idealFor.map((segment) => (
+                  <li key={segment} className="tag t-caption">
+                    {segment}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <footer className="trash-line-card__actions cluster">
+              <PillButton
+                href="#orcamento"
+                variant="primary"
+                onClick={() => requestLineQuote(line.name)}
+              >
+                Cotar {line.name}
+              </PillButton>
+              <PillButton
+                href={buildWhatsappHref(line.name)}
+                marks={["tl", "br"]}
+              >
+                WhatsApp comercial
+              </PillButton>
+            </footer>
+          </article>
+        ))}
+      </div>
+
+      {showCompareTable ? (
+        <div className="trash-compare" role="region" aria-label="Quadro comparativo entre Linha Econômica e Linha Premium">
+          <div className="trash-compare__head">
+            <span>Característica</span>
+            <span>Linha Econômica</span>
+            <span>Linha Premium Reforçada</span>
+          </div>
+          <div className="trash-compare__body">
+            {trashBagComparisonFeatures.map((item) => (
+              <div className="trash-compare__row" key={item.feature}>
+                <span className="t-caption trash-compare__feature">
+                  {item.feature}
+                </span>
+                <span
+                  className="t-caption trash-compare__val"
+                  data-highlight={item.economica.startsWith("✓") ? "true" : "false"}
+                >
+                  {item.economica}
+                </span>
+                <span
+                  className="t-caption trash-compare__val trash-compare__val--premium"
+                  data-highlight={item.premium.startsWith("✓") ? "true" : "false"}
+                >
+                  {item.premium}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+      ) : null}
+    </div>
+  );
+}
+

@@ -223,6 +223,120 @@ export const productCategories: ProductCategory[] = [
   },
 ];
 
+export type TrashBagModelRow = {
+  capacity: string;
+  model: string;
+  loadKg: string;
+};
+
+export type TrashBagLine = {
+  id: "economica" | "premium";
+  badge: string;
+  name: string;
+  tagline: string;
+  description: string;
+  packaging: string;
+  modelsSummary: string;
+  capacitiesSummary: string;
+  loadRangeSummary: string;
+  idealFor: string[];
+  highlights: { title: string; detail: string }[];
+  rows: TrashBagModelRow[];
+};
+
+export type TrashBagComparisonFeature = {
+  feature: string;
+  economica: string;
+  premium: string;
+};
+
+export const trashBagLines: Record<"economica" | "premium", TrashBagLine> = {
+  economica: {
+    id: "economica",
+    badge: "LINHA 01 · USO DIÁRIO",
+    name: "Linha Econômica",
+    tagline: "Qualidade e economia para o dia a dia.",
+    description:
+      "Desenvolvida para rotinas de limpeza geral e coleta diária de resíduos leves a moderados, entregando excelente custo-benefício em pacotes com 100 unidades.",
+    packaging: "Pacotes com 100 unidades",
+    modelsSummary: "Modelos M8 e M10",
+    capacitiesSummary: "20 L a 200 L",
+    loadRangeSummary: "3 kg a 30 kg",
+    idealFor: [
+      "Condomínios",
+      "Escritórios",
+      "Escolas",
+      "Comércio",
+      "Limpeza em geral",
+    ],
+    highlights: [
+      { title: "Excelente custo-benefício", detail: "Qualidade com economia para alto giro diário." },
+      { title: "Ideal para uso diário", detail: "Praticidade e eficiência na rotina de limpeza." },
+      { title: "Pacotes com 100 unidades", detail: "Padronização de estoque e reposição rápida." },
+      { title: "Disponível em diversas cores", detail: "Preto e cores para separação de resíduos." },
+    ],
+    rows: [
+      { capacity: "20 Litros", model: "M8", loadKg: "3 kg" },
+      { capacity: "40 Litros", model: "M8", loadKg: "6 kg" },
+      { capacity: "60 Litros", model: "M8", loadKg: "10 kg" },
+      { capacity: "100 Litros", model: "M8", loadKg: "20 kg" },
+      { capacity: "130 Litros", model: "M8", loadKg: "20 kg" },
+      { capacity: "150 Litros", model: "M10", loadKg: "30 kg" },
+      { capacity: "200 Litros", model: "M10", loadKg: "30 kg" },
+    ],
+  },
+  premium: {
+    id: "premium",
+    badge: "LINHA 02 · ALTA RESISTÊNCIA",
+    name: "Linha Premium Reforçada",
+    tagline: "Mais resistência para aplicações exigentes.",
+    description:
+      "Projetada com parede reforçada (modelos M10, M12 e M15) e solda de fundo de alta tração para suportar até 50 kg com segurança no manuseio de resíduos pesados.",
+    packaging: "Pacotes com 100 unidades",
+    modelsSummary: "Modelos M10, M12 e M15",
+    capacitiesSummary: "40 L a 200 L",
+    loadRangeSummary: "8 kg a 50 kg",
+    idealFor: [
+      "Indústrias",
+      "Hospitais",
+      "Frigoríficos",
+      "Hotéis",
+      "Cozinhas industriais",
+      "Condomínios de grande porte",
+    ],
+    highlights: [
+      { title: "Alta resistência mecânica", detail: "Suporta mais peso sem esticar nem rasgar." },
+      { title: "Maior capacidade de carga", detail: "Modelos M10, M12 e M15 para até 50 kg." },
+      { title: "Ideal para resíduos pesados", detail: "Performance e segurança onde a operação exige." },
+      { title: "Pacotes com 100 unidades", detail: "Abastecimento industrial direto de fábrica." },
+    ],
+    rows: [
+      { capacity: "40 Litros", model: "M10", loadKg: "8 kg" },
+      { capacity: "60 Litros", model: "M12", loadKg: "16 kg" },
+      { capacity: "100 Litros", model: "M10", loadKg: "30 kg" },
+      { capacity: "100 Litros", model: "M12", loadKg: "40 kg" },
+      { capacity: "100 Litros", model: "M15", loadKg: "47 kg" },
+      { capacity: "130 Litros", model: "M10", loadKg: "30 kg" },
+      { capacity: "130 Litros", model: "M12", loadKg: "40 kg" },
+      { capacity: "130 Litros", model: "M15", loadKg: "50 kg" },
+      { capacity: "150 Litros", model: "M12", loadKg: "40 kg" },
+      { capacity: "150 Litros", model: "M15", loadKg: "50 kg" },
+      { capacity: "200 Litros", model: "M12", loadKg: "40 kg" },
+      { capacity: "200 Litros", model: "M15", loadKg: "50 kg" },
+    ],
+  },
+};
+
+export const trashBagComparisonFeatures: TrashBagComparisonFeature[] = [
+  { feature: "Uso diário", economica: "Confirmado", premium: "Confirmado" },
+  { feature: "Excelente custo-benefício", economica: "Máximo (5/5)", premium: "Equilibrado (3/5)" },
+  { feature: "Alta resistência mecânica", economica: "Moderada (3/5)", premium: "Máxima (5/5)" },
+  { feature: "Resíduos pesados (até 50 kg)", economica: "—", premium: "Confirmado (M10 · M12 · M15)" },
+  { feature: "Diversas capacidades", economica: "20 L a 200 L", premium: "40 L a 200 L" },
+  { feature: "Disponível em diversas cores", economica: "Confirmado", premium: "Confirmado" },
+  { feature: "Pacotes com 100 unidades", economica: "Confirmado", premium: "Confirmado" },
+];
+
 export type ProductVariant = {
   id: string;
   label: string;
@@ -230,10 +344,12 @@ export type ProductVariant = {
   dimensions: string;
   weight: string;
   specs: Spec[];
-  image: string;
-  imageAlt: string;
+  image?: string;
+  imageAlt?: string;
   detailImage?: string;
   detailImageAlt?: string;
+  tableRows?: TrashBagModelRow[];
+  idealFor?: string[];
 };
 
 export type Product = {
@@ -519,20 +635,55 @@ const productSeeds: Product[] = [
     code: "PR-08",
     category: "residuos",
     name: "Sacos para lixo",
-    short: "Resíduo comum",
+    short: "Linha Econômica e Linha Premium Reforçada",
     benefit:
-      "Saco de uso diário com solda de fundo que segura o peso na coleta e no transporte interno.",
+      "Duas linhas calibradas para a necessidade real da operação: Linha Econômica (M8 e M10) para uso diário com economia, e Linha Premium Reforçada (M10, M12 e M15) para resíduos pesados de até 50 kg.",
     specs: [
-      { label: "Aplicação", value: "resíduo comum" },
-      { label: "Material", value: "polietileno" },
-      { label: "Fechamento", value: "solda de fundo" },
-      { label: "Formato", value: "sob medida" },
+      { label: "Linhas disponíveis", value: "Econômica · Premium Reforçada" },
+      { label: "Capacidades", value: "20 L · 40 L · 60 L · 100 L · 130 L · 150 L · 200 L" },
+      { label: "Modelos / Espessuras", value: "M8 · M10 · M12 · M15" },
+      { label: "Carga suportada", value: "3 kg a 50 kg (conforme linha e modelo)" },
+      { label: "Apresentação", value: "pacotes com 100 unidades (preto e diversas cores)" },
+    ],
+    variants: [
+      {
+        id: "economica",
+        label: "Econômica",
+        title: "Linha Econômica (M8 · M10)",
+        dimensions: "20 L a 200 L",
+        weight: "Carga: 3 kg a 30 kg",
+        specs: [
+          { label: "Linha", value: "Econômica — Qualidade e economia para o dia a dia" },
+          { label: "Capacidades", value: "20 L · 40 L · 60 L · 100 L · 130 L · 150 L · 200 L" },
+          { label: "Modelos", value: "M8 (20 L a 130 L) · M10 (150 L e 200 L)" },
+          { label: "Carga suportada", value: "de 3 kg (20 L) até 30 kg (150 L / 200 L)" },
+          { label: "Apresentação", value: "pacotes com 100 unidades (diversas cores)" },
+        ],
+        tableRows: trashBagLines.economica.rows,
+        idealFor: trashBagLines.economica.idealFor,
+      },
+      {
+        id: "premium",
+        label: "Premium Reforçada",
+        title: "Linha Premium Reforçada (M10 · M12 · M15)",
+        dimensions: "40 L a 200 L",
+        weight: "Carga: 8 kg a 50 kg",
+        specs: [
+          { label: "Linha", value: "Premium Reforçada — Mais resistência para aplicações exigentes" },
+          { label: "Capacidades", value: "40 L · 60 L · 100 L · 130 L · 150 L · 200 L" },
+          { label: "Modelos", value: "M10 · M12 · M15 (alta resistência para resíduos pesados)" },
+          { label: "Carga suportada", value: "de 8 kg (40 L M10) até 50 kg (130 L / 150 L / 200 L M15)" },
+          { label: "Apresentação", value: "pacotes com 100 unidades (alta tração e segurança)" },
+        ],
+        tableRows: trashBagLines.premium.rows,
+        idealFor: trashBagLines.premium.idealFor,
+      },
     ],
     applications: [
-      "Limpeza e manutenção",
-      "Resíduo domiciliar",
-      "Indústria e comércio",
-      "Condomínios",
+      "Indústrias e hospitais",
+      "Frigoríficos e cozinhas industriais",
+      "Hotéis e condomínios",
+      "Escritórios, escolas e comércio",
     ],
     drawing: "bag",
   },

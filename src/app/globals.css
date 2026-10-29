@@ -2289,3 +2289,332 @@ ol {
 .analytics-consent-actions { display: flex; flex-wrap: wrap; gap: .75rem; }
 .analytics-consent-actions .pill { flex: 1 1 12rem; }
 .analytics-consent button:focus-visible, .analytics-preferences:focus-visible { outline: 3px solid #193b45; outline-offset: 3px; }
+
+/* ==========================================================================
+   Sacos para Lixo — Linha Econômica vs. Linha Premium Reforçada
+   ========================================================================== */
+
+.prod-variants__tabs[data-cols="2"] {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.prod-line-matrix {
+  display: grid;
+  gap: 0.5rem;
+  padding: 0.85rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+}
+
+.prod-line-matrix__head {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.9fr) minmax(0, 1.3fr);
+  gap: 0.75rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid var(--line);
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--tertiary);
+}
+
+.prod-line-matrix__body {
+  display: grid;
+  gap: 0.3rem;
+  max-height: 18rem;
+  overflow-y: auto;
+  padding-right: 0.25rem;
+}
+
+.prod-line-matrix__row {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.9fr) minmax(0, 1.3fr);
+  gap: 0.75rem;
+  align-items: center;
+  padding: 0.35rem 0;
+  border-bottom: 1px dashed var(--line-dash);
+  font-size: 0.8125rem;
+}
+
+.prod-line-matrix__row:last-child {
+  border-bottom: 0;
+}
+
+.prod-line-matrix__ideal {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding-top: 0.5rem;
+  border-top: 1px dashed var(--line-dash);
+}
+
+/* --- Showcase de Linhas no Topo da Categoria Resíduos ------------------ */
+
+.trash-showcase {
+  margin: 1.5rem 0 2.25rem;
+  padding: clamp(1.25rem, 2.5vw, 2rem);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  position: relative;
+}
+
+.trash-showcase::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--petrol) 0%, var(--petrol) 50%, var(--accent) 50%, var(--accent) 100%);
+}
+
+.trash-showcase__header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1.25rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px dashed var(--line-dash);
+}
+
+.trash-showcase__title {
+  max-width: 44ch;
+  font-size: clamp(1.15rem, 1rem + 0.6vw, 1.45rem);
+}
+
+.trash-showcase__lead {
+  max-width: 60ch;
+}
+
+.trash-showcase__toggle {
+  padding: 0.45rem 0.85rem;
+  border: 1px solid var(--line);
+  background: var(--bg);
+  color: var(--petrol);
+  cursor: pointer;
+  transition: border-color var(--dur-ui) var(--ease-ui), background-color var(--dur-ui) var(--ease-ui);
+}
+
+.trash-showcase__toggle:hover {
+  border-color: var(--petrol);
+  background: var(--surface);
+}
+
+.trash-showcase__grid {
+  display: grid;
+  gap: 1.75rem;
+  margin-top: 1.75rem;
+}
+
+@media (min-width: 56rem) {
+  .trash-showcase__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2rem;
+  }
+}
+
+.trash-line-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding: clamp(1.25rem, 2vw, 1.75rem);
+  background: var(--bg);
+  border: 1px solid var(--line);
+  position: relative;
+}
+
+.trash-line-card[data-line="premium"] {
+  border-color: color-mix(in oklab, var(--petrol) 40%, var(--line));
+  box-shadow: 0 4px 18px color-mix(in oklab, var(--petrol) 6%, transparent);
+}
+
+.trash-line-card__head {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.trash-line-card__badges {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.trash-line-card__badge {
+  display: inline-flex;
+  padding: 0.2rem 0.55rem;
+  border-radius: var(--radius-pill);
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  font-weight: 600;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  color: var(--petrol);
+}
+
+.trash-line-card[data-line="premium"] .trash-line-card__badge {
+  background: var(--petrol);
+  border-color: var(--petrol);
+  color: #ffffff;
+}
+
+.trash-line-card__pack {
+  color: var(--tertiary);
+  font-size: 0.72rem;
+}
+
+.trash-line-card__title {
+  font-size: clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--fg);
+}
+
+.trash-line-card__highlights {
+  display: grid;
+  gap: 0.4rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.trash-line-card__highlights li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  color: var(--fg);
+}
+
+.trash-line-card__check {
+  color: var(--petrol);
+  font-weight: 700;
+}
+
+.trash-line-card[data-line="premium"] .trash-line-card__check {
+  color: #0b7285;
+}
+
+.trash-line-table {
+  border: 1px solid var(--line);
+  background: var(--surface);
+}
+
+.trash-line-table__head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.85fr) minmax(0, 1.25fr);
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid var(--line);
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--tertiary);
+}
+
+.trash-line-table__body {
+  display: grid;
+  max-height: 16rem;
+  overflow-y: auto;
+}
+
+.trash-line-table__row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.85fr) minmax(0, 1.25fr);
+  gap: 0.5rem;
+  align-items: center;
+  padding: 0.4rem 0.75rem;
+  border-bottom: 1px dashed var(--line-dash);
+  font-size: 0.8125rem;
+}
+
+.trash-line-table__row:last-child {
+  border-bottom: 0;
+}
+
+.trash-line-table__model {
+  color: var(--petrol);
+  font-weight: 600;
+}
+
+.trash-line-card[data-line="premium"] .trash-line-table__model {
+  color: #0b7285;
+}
+
+.trash-line-table__load {
+  font-weight: 600;
+}
+
+.trash-line-card__ideal {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.trash-line-card__actions {
+  margin-top: auto;
+  padding-top: 0.5rem;
+}
+
+/* --- Quadro Comparativo ----------------------------------------------- */
+
+.trash-compare {
+  margin-top: 2rem;
+  border: 1px solid var(--line);
+  background: var(--bg);
+  overflow-x: auto;
+}
+
+.trash-compare__head {
+  display: grid;
+  grid-template-columns: minmax(13rem, 1.4fr) minmax(10rem, 1fr) minmax(11rem, 1.1fr);
+  gap: 1rem;
+  padding: 0.65rem 1rem;
+  border-bottom: 1px solid var(--line);
+  background: var(--surface);
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--tertiary);
+}
+
+.trash-compare__body {
+  display: grid;
+}
+
+.trash-compare__row {
+  display: grid;
+  grid-template-columns: minmax(13rem, 1.4fr) minmax(10rem, 1fr) minmax(11rem, 1.1fr);
+  gap: 1rem;
+  align-items: center;
+  padding: 0.6rem 1rem;
+  border-bottom: 1px dashed var(--line-dash);
+}
+
+.trash-compare__row:last-child {
+  border-bottom: 0;
+}
+
+.trash-compare__feature {
+  font-weight: 500;
+  color: var(--fg);
+}
+
+.trash-compare__val {
+  color: var(--muted);
+}
+
+.trash-compare__val[data-highlight="true"] {
+  color: var(--petrol);
+  font-weight: 600;
+}
+
+.trash-compare__val--premium[data-highlight="true"] {
+  color: #0b7285;
+}
+
