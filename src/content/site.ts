@@ -223,6 +223,19 @@ export const productCategories: ProductCategory[] = [
   },
 ];
 
+export type ProductVariant = {
+  id: string;
+  label: string;
+  title: string;
+  dimensions: string;
+  weight: string;
+  specs: Spec[];
+  image: string;
+  imageAlt: string;
+  detailImage?: string;
+  detailImageAlt?: string;
+};
+
 export type Product = {
   id: string;
   code: string;
@@ -241,6 +254,8 @@ export type Product = {
    */
   image?: string;
   imageAlt?: string;
+  /** Opções clicáveis de espessura/medida com fotos e especificações próprias. */
+  variants?: ProductVariant[];
 };
 
 const productSeeds: Product[] = [
@@ -254,7 +269,8 @@ const productSeeds: Product[] = [
     benefit:
       "Bobina calibrada para travar a carga até o destino, sem afrouxar na trepidação da estrada.",
     specs: [
-      { label: "Micragem nominal", value: "20µ · 25µ · 30µ" },
+      { label: "Micragem nominal", value: "25µ" },
+      { label: "Medidas da bobina", value: "0,50 m × 300 m" },
       { label: "Aplicação", value: "manual e automática" },
       { label: "Propriedade", value: "memória elástica ativa" },
       { label: "Resistência", value: "perfuração dinâmica e quinas vivas" },
@@ -276,6 +292,8 @@ const productSeeds: Product[] = [
     benefit:
       "A mesma calibração do stretch de máquina, na bobina que se leva até o palete.",
     specs: [
+      { label: "Micragem nominal", value: "25µ" },
+      { label: "Medidas da bobina", value: "10 cm × 100 m" },
       { label: "Aplicação", value: "manual" },
       { label: "Formato", value: "rolinho de mão" },
       { label: "Propriedade", value: "estiramento com memória elástica" },
@@ -297,10 +315,104 @@ const productSeeds: Product[] = [
     short: "Peças, equipamentos e pátio",
     benefit: "Protege o que fica no pátio: não resseca com o sol nem rasga com o vento.",
     specs: [
-      { label: "Espessura", value: "30µ · 120µ" },
+      { label: "Espessuras", value: "30µ · 50µ · 70µ · 80µ · 120µ" },
+      { label: "Medidas do rolo", value: "1,30 m × 100 m" },
+      { label: "Peso por rolo", value: "2,9 kg a 12,0 kg (conforme espessura)" },
       { label: "Aditivação", value: "anti-UV" },
       { label: "Bolha", value: "indeformável de alta tração" },
-      { label: "Aplicação", value: "pátios e armazenagem externa" },
+      { label: "Aplicação", value: "pátios, transporte e armazenagem externa" },
+    ],
+    variants: [
+      {
+        id: "30u",
+        label: "30µ",
+        title: "Plástico Bolha 30 Micras",
+        dimensions: "1,30 m × 100 m",
+        weight: "2,9 kg/rolo",
+        specs: [
+          { label: "Espessura nominal", value: "30 micras (30µ)" },
+          { label: "Medidas do rolo", value: "1,30 m × 100 m" },
+          { label: "Peso por rolo", value: "2,9 kg/rolo" },
+          { label: "Acabamento", value: "cristal transparente" },
+          { label: "Aplicação indicada", value: "proteção leve, expedição e e-commerce" },
+        ],
+        image: "/images/produtos/plastico-bolha-30u-rolo.webp",
+        imageAlt: "Bobina de plástico bolha Plaswill 30 micras (1,30 x 100 m, 2,9 kg/rolo).",
+        detailImage: "/images/produtos/plastico-bolha-30u-detalhe.webp",
+        detailImageAlt: "Detalhe da espessura de 30 micras do plástico bolha Plaswill.",
+      },
+      {
+        id: "50u",
+        label: "50µ",
+        title: "Plástico Bolha 50 Micras",
+        dimensions: "1,30 m × 100 m",
+        weight: "3,6 kg/rolo",
+        specs: [
+          { label: "Espessura nominal", value: "50 micras (50µ)" },
+          { label: "Medidas do rolo", value: "1,30 m × 100 m" },
+          { label: "Peso por rolo", value: "3,6 kg/rolo" },
+          { label: "Acabamento", value: "cristal transparente reforçado" },
+          { label: "Aplicação indicada", value: "móveis, peças industriais e transporte rodoviário" },
+        ],
+        image: "/images/produtos/plastico-bolha-50u-rolo.webp",
+        imageAlt: "Bobina de plástico bolha Plaswill 50 micras (1,30 x 100 m, 3,6 kg/rolo).",
+        detailImage: "/images/produtos/plastico-bolha-50u-detalhe.webp",
+        detailImageAlt: "Detalhe da espessura de 50 micras do plástico bolha Plaswill.",
+      },
+      {
+        id: "70u",
+        label: "70µ",
+        title: "Plástico Bolha 70 Micras",
+        dimensions: "1,30 m × 100 m",
+        weight: "5,6 kg/rolo",
+        specs: [
+          { label: "Espessura nominal", value: "70 micras (70µ)" },
+          { label: "Medidas do rolo", value: "1,30 m × 100 m" },
+          { label: "Peso por rolo", value: "5,6 kg/rolo" },
+          { label: "Acabamento", value: "azul com aditivação anti-UV" },
+          { label: "Aplicação indicada", value: "chapas metálicas, maquinários e peças pintadas" },
+        ],
+        image: "/images/produtos/plastico-bolha-70u-rolo.webp",
+        imageAlt: "Bobina de plástico bolha Plaswill 70 micras (1,30 x 100 m, 5,6 kg/rolo) com proteção anti-UV.",
+        detailImage: "/images/produtos/plastico-bolha-70u-detalhe.webp",
+        detailImageAlt: "Detalhe da espessura de 70 micras do plástico bolha Plaswill.",
+      },
+      {
+        id: "80u",
+        label: "80µ",
+        title: "Plástico Bolha 80 Micras",
+        dimensions: "1,30 m × 100 m",
+        weight: "7,6 kg/rolo",
+        specs: [
+          { label: "Espessura nominal", value: "80 micras (80µ)" },
+          { label: "Medidas do rolo", value: "1,30 m × 100 m" },
+          { label: "Peso por rolo", value: "7,6 kg/rolo" },
+          { label: "Acabamento", value: "azul de alta gramatura com anti-UV" },
+          { label: "Aplicação indicada", value: "implementos agrícolas, equipamentos pesados e pátio" },
+        ],
+        image: "/images/produtos/plastico-bolha-80u-rolo.webp",
+        imageAlt: "Bobina de plástico bolha Plaswill 80 micras (1,30 x 100 m, 7,6 kg/rolo) com proteção anti-UV.",
+        detailImage: "/images/produtos/plastico-bolha-80u-detalhe.webp",
+        detailImageAlt: "Detalhe da espessura de 80 micras do plástico bolha Plaswill.",
+      },
+      {
+        id: "120u",
+        label: "120µ",
+        title: "Plástico Bolha 120 Micras",
+        dimensions: "1,30 m × 100 m",
+        weight: "12,0 kg/rolo",
+        specs: [
+          { label: "Espessura nominal", value: "120 micras (120µ)" },
+          { label: "Medidas do rolo", value: "1,30 m × 100 m" },
+          { label: "Peso por rolo", value: "12,0 kg/rolo" },
+          { label: "Acabamento", value: "preto extra-reforçado anti-UV" },
+          { label: "Aplicação indicada", value: "armazenagem externa severa, pátio aberto e cargas pesadas" },
+        ],
+        image: "/images/produtos/plastico-bolha-120u-rolo.webp",
+        imageAlt: "Bobina de plástico bolha Plaswill 120 micras (1,30 x 100 m, 12 kg/rolo) preta extra-reforçada.",
+        detailImage: "/images/produtos/plastico-bolha-120u-detalhe.webp",
+        detailImageAlt: "Detalhe da espessura de 120 micras do plástico bolha Plaswill em máquina.",
+      },
     ],
     applications: [
       "Maquinários e equipamentos",
@@ -647,7 +759,7 @@ export const differentials: Differential[] = [
     context:
       "A espessura é o que decide resistência, consumo por palete e custo por carga.",
     evidence:
-      "A espessura que sai do cabeçote é a que está na ficha: o stretch é fornecido em 20, 25 e 30 micras nominais, conferidas ao longo da bobina.",
+      "A espessura que sai do cabeçote é a que está na ficha: o stretch é fornecido em 25 micras nominais (0,50 m × 300 m) e o plástico bolha em 30, 50, 70, 80 e 120 micras (1,30 m × 100 m), conferidos ao longo da bobina.",
   },
   {
     title: "Produto sob medida para o formato da operação",

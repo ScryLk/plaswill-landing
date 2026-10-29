@@ -223,7 +223,7 @@ function StretchDrawing() {
       <Hatch x={196} y={276} width={144} step={10} />
 
       <Callout x1={330} y1={120} x2={392} y2={96} label="memória elástica" anchor="end" />
-      <Callout x1={92} y1={140} x2={40} y2={88} label="20µ · 25µ · 30µ" />
+      <Callout x1={92} y1={140} x2={40} y2={88} label="25µ · 0,50 × 300 m" />
     </Plate>
   );
 }
@@ -265,8 +265,8 @@ function BubbleDrawing() {
         </g>
       ))}
 
-      <DimV y1={104} y2={196} x={452} label="até 120µ" />
-      <Callout x1={294} y1={171} x2={330} y2={238} label="bolha indeformável" anchor="end" />
+      <DimV y1={104} y2={196} x={452} label="30µ a 120µ" />
+      <Callout x1={294} y1={171} x2={330} y2={238} label="1,30 × 100 m" anchor="end" />
       <Callout x1={100} y1={104} x2={40} y2={34} label="aditivo anti-UV" />
       <Hatch x={70} y={116} width={16} step={7} height={14} />
     </Plate>

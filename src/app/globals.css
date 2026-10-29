@@ -1596,6 +1596,136 @@ ol {
   padding: clamp(0.5rem, 2vw, 1.25rem);
 }
 
+/* --- Seletor de espessuras e galeria de variações (Plástico Bolha) --- */
+
+.prod-spec--chips {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0.28rem;
+  align-items: center;
+}
+
+.prod-spec-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.14rem 0.42rem;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--muted);
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.6875rem;
+  line-height: 1.2;
+  letter-spacing: 0.04em;
+  transition: border-color 180ms var(--ease-ui), background-color 180ms var(--ease-ui), color 180ms var(--ease-ui);
+}
+
+.prod-spec-chip:hover {
+  border-color: var(--petrol);
+  color: var(--fg);
+}
+
+.prod-spec-chip[data-active="true"] {
+  border-color: var(--petrol);
+  background: var(--petrol);
+  color: #ffffff;
+}
+
+.prod-variants {
+  display: grid;
+  gap: 0.75rem;
+  margin-bottom: 0.25rem;
+}
+
+.prod-variants__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.prod-variants__tabs {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.4rem;
+}
+
+.prod-variant-tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.12rem;
+  padding: 0.5rem 0.35rem;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--fg);
+  cursor: pointer;
+  transition: border-color 180ms var(--ease-ui), background-color 180ms var(--ease-ui), color 180ms var(--ease-ui);
+}
+
+.prod-variant-tab:hover {
+  border-color: var(--petrol);
+}
+
+.prod-variant-tab[data-active="true"] {
+  border-color: var(--petrol);
+  background: var(--petrol);
+  color: #ffffff;
+}
+
+.prod-variant-tab__label {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  line-height: 1.1;
+}
+
+.prod-variant-tab__meta {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.65rem;
+  opacity: 0.78;
+  line-height: 1.1;
+}
+
+.prod-variant-gallery {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.prod-variant-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
+  border: 1px solid var(--line);
+}
+
+.prod-variant-card .prod-photo {
+  aspect-ratio: 3 / 4;
+  margin: 0;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.prod-variant-card .prod-photo__img {
+  object-fit: cover;
+  padding: 0;
+}
+
+.prod-variant-caption {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.4rem;
+  padding: 0.45rem 0.6rem;
+}
+
+@media (max-width: 35.99rem) {
+  .prod-variants__tabs {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
 @media print {
   /* Papel não tem hover nem transição; a ficha impressa mostra a foto e a
      prancha juntas, que é como a pessoa leva o produto para a reunião. */

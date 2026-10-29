@@ -129,6 +129,15 @@ function ProductRow({
   onToggle: () => void;
 }) {
   const panelId = `ficha-${product.id}`;
+  const [selectedVariantId, setSelectedVariantId] = useState<string>(
+    product.variants?.[0]?.id ?? "",
+  );
+
+  const activeVariant = product.variants?.find(
+    (v) => v.id === selectedVariantId,
+  ) ?? product.variants?.[0];
+
+  const activeSpecs = activeVariant ? activeVariant.specs : product.specs;
 
   /**
    * "Pedir amostra" avisa o formulário de qual produto se trata.
@@ -159,7 +168,29 @@ function ProductRow({
         >
           <span className="t-code c-tertiary prod-code">{product.code}</span>
           <span className="t-subhead prod-name">{product.name}</span>
-          <span className="t-caption c-muted prod-spec">{product.specs[0].value}</span>
+          {product.variants ? (
+            <span className="prod-spec prod-spec--chips" aria-label={`Espessuras: ${product.specs[0].value}`}>
+              {product.variants.map((variant) => {
+                const isSelected = open && activeVariant?.id === variant.id;
+                return (
+                  <span
+                    key={variant.id}
+                    className="prod-spec-chip"
+                    data-active={isSelected ? "true" : "false"}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setSelectedVariantId(variant.id);
+                      if (!open) onToggle();
+                    }}
+                  >
+                    {variant.label}
+                  </span>
+                );
+              })}
+            </span>
+          ) : (
+            <span className="t-caption c-muted prod-spec">{product.specs[0].value}</span>
+          )}
           <span className="t-caption c-muted prod-app">{product.short}</span>
           <span className="prod-arrow" aria-hidden="true">
             →
@@ -194,15 +225,79 @@ function ProductRow({
               </div>
 
               <div className="prod-sheet">
-                {/* A foto vem do acervo auditado. Quando não há imagem
-                    publicável — hoje só o saco para pedra —, o bloco não
-                    existe e a prancha técnica é a peça principal da ficha. */}
-                {product.image && product.imageAlt ? (
+                {product.variants && activeVariant ? (
+                  <div className="prod-variants">
+                    <div className="prod-variants__header">
+                      <p className="t-eyebrow c-petrol">
+                        Selecione a espessura · {activeVariant.dimensions}
+                      </p>
+                      <span className="t-code c-tertiary">
+                        {activeVariant.weight}
+                      </span>
+                    </div>
+                    <div
+                      className="prod-variants__tabs"
+                      role="tablist"
+                      aria-label="Espessuras disponíveis de plástico bolha"
+                    >
+                      {product.variants.map((variant) => {
+                        const active = variant.id === activeVariant.id;
+                        return (
+                          <button
+                            key={variant.id}
+                            type="button"
+                            role="tab"
+                            aria-selected={active}
+                            className="prod-variant-tab"
+                            data-active={active ? "true" : "false"}
+                            onClick={() => setSelectedVariantId(variant.id)}
+                          >
+                            <span className="prod-variant-tab__label">
+                              {variant.label}
+                            </span>
+                            <span className="prod-variant-tab__meta">
+                              {variant.weight.replace("/rolo", "")}
+                            </span>
+                          </button>
+                        );
+                      })}
+                    </div>
+
+                    <div className="prod-variant-gallery" key={activeVariant.id}>
+                      <div className="prod-variant-card">
+                        <ProductImage
+                          src={activeVariant.image}
+                          alt={activeVariant.imageAlt}
+                          sizes="(min-width: 1024px) 220px, 45vw"
+                        />
+                        <div className="prod-variant-caption">
+                          <span className="t-eyebrow">Bobina {activeVariant.dimensions}</span>
+                          <span className="t-code c-petrol">{activeVariant.weight}</span>
+                        </div>
+                      </div>
+                      {activeVariant.detailImage && activeVariant.detailImageAlt ? (
+                        <div className="prod-variant-card">
+                          <ProductImage
+                            src={activeVariant.detailImage}
+                            alt={activeVariant.detailImageAlt}
+                            sizes="(min-width: 1024px) 220px, 45vw"
+                          />
+                          <div className="prod-variant-caption">
+                            <span className="t-eyebrow">Espessura real</span>
+                            <span className="t-code c-petrol">{activeVariant.label}</span>
+                          </div>
+                        </div>
+                      ) : null}
+                    </div>
+                  </div>
+                ) : product.image && product.imageAlt ? (
                   <ProductImage src={product.image} alt={product.imageAlt} />
                 ) : null}
-                <p className="t-eyebrow c-tertiary">Ficha técnica</p>
+                <p className="t-eyebrow c-tertiary">
+                  Ficha técnica{activeVariant ? ` · ${activeVariant.title}` : ""}
+                </p>
                 <dl className="spec-list">
-                  {product.specs.map((spec) => (
+                  {activeSpecs.map((spec) => (
                     <div className="spec-row" key={spec.label}>
                       <dt className="t-eyebrow">{spec.label}</dt>
                       <dd className="t-spec">{spec.value}</dd>
@@ -210,10 +305,7 @@ function ProductRow({
                   ))}
                 </dl>
                 <div className="prod-drawing">
-                  {/* Com foto, a prancha passa a ser complemento — e diz isso.
-                      Sem foto, ela é a própria imagem do produto e não precisa
-                      de rótulo. */}
-                  {product.image ? (
+                  {product.image || product.variants ? (
                     <p className="t-eyebrow c-tertiary">Prancha técnica</p>
                   ) : null}
                   <ProductDrawing id={product.drawing} subject={product.name} />
