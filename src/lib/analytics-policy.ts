@@ -53,11 +53,23 @@ export function campaignCode(value: string | null): string | undefined {
   return value && /^[a-zA-Z][a-zA-Z0-9_.-]{0,63}$/.test(value) && !/\d{6}/.test(value) ? value : undefined;
 }
 
+export function isAllowedSiteHost(configuredSiteHost: string, currentHost: string): boolean {
+  if (!configuredSiteHost || !currentHost) return false;
+  if (configuredSiteHost === currentHost) return true;
+  if (currentHost === `www.${configuredSiteHost}`) return true;
+  if (configuredSiteHost === `www.${currentHost}`) return true;
+  const officialHosts = new Set(["plaswill.com.br", "www.plaswill.com.br", "site.plaswill.tech"]);
+  if (officialHosts.has(configuredSiteHost) && officialHosts.has(currentHost)) {
+    return true;
+  }
+  return false;
+}
+
 export function trafficSource(referrer: string, siteHost: string): string {
   if (!referrer) return "direct";
   try {
     const host = new URL(referrer).hostname;
-    if (host === siteHost) return "internal";
+    if (isAllowedSiteHost(siteHost, host)) return "internal";
     for (const [domain, source] of [
       ["google.com", "google"], ["google.com.br", "google"], ["bing.com", "bing"],
       ["instagram.com", "instagram"], ["facebook.com", "facebook"], ["linkedin.com", "linkedin"],

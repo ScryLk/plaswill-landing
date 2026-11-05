@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import {
   configureAnalytics, consentStorageKey, setAnalyticsConsent, track, trackPage,
 } from "@/lib/analytics";
-import type { AnalyticsConfig } from "@/lib/analytics-policy";
+import { type AnalyticsConfig, isAllowedSiteHost } from "@/lib/analytics-policy";
 
 export function AnalyticsConsent() {
   const pathname = usePathname();
@@ -16,7 +16,7 @@ export function AnalyticsConsent() {
   useEffect(() => {
     let active = true;
     void fetch("/api/analytics/config").then((response) => response.json()).then((value) => {
-      if (!active || !value.enabled || value.siteHost !== location.hostname) return;
+      if (!active || !value || !value.enabled || !isAllowedSiteHost(value.siteHost, location.hostname)) return;
       setConfig(value);
       configureAnalytics(value);
       let choice: string | null = null;

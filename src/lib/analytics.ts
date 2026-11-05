@@ -3,7 +3,7 @@ import type { PostHog } from "posthog-js";
 import { products } from "@/content/site";
 import { newsPosts } from "@/content/news";
 import {
-  campaignCode, sanitizeAnalyticsEvent, trafficSource,
+  campaignCode, isAllowedSiteHost, sanitizeAnalyticsEvent, trafficSource,
   type AnalyticsConfig, type AnalyticsEvent,
 } from "./analytics-policy";
 
@@ -35,7 +35,7 @@ export function track(event: AnalyticsEvent, attributes: {
   section?: string;
   valid?: boolean;
 } = {}) {
-  if (!consent || !client || !config || location.hostname !== config.siteHost) return;
+  if (!consent || !client || !config || !isAllowedSiteHost(config.siteHost, location.hostname)) return;
   const page = paths.has(location.pathname) ? location.pathname : "/other";
   client.capture(event, {
     site_host: config.siteHost, environment: config.environment, schema_version: 1,
@@ -62,7 +62,7 @@ export async function setAnalyticsConsent(accepted: boolean) {
     client?.opt_out_capturing();
     return;
   }
-  if (!config || location.hostname !== config.siteHost) return;
+  if (!config || !isAllowedSiteHost(config.siteHost, location.hostname)) return;
   if (!client) {
     loading ??= (async () => {
       // No PostHog code, persistence or external requests before explicit consent.
