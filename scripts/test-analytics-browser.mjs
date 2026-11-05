@@ -39,17 +39,21 @@ try {
   page.on("console", (message) => { if (message.type() === "error" || message.type() === "warning") console.log("Browser:", message.text()); });
   page.on("pageerror", (error) => errors.push(error.message));
   await page.goto(`${base}/?email=PRIVATE_SENTINEL&utm_source=google&utm_campaign=launch_2026`);
-  await page.getByRole("button", { name: "Aceitar medição", exact: true }).waitFor();
+  await page.getByRole("button", { name: "Aceitar cookies", exact: true }).waitFor();
   await page.waitForTimeout(500);
   assert.equal(external.length, 0, "No third-party request before consent");
   assert.deepEqual(await page.evaluate(() => Object.keys(localStorage).filter((key) => key.startsWith("ph_"))), []);
-  await page.getByRole("button", { name: "Recusar medição", exact: true }).click();
+  await page.getByRole("button", { name: "Recusar cookies", exact: true }).click();
   await page.reload();
-  await page.getByRole("button", { name: "Preferências de privacidade" }).waitFor();
-  assert.equal(await page.getByRole("button", { name: "Aceitar medição", exact: true }).count(), 0);
+  assert.equal(await page.getByRole("button", { name: "Aceitar cookies", exact: true }).count(), 0);
   assert.equal(external.length, 0, "Refusal survives reload");
-  await page.getByRole("button", { name: "Preferências de privacidade" }).click();
-  await page.getByRole("button", { name: "Aceitar medição", exact: true }).click();
+  await page.evaluate(() => {
+    for (const key of Object.keys(localStorage)) {
+      if (key.startsWith("plaswill_analytics_consent_")) localStorage.removeItem(key);
+    }
+  });
+  await page.reload();
+  await page.getByRole("button", { name: "Aceitar cookies", exact: true }).click();
   await page.waitForTimeout(6500);
   assert.equal(errors.length, 0, errors.join("\n"));
   assert.equal(events.filter((e) => e.event === "$pageview").length, 1, "One initial pageview");
@@ -95,12 +99,11 @@ try {
 
   const otherTab = await context.newPage();
   await otherTab.goto(`${base}/segmentos`);
-  await otherTab.getByRole("button", { name: "Preferências de privacidade" }).waitFor();
   await otherTab.waitForTimeout(4500);
   assert.equal(count("$pageview"), 2, "Consent enables the next page without another prompt");
   assert.equal(new Set(events.map((event) => event.properties.distinct_id)).size, 1, "Anonymous browser identity survives navigation");
 
-  await page.getByRole("button", { name: "Preferências de privacidade" }).click();
+  await page.evaluate(() => window.dispatchEvent(new CustomEvent("plaswill:privacy-preferences")));
   await page.getByRole("button", { name: "Revogar consentimento" }).click();
   await otherTab.waitForTimeout(100);
   await otherTab.evaluate(() => {

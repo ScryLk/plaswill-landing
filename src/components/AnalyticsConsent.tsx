@@ -32,6 +32,8 @@ export function AnalyticsConsent() {
 
   useEffect(() => {
     if (!config) return;
+    const onOpen = () => setOpen(true);
+    window.addEventListener("plaswill:privacy-preferences", onOpen);
     const onStorage = (event: StorageEvent) => {
       if (event.key !== consentStorageKey(config) && event.key !== null) return;
       const allow = event.newValue === "accepted";
@@ -56,7 +58,11 @@ export function AnalyticsConsent() {
     };
     window.addEventListener("storage", onStorage);
     document.addEventListener("click", onClick);
-    return () => { window.removeEventListener("storage", onStorage); document.removeEventListener("click", onClick); };
+    return () => {
+      window.removeEventListener("plaswill:privacy-preferences", onOpen);
+      window.removeEventListener("storage", onStorage);
+      document.removeEventListener("click", onClick);
+    };
   }, [config]);
 
   function choose(allow: boolean) {
@@ -67,23 +73,34 @@ export function AnalyticsConsent() {
     void setAnalyticsConsent(allow).catch(() => {});
   }
 
-  if (!config) return null;
+  if (!config || !open) return null;
   return (
-    <>
-      <button type="button" className="analytics-preferences" onClick={() => setOpen(true)}>
-        Preferências de privacidade
-      </button>
-      {open ? (
-        <section className="analytics-consent" aria-labelledby="analytics-consent-title">
-          <h2 id="analytics-consent-title" className="t-subhead">Medição opcional de uso</h2>
-          <p className="t-small">Com sua autorização, usamos o PostHog para medir visitas e interações com produtos e contatos. Os campos do formulário não são enviados à ferramenta. Você pode recusar e continuar usando o site.</p>
-          <a href="/politica-de-privacidade" className="t-small link-underline">Política de privacidade</a>
-          <div className="analytics-consent-actions">
-            <button type="button" className="pill t-button" onClick={() => choose(false)}>{accepted ? "Revogar consentimento" : "Recusar medição"}</button>
-            <button type="button" className="pill t-button" onClick={() => choose(true)}>Aceitar medição</button>
+    <section className="analytics-consent analytics-drawer" aria-labelledby="analytics-consent-title" role="region">
+      <div className="analytics-drawer-container">
+        <div className="analytics-drawer-content">
+          <div className="analytics-drawer-header">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FFDE00" strokeWidth="2.2">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+            </svg>
+            <h2 id="analytics-consent-title" className="analytics-drawer-title">
+              Privacidade & Cookies de Navegação
+            </h2>
           </div>
-        </section>
-      ) : null}
-    </>
+          <p className="analytics-drawer-text">
+            Com sua autorização, utilizamos cookies analíticos (PostHog) para entender o interesse nos produtos, fichas técnicas e orçamentos da Plaswill. 
+            Não gravamos telas nem coletamos dados pessoais digitados em formulários. Saiba mais em nossa{" "}
+            <a href="/politica-de-privacidade" className="analytics-drawer-link">Política de privacidade</a>.
+          </p>
+        </div>
+        <div className="analytics-consent-actions analytics-drawer-actions">
+          <button type="button" className="analytics-btn-reject" onClick={() => choose(false)}>
+            {accepted ? "Revogar consentimento" : "Recusar cookies"}
+          </button>
+          <button type="button" className="analytics-btn-accept" onClick={() => choose(true)}>
+            Aceitar cookies
+          </button>
+        </div>
+      </div>
+    </section>
   );
 }

@@ -21,7 +21,7 @@ export function publicAnalyticsConfig(env: Record<string, string | undefined>): 
 export const analyticsEvents = [
   "$pageview", "product_details_opened", "sample_request_started", "quote_cta_clicked",
   "whatsapp_click", "phone_click", "email_click", "quote_form_started",
-  "quote_validation_attempted", "quote_whatsapp_open_attempted",
+  "quote_validation_attempted", "quote_whatsapp_open_attempted", "quote_submitted",
 ] as const;
 export type AnalyticsEvent = (typeof analyticsEvents)[number];
 

@@ -432,6 +432,39 @@ ol {
   outline-color: var(--accent-ink);
 }
 
+/* Botão de destaque do Catálogo Técnico Oficial */
+.btn-catalog-download {
+  box-shadow: 0 4px 14px rgba(255, 222, 0, 0.42);
+  transition:
+    transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+    background-color var(--dur-ui) var(--ease-ui);
+}
+
+.btn-catalog-download:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 222, 0, 0.62);
+}
+
+.btn-catalog-download:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(255, 222, 0, 0.35);
+}
+
+.btn-catalog-content {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.btn-catalog-content svg {
+  transition: transform 0.2s ease;
+}
+
+.btn-catalog-download:hover .btn-catalog-content svg {
+  transform: translateY(1.5px);
+}
+
 /* Sobre fundo escuro: contorno claro, texto claro. */
 .pill-on-band {
   color: var(--band-ink);
@@ -2283,12 +2316,178 @@ ol {
   }
 }
 
-/* Optional analytics consent, above the mobile contact bar. */
-.analytics-preferences { position: fixed; bottom: 5.5rem; left: 1rem; z-index: 80; padding: .45rem .7rem; border: 1px solid #435b63; border-radius: 4px; background: #f5f6f3; color: #193b45; font-size: .75rem; box-shadow: 0 2px 8px #0002; }
-.analytics-consent { position: fixed; bottom: 1rem; left: 1rem; right: 1rem; z-index: 90; max-width: 40rem; max-height: calc(100dvh - 2rem); overflow-y: auto; padding: 1.25rem; background: #f5f6f3; color: #193b45; border: 1px solid #435b63; border-radius: 8px; box-shadow: 0 8px 32px #0003; display: grid; gap: .8rem; }
-.analytics-consent-actions { display: flex; flex-wrap: wrap; gap: .75rem; }
-.analytics-consent-actions .pill { flex: 1 1 12rem; }
-.analytics-consent button:focus-visible, .analytics-preferences:focus-visible { outline: 3px solid #193b45; outline-offset: 3px; }
+/* Modern Bottom Drawer for Privacy & Cookie Analytics */
+.analytics-preferences {
+  position: fixed;
+  bottom: 1.25rem;
+  left: 1.25rem;
+  z-index: 90;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.45rem 0.85rem;
+  background: rgba(15, 23, 42, 0.88);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: #e2e8f0;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+  transition: all 0.2s ease;
+}
+.analytics-preferences:hover {
+  background: #1e293b;
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-1px);
+}
+
+.analytics-consent {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 99999;
+  background: #0f172a;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.55);
+  animation: analyticsDrawerSlideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes analyticsDrawerSlideUp {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.analytics-drawer-container {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 1.15rem 1.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.analytics-drawer-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.analytics-drawer-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.analytics-drawer-title {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #f8fafc;
+  letter-spacing: -0.01em;
+}
+
+.analytics-drawer-text {
+  margin: 0;
+  font-size: 0.82rem;
+  color: #94a3b8;
+  line-height: 1.45;
+  max-width: 58rem;
+}
+
+.analytics-drawer-link {
+  color: #38bdf8;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  font-weight: 500;
+  transition: color 0.15s;
+}
+.analytics-drawer-link:hover {
+  color: #7dd3fc;
+}
+
+.analytics-consent-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-shrink: 0;
+}
+
+.analytics-btn-reject {
+  padding: 0.6rem 1.15rem;
+  border-radius: 6px;
+  border: 1px solid #475569;
+  background: transparent;
+  color: #cbd5e1;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+.analytics-btn-reject:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+  border-color: #64748b;
+}
+
+.analytics-btn-accept {
+  padding: 0.6rem 1.35rem;
+  border-radius: 6px;
+  border: none;
+  background: #ffde00;
+  color: #0f172a;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(255, 222, 0, 0.25);
+  white-space: nowrap;
+}
+.analytics-btn-accept:hover {
+  background: #facc15;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(255, 222, 0, 0.35);
+}
+
+.analytics-consent button:focus-visible,
+.analytics-preferences:focus-visible {
+  outline: 3px solid #ffde00;
+  outline-offset: 2px;
+}
+
+@media (max-width: 840px) {
+  .analytics-drawer-container {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1.1rem;
+    padding: 1.1rem 1.25rem calc(1.1rem + env(safe-area-inset-bottom, 0px));
+  }
+  .analytics-consent-actions {
+    width: 100%;
+    flex-direction: column-reverse;
+    gap: 0.6rem;
+  }
+  .analytics-btn-reject,
+  .analytics-btn-accept {
+    width: 100%;
+    text-align: center;
+    padding: 0.75rem 1rem;
+  }
+}
 
 /* ==========================================================================
    Sacos para Lixo — Linha Econômica vs. Linha Premium Reforçada

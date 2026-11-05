@@ -64,6 +64,8 @@ export function QuoteForm() {
   const [values, setValues] = useState<Values>(EMPTY);
   const [errors, setErrors] = useState<Errors>({});
   const [sent, setSent] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitNotice, setSubmitNotice] = useState<string | null>(null);
   const [waHref, setWaHref] = useState<string | null>(null);
   const started = useRef(false);
 
@@ -111,44 +113,68 @@ export function QuoteForm() {
     return Object.keys(next).length === 0;
   }
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const valid = validate();
     track("quote_validation_attempted", { section: "orcamento", product: values.product, valid });
     if (!valid) return;
 
+    setSubmitting(true);
+    setSubmitNotice(null);
+
     const href = `${site.whatsapp.href}?text=${encodeURIComponent(buildMessage(values))}`;
     setWaHref(href);
-    setSent(true);
-    track("quote_whatsapp_open_attempted", { section: "orcamento", product: values.product });
-    window.open(href, "_blank", "noopener,noreferrer");
-  }
 
-  const mailtoHref = `mailto:${site.emails.commercial}?subject=${encodeURIComponent(
-    "Pedido de orçamento — site Plaswill",
-  )}&body=${encodeURIComponent(buildMessage(values))}`;
+    try {
+      const response = await fetch("/api/orcamento", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(values),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Servidor respondeu com status ${response.status}`);
+      }
+
+      track("quote_submitted", { section: "orcamento", product: values.product });
+    } catch (err) {
+      console.warn("Aviso: Falha ao enviar via API, fallback ativo para WhatsApp:", err);
+      setSubmitNotice("Sua solicitação foi preparada. Você pode finalizar o envio diretamente pelo WhatsApp ou e-mail abaixo.");
+    } finally {
+      setSubmitting(false);
+      setSent(true);
+    }
+  }
 
   if (sent) {
     return (
       <div className="form-success">
-        <h3 className="t-subhead">{quoteForm.success.title}</h3>
-        <p className="t-small c-muted">{quoteForm.success.body}</p>
+        <h3 className="t-subhead">
+          {submitNotice ? quoteForm.success.title : "Solicitação registrada com sucesso!"}
+        </h3>
+        <p className="t-small c-muted">
+          {submitNotice
+            ? submitNotice
+            : "Seu pedido de orçamento foi registrado e encaminhado automaticamente por e-mail à nossa equipe comercial. Caso deseje atendimento imediato, você também pode falar conosco pelo WhatsApp."}
+        </p>
 
         <div className="cluster">
           {waHref ? (
             <PillButton href={waHref} variant="primary">
-              Abrir no WhatsApp
+              Conversar agora no WhatsApp
             </PillButton>
           ) : null}
-          <PillButton href={mailtoHref} variant="onBand" marks={["tl", "br"]}>
-            Enviar por e-mail
-          </PillButton>
         </div>
 
         <button
           type="button"
           className="t-caption c-muted link-underline"
-          onClick={() => setSent(false)}
+          onClick={() => {
+            setSent(false);
+            setSubmitNotice(null);
+          }}
         >
           Revisar os dados preenchidos
         </button>
@@ -317,8 +343,13 @@ export function QuoteForm() {
       </div>
 
       <div className="quote-actions">
-        <button type="submit" className="pill pill-primary t-button">
-          <span>{quoteForm.submitLabel}</span>
+        <button
+          type="submit"
+          className="pill pill-primary t-button"
+          disabled={submitting}
+          style={submitting ? { opacity: 0.7, cursor: "wait" } : undefined}
+        >
+          <span>{submitting ? "Enviando solicitação..." : quoteForm.submitLabel}</span>
           <RegistrationMarks />
         </button>
 
