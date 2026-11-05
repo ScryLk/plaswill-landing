@@ -1,6 +1,5 @@
 import { About } from "@/components/About";
 import { Contact } from "@/components/Contact";
-import { Differentials } from "@/components/Differentials";
 import { Footer } from "@/components/Footer";
 import { Materials } from "@/components/Materials";
 import { News } from "@/components/News";
@@ -79,8 +78,6 @@ export default function HomePage() {
         <AberturaContato />
 
         <Products />
-        <hr className="rule" />
-        <Differentials />
         <hr className="rule" />
         <About />
         <hr className="rule" />

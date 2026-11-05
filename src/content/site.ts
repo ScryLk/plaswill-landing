@@ -49,7 +49,6 @@ export const contact = {
 export const nav = [
   { id: "sobre", label: "A Plaswill", href: "/#sobre" },
   { id: "produtos", label: "Produtos", href: "/#produtos" },
-  { id: "diferenciais", label: "Diferenciais", href: "/#diferenciais" },
   { id: "estrutura", label: "Estrutura", href: "/#estrutura" },
   { id: "segmentos", label: "Segmentos", href: "/segmentos" },
   { id: "orcamento", label: "Orçamento", href: "/#orcamento" },
@@ -97,7 +96,7 @@ export const hero = {
 /* ------------------------------------------------------------------ */
 
 export const about = {
-  eyebrow: "04",
+  eyebrow: "03",
   eyebrowLabel: "A Plaswill",
   /**
    * O título era "Indústria de transformação, não distribuidor de terceiros."
@@ -942,7 +941,7 @@ export const differentials: Differential[] = [
 export type ProcessStep = { code: string; title: string; body: string };
 
 export const structure = {
-  eyebrow: "05",
+  eyebrow: "04",
   eyebrowLabel: "Estrutura e processo",
   title: "Da resina à bobina calibrada, na mesma planta.",
   lead:
@@ -995,7 +994,7 @@ export const structure = {
  * do que a empresa faz, que é o que o dossiê sustenta.
  */
 export const materials = {
-  eyebrow: "06",
+  eyebrow: "05",
   eyebrowLabel: "Materiais e meio ambiente",
   title: "O plástico que volta para a linha.",
   lead:
@@ -1101,7 +1100,7 @@ export const segments = {
  * tela é o oposto de arquivo.
  */
 export const news = {
-  eyebrow: "08",
+  eyebrow: "06",
   eyebrowLabel: "Notícias",
   title: "Nossa história em movimento.",
   lead:
@@ -1236,7 +1235,7 @@ export const faq = {
 /* ------------------------------------------------------------------ */
 
 export const quoteForm = {
-  eyebrow: "10",
+  eyebrow: "07",
   eyebrowLabel: "Orçamento",
   title: "Peça uma cotação com amostra técnica.",
   lead:
