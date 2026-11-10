@@ -1780,6 +1780,30 @@ ol {
   max-height: 10.5rem;
 }
 
+.prod-table-note {
+  margin-top: 1.5rem;
+  padding: 0.9rem 1.25rem;
+  border-left: 2px solid var(--petrol);
+  background: color-mix(in oklab, var(--surface) 65%, transparent);
+  border-radius: 0 4px 4px 0;
+}
+
+.prod-table-note p {
+  margin: 0;
+  line-height: 1.6;
+}
+
+.prod-table-note strong {
+  color: var(--fg);
+}
+
+.prod-table-note__mark {
+  color: var(--petrol);
+  font-weight: 700;
+  font-size: 1.1em;
+  margin-right: 0.35rem;
+}
+
 @media (max-width: 47.99rem) {
   .prod-head {
     display: none;

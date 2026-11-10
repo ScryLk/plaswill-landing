@@ -134,6 +134,13 @@ export function Products() {
             );
           })}
         </div>
+
+        <div className="prod-table-note">
+          <p className="t-caption c-muted">
+            <span className="prod-table-note__mark">*</span>
+            <strong>Nota técnica sobre calibração de micragem:</strong> A especificação por micragem nominal aplica-se estritamente a filmes técnicos, plástico bolha e sacos industriais sob medida (onde a espessura veste as arestas e o peso específico da carga). A calibração de micragem não contempla sacos para lixo, cuja engenharia é padronizada por litragem e resistência de carga mecânica (modelos M8 a M15, de 3 kg a 50 kg, conforme NBR 9191).
+          </p>
+        </div>
       </div>
     </section>
   );

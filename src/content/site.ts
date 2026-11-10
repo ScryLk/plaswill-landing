@@ -566,13 +566,13 @@ const productSeeds: Product[] = [
     code: "PR-05",
     category: "industrial",
     name: "Sacos plásticos sob medida",
-    short: "Largura, comprimento e espessura definidos",
+    short: "Largura, comprimento e micragem sob medida*",
     benefit:
       "O saco desenhado para o produto que você embala, e não o tamanho que sobrou no estoque do fornecedor.",
     specs: [
+      { label: "Micragem calibrada*", value: "sob medida (por micragem)*" },
       { label: "Largura", value: "definida com o cliente" },
       { label: "Comprimento", value: "definido com o cliente" },
-      { label: "Espessura", value: "definida com o cliente" },
       { label: "Fechamento", value: "solda de fundo" },
     ],
     applications: [
@@ -634,9 +634,9 @@ const productSeeds: Product[] = [
     code: "PR-08",
     category: "residuos",
     name: "Sacos para lixo",
-    short: "Linha Econômica e Linha Premium Reforçada",
+    short: "Linha Econômica e Linha Premium (litragem e carga mecânica)",
     benefit:
-      "Duas linhas calibradas para a necessidade real da operação: Linha Econômica (M8 e M10) para uso diário com economia, e Linha Premium Reforçada (M10, M12 e M15) para resíduos pesados de até 50 kg.",
+      "Duas linhas calibradas para a necessidade real da operação: Linha Econômica (M8 e M10) para uso diário com economia, e Linha Premium Reforçada (M10, M12 e M15) para resíduos pesados de até 50 kg. Dimensionadas por capacidade de carga mecânica e litragem, sem calibração por micragem nominal (conforme NBR 9191).",
     specs: [
       { label: "Linhas disponíveis", value: "Econômica · Premium Reforçada" },
       { label: "Capacidades", value: "20 L · 40 L · 60 L · 100 L · 130 L · 150 L · 200 L" },
