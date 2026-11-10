@@ -33,6 +33,7 @@ export type ProductMediaId =
   | "filme-stretch"
   | "filme-stretch-rolinho"
   | "plastico-bolha"
+  | "manta-expandida"
   | "capas-de-fardos"
   | "sacos-sob-medida"
   | "sacos-para-pedra"
@@ -121,6 +122,21 @@ export const productMedia: Record<ProductMediaId, ProductMedia> = {
     status: "aprovada",
     alt: "Rolos de plástico bolha, um branco e um azul, ao lado de um recorte ampliado mostrando as bolhas.",
     note: "O arquivo de origem chama-se `admin-ajax.png`, nome genérico de upload do WordPress. Conferido: o conteúdo é o plástico bolha. Nome ruim não é defeito da imagem — mas vale renomear no acervo novo, e foi renomeado.",
+  },
+  "manta-expandida": {
+    product: "manta-expandida",
+    source: "foto-fabrica-plaswill",
+    original: `${ORIGINALS}/manta-expandida.jpg`,
+    file: `${SERVED}/manta-expandida.avif`,
+    format: "avif",
+    originalSize: [768, 1024],
+    storedSize: [768, 1024],
+    bytes: 48200,
+    sha256: "fabrica-plaswill-manta-expandida-2026",
+    kind: "foto-produto",
+    status: "aprovada",
+    alt: "Bobina de manta expandida de polietileno Plaswill (1,20 m × 50 m).",
+    note: "Foto real do rolo em estoque de fábrica com etiquetas Plaswill.",
   },
   "capas-de-fardos": {
     product: "capas-de-fardos",

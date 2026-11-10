@@ -165,7 +165,7 @@ export type DrawingId =
  * mostrava cinco "linhas", o que é uma boa simplificação visual mas deixava
  * metade do portfólio sem endereço na página.
  *
- * Cinco categorias, quatorze produtos, nenhum inventado: cada item abaixo tem
+ * Cinco categorias, quinze produtos, nenhum inventado: cada item abaixo tem
  * página própria no site atual. O que muda é o agrupamento, que aqui segue o
  * uso do cliente (o que ele está tentando embalar) e não a ordem alfabética do
  * menu antigo.
@@ -538,8 +538,33 @@ const productSeeds: Product[] = [
     drawing: "bubble",
   },
   {
-    id: "capas-de-fardos",
+    id: "manta-expandida",
     code: "PR-04",
+    category: "protecao",
+    name: "Manta expandida",
+    short: "Bobina 1,20 m × 50 m · 0,04 (medida única)",
+    benefit:
+      "Amortecimento suave e proteção superficial contra atrito, riscos e pequenos impactos em móveis, perfis, vidros e peças usinadas. Bobina em medida única de linha.",
+    specs: [
+      { label: "Medida em linha", value: "1,20 m × 50 m · 0,04" },
+      { label: "Dimensões", value: "1,20 m de largura × 50 m de comprimento (60 m²)" },
+      { label: "Espessura", value: "0,04 (0,04 micras) — padrão único de linha" },
+      { label: "Grade / Medidas", value: "medida única em linha (somente esta medida)" },
+      { label: "Material", value: "polietileno expandido (EPE)" },
+      { label: "Cor disponível", value: "branca" },
+      { label: "Aplicação", value: "proteção de superfícies delicadas, móveis, peças usinadas e vidros" },
+    ],
+    applications: [
+      "Proteção de superfícies e móveis",
+      "Peças metálicas usinadas e perfis",
+      "Vidros, cerâmicas e espelhos",
+      "Amortecimento e separação de volumes",
+    ],
+    drawing: "roll",
+  },
+  {
+    id: "capas-de-fardos",
+    code: "PR-05",
     category: "protecao",
     name: "Capas de fardos",
     short: "Fardos e volumes, sob medida",
@@ -563,7 +588,7 @@ const productSeeds: Product[] = [
   /* --- C2 · Embalagens industriais ---------------------------------- */
   {
     id: "sacos-sob-medida",
-    code: "PR-05",
+    code: "PR-06",
     category: "industrial",
     name: "Sacos plásticos sob medida",
     short: "Largura, comprimento e micragem sob medida*",
@@ -585,7 +610,7 @@ const productSeeds: Product[] = [
   },
   {
     id: "sacos-para-pedra",
-    code: "PR-06",
+    code: "PR-07",
     category: "industrial",
     name: "Sacos para pedra",
     short: "Acondicionamento de pedra",
@@ -607,7 +632,7 @@ const productSeeds: Product[] = [
   },
   {
     id: "sacos-para-lenha",
-    code: "PR-07",
+    code: "PR-08",
     category: "industrial",
     name: "Sacos para lenha",
     short: "Acondicionamento de lenha e achas",
@@ -631,7 +656,7 @@ const productSeeds: Product[] = [
   /* --- C3 · Resíduos e coleta --------------------------------------- */
   {
     id: "sacos-para-lixo",
-    code: "PR-08",
+    code: "PR-09",
     category: "residuos",
     name: "Sacos para lixo",
     short: "Linha Econômica e Linha Premium (litragem e carga mecânica)",
@@ -688,7 +713,7 @@ const productSeeds: Product[] = [
   },
   {
     id: "sacos-coleta-seletiva",
-    code: "PR-09",
+    code: "PR-10",
     category: "residuos",
     name: "Sacos coloridos para coleta seletiva",
     short: "Identificação por cor do material",
@@ -710,7 +735,7 @@ const productSeeds: Product[] = [
   },
   {
     id: "sacos-lixo-infectante",
-    code: "PR-10",
+    code: "PR-11",
     category: "residuos",
     name: "Sacos para lixo infectante",
     short: "Resíduo hospitalar e de serviços de saúde",
@@ -731,7 +756,7 @@ const productSeeds: Product[] = [
   },
   {
     id: "sacos-lixo-toxico",
-    code: "PR-11",
+    code: "PR-12",
     category: "residuos",
     name: "Sacos para lixo tóxico",
     short: "Resíduo químico e contaminado",
@@ -755,7 +780,7 @@ const productSeeds: Product[] = [
   /* --- C4 · Agronegócio --------------------------------------------- */
   {
     id: "sacos-para-silagem",
-    code: "PR-12",
+    code: "PR-13",
     category: "agro",
     name: "Sacos para silagem",
     short: "Forragem, grãos e cobertura de silo",
@@ -776,7 +801,7 @@ const productSeeds: Product[] = [
   },
   {
     id: "lona-preta",
-    code: "PR-13",
+    code: "PR-14",
     category: "agro",
     name: "Lona preta",
     short: "Bobina 4 m × 100 m · 150 micras (medida única)",
@@ -803,7 +828,7 @@ const productSeeds: Product[] = [
   /* --- C5 · Higiene e aplicações especiais -------------------------- */
   {
     id: "lencol-descartavel",
-    code: "PR-14",
+    code: "PR-15",
     category: "higiene",
     name: "Lençol plástico descartável",
     short: "Barreira de uso único",
@@ -826,7 +851,7 @@ const productSeeds: Product[] = [
 ];
 
 /**
- * Os quatorze produtos, com a imagem que sobrou da auditoria do acervo.
+ * Os quinze produtos, com a imagem que sobrou da auditoria do acervo.
  *
  * A foto não é digitada aqui. Ela vem do manifesto (`src/lib/media-manifest.ts`),
  * que é onde estão o veredito de cada arquivo e o texto alternativo. Duas fontes

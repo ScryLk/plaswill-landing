@@ -48,7 +48,7 @@ export function Products() {
         <SectionHeader
           number="02"
           label="Produtos e soluções"
-          title="Cinco categorias, quatorze produtos, uma mesma fábrica."
+          title="Cinco categorias, quinze produtos, uma mesma fábrica."
           lead="Cada item sai da mesma planta em Panambi, com ficha técnica em mãos e amostra antes do pedido."
           action={
             <PillButton
