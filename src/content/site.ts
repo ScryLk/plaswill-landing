@@ -779,14 +779,17 @@ const productSeeds: Product[] = [
     code: "PR-13",
     category: "agro",
     name: "Lona preta",
-    short: "Cobertura de uso geral",
+    short: "Uso rural, obra e cobertura geral",
     benefit:
       "Cobertura dimensionada ao que precisa ser protegido, e não à largura que o rolo já tinha.",
     specs: [
-      { label: "Aplicação", value: "cobertura de uso geral" },
-      { label: "Material", value: "polietileno" },
+      { label: "Medidas da bobina", value: "4 m × 100 m · 150 micras" },
+      { label: "Dimensões", value: "4 m de largura × 100 m de comprimento" },
+      { label: "Micragem nominal", value: "150 micras (150µ)" },
+      { label: "Formato", value: "bobina (outras medidas sob consulta)" },
+      { label: "Material", value: "polietileno de alta resistência" },
       { label: "Cor", value: "preta" },
-      { label: "Formato", value: "sob medida" },
+      { label: "Aplicação", value: "cobertura geral, silagem, construção civil e pátio" },
     ],
     applications: [
       "Cobertura de material",
