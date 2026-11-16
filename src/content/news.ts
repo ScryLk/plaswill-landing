@@ -45,6 +45,24 @@ export type NewsPost = {
 
 export const newsPosts: NewsPost[] = [
   {
+    slug: "dia-internacional-do-homem-na-plaswill",
+    title: "Dia Internacional do Homem na Plaswill: Confraternização e Reconhecimento",
+    date: "2026-11-14",
+    sourceUrl: "https://plaswill.com.br/dia-internacional-do-homem-na-plaswill/",
+    paragraphs: [
+      "Em celebração ao Dia Internacional do Homem, comemorado oficialmente em 19 de novembro, a Plaswill promoveu uma noite especial de confraternização e reconhecimento para sua equipe masculina.",
+      "O encontro aconteceu na noite de sexta-feira, 13 de novembro, às 19:30, na Pizzaria Via Nápole, reunindo os colaboradores em torno de um saboroso rodízio de pizza para celebrar a data com muita união, descontração e boas conversas.",
+      "Proporcionado pela empresa como gesto de valorização e agradecimento, o momento foi uma oportunidade para desacelerar da rotina produtiva e fortalecer os laços entre os colegas que, com dedicação diária, constroem a história e a excelência da Plaswill.",
+      "A Plaswill parabeniza a todos os homens de sua equipe pelo comprometimento e dedicação contínuos, reforçando a importância da integração e do companheirismo no ambiente de trabalho."
+    ],
+    cover: {
+      src: "/images/noticias/dia-internacional-do-homem-na-plaswill.avif",
+      alt: "Colaboradores da Plaswill reunidos em rodízio de pizza na Via Nápole em celebração ao Dia Internacional do Homem.",
+      width: 1024,
+      height: 768
+    }
+  },
+  {
     slug: "festa-junina-24-06",
     title: "Festa Junina 24/06",
     date: "2026-07-03",
