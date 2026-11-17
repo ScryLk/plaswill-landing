@@ -9,7 +9,7 @@ import Link from "next/link";
  */
 export function EvincoSpotlight() {
   return (
-    <section className="section !py-8 md:!py-12 bg-gradient-to-b from-[#F8FAFC] via-[#EDF1F3] to-[#F1F5F9] border-y border-solid border-slate-200/80">
+    <section id="evinco" className="section !py-8 md:!py-12 bg-gradient-to-b from-[#F8FAFC] via-[#EDF1F3] to-[#F1F5F9] border-y border-solid border-slate-200/80">
       <div className="wrap">
         <div className="relative overflow-hidden rounded-2xl bg-[#0F172A] p-6 shadow-xl sm:p-8 md:p-10 border border-solid border-slate-800">
           {/* Luz de fundo decorativa com o amarelo institucional */}
