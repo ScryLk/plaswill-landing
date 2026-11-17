@@ -1329,11 +1329,9 @@ export const aberturaNav = [
  * · clientes                    — 03-comercial.md, lista aprovada para divulgação
  */
 export const abertura = {
-  /* Aviso do topo: a promessa comercial mais concreta que o dossiê sustenta.
-     Curto de propósito — o aviso tem de caber em uma linha no celular, e
-     "fracionada" é o diferencial que nenhum convertedor grande oferece. */
-  pill: "Pronta-entrega fracionada",
-  pillHref: "/#orcamento",
+  /* Aviso do topo: Destaque institucional comemorativo da feira local */
+  pill: "EVINCO 2026: 18 a 22 de Novembro em Panambi/RS • Presença Confirmada",
+  pillHref: "/noticias/plaswill-confirma-presenca-no-evinco-2026",
 
   /* O título reusa a chamada já aprovada da landing, com as mesmas quebras. */
   headline: hero.headline,

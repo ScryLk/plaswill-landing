@@ -39,11 +39,69 @@ export type NewsPost = {
   sourceUrl: string;
   paragraphs: string[];
   cover: NewsCover | null;
+  /** Botão/link de ação externo ou institucional */
+  cta?: {
+    label: string;
+    href: string;
+    external?: boolean;
+  };
+  /** Galeria de fotos adicionais da notícia */
+  gallery?: {
+    src: string;
+    alt: string;
+    caption?: string;
+  }[];
   /** O que foi ajustado ou está pendente neste post. */
   note?: string;
 };
 
 export const newsPosts: NewsPost[] = [
+  {
+    slug: "plaswill-confirma-presenca-no-evinco-2026",
+    title: "Plaswill confirma presença no EVINCO 2026",
+    date: "2026-11-17",
+    sourceUrl: "https://plaswill.com.br/noticias/plaswill-confirma-presenca-no-evinco-2026/",
+    paragraphs: [
+      "É com grande orgulho e entusiasmo que a Plaswill confirma sua participação oficial no EVINCO 2026 — o tradicional Evento Industrial, Comercial, Agricultura e Serviços de Panambi, que acontece de 18 a 22 de novembro de 2026 no Parque de Eventos de Panambi/RS.",
+      "Estar presente no EVINCO tem um significado especial e profundo para a Plaswill: é a celebração em nossa própria casa, junto à comunidade de Panambi e do Noroeste Gaúcho, da força do trabalho, da união entre indústria, comércio e agricultura e do compromisso contínuo com o desenvolvimento regional.",
+      "Fundada e sediada em Panambi desde 2007, a Plaswill construiu uma trajetória sólida no desenvolvimento de filmes técnicos, plástico bolha, filme stretch, sacos sob medida e soluções completas em embalagens plásticas. Atendemos indústrias, cooperativas, hospitais e comércios em todo o estado e no país, mantendo sempre o orgulho de nossas raízes e o respeito por quem caminha ao nosso lado.",
+      "Durante os cinco dias de programação, o espaço da Plaswill estará de portas abertas para receber clientes, parceiros de negócios, fornecedores, amigos e todas as famílias da nossa cidade e região. Mais do que apresentar nossa capacidade técnica e produtiva, nosso objetivo é estar perto das pessoas, trocar experiências, fortalecer laços e comemorar juntos as conquistas da nossa terra.",
+      "A feira conta com ampla programação comercial, gastronômica e cultural, sendo um ponto de encontro imperdível para toda a região. Convidamos todos a prestigiarem o EVINCO 2026 e a visitarem o estande da Plaswill. Será uma honra receber você!"
+    ],
+    cover: {
+      src: "/images/noticias/plaswill-confirma-presenca-no-evinco-2026.avif",
+      alt: "Plaswill confirma presença no EVINCO 2026 em Panambi - RS, de 18 a 22 de Novembro.",
+      width: 1200,
+      height: 1200
+    },
+    cta: {
+      label: "Conheça a programação no site oficial do EVINCO 2026",
+      href: "https://www.evinco.com.br/",
+      external: true
+    },
+    gallery: [
+      {
+        src: "/images/evinco/fachada-panambi.webp",
+        alt: "Sede industrial da Plaswill em Panambi/RS",
+        caption: "Sede fabril da Plaswill em Panambi/RS: orgulho de ser uma indústria local com alcance estadual e nacional."
+      },
+      {
+        src: "/images/evinco/galpao-estoque.webp",
+        alt: "Galpão de armazenagem e pronta-entrega Plaswill",
+        caption: "Estrutura fabril com pronta-entrega ágil e fracionada para os diversos segmentos da economia."
+      },
+      {
+        src: "/images/evinco/chao-fabrica-extrusao.webp",
+        alt: "Linhas técnicas de extrusão de plásticos em Panambi",
+        caption: "Tecnologia industrial de extrusão técnica e rigoroso controle de qualidade em cada bobina."
+      },
+      {
+        src: "/images/evinco/frota-expedicao.webp",
+        alt: "Frota própria de expedição e transporte da Plaswill",
+        caption: "Logística pontual e integrada para garantir que as embalagens cheguem com agilidade ao cliente."
+      }
+    ]
+  },
   {
     slug: "dia-internacional-do-homem-na-plaswill",
     title: "Dia Internacional do Homem na Plaswill: Confraternização e Reconhecimento",

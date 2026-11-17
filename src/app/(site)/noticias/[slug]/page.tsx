@@ -131,6 +131,51 @@ export default async function NoticiaPage({ params }: PageProps) {
           ))}
         </div>
 
+        {post.cta ? (
+          <div className="news-article__cta">
+            <span className="t-caption c-muted">
+              Programação, expositores e atrações do evento:
+            </span>
+            <a
+              href={post.cta.href}
+              target={post.cta.external ? "_blank" : undefined}
+              rel={post.cta.external ? "noopener noreferrer" : undefined}
+              className="news-article__cta-btn"
+            >
+              <span>{post.cta.label}</span>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                <polyline points="15 3 21 3 21 9"></polyline>
+                <line x1="10" y1="14" x2="21" y2="3"></line>
+              </svg>
+            </a>
+          </div>
+        ) : null}
+
+        {post.gallery && post.gallery.length > 0 ? (
+          <section className="news-article__gallery" aria-label="Galeria de fotos">
+            <h2 className="news-article__gallery-title t-subhead">Estrutura & Presença em Panambi</h2>
+            <div className="news-article__gallery-grid">
+              {post.gallery.map((item, idx) => (
+                <figure key={idx} className="news-article__gallery-item">
+                  <Image
+                    src={item.src}
+                    alt={item.alt}
+                    width={800}
+                    height={450}
+                    className="news-article__gallery-img"
+                  />
+                  {item.caption ? (
+                    <figcaption className="news-article__gallery-caption t-small c-muted">
+                      {item.caption}
+                    </figcaption>
+                  ) : null}
+                </figure>
+              ))}
+            </div>
+          </section>
+        ) : null}
+
         {post.note ? (
           /* Nota de migração. Fica visível de propósito: quem revisar o site
              precisa saber o que foi ajustado, em vez de descobrir depois. */

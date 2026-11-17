@@ -1,5 +1,6 @@
 import { About } from "@/components/About";
 import { Contact } from "@/components/Contact";
+import { EvincoSpotlight } from "@/components/EvincoSpotlight";
 import { Footer } from "@/components/Footer";
 import { Materials } from "@/components/Materials";
 import { News } from "@/components/News";
@@ -71,6 +72,9 @@ export default function HomePage() {
 
       <main id="conteudo">
         <AberturaHero photoSrc={photoSrc} facadeSrc={facadeSrc} />
+
+        {/* Destaque comemorativo da presença confirmada no EVINCO 2026 */}
+        <EvincoSpotlight />
 
         {/* Faixa de conversão. Ela é branca sobre o `--bg` (#edf1f3) da página:
             a troca de tom, mais o fio no topo da faixa, é o que separa a

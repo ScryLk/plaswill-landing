@@ -74,17 +74,20 @@ export function AberturaHero({
           texto sem depender de `height: 100%` em cadeia. */}
       <div className="shell relative z-10 flex min-h-[100svh] flex-col md:grid md:grid-cols-[minmax(0,1.08fr)_minmax(0,1fr)] md:grid-rows-[minmax(0,1fr)]">
         <div className="flex shrink-0 flex-col items-start pb-8 pt-28 md:pb-10 md:pt-36">
-          {/* Aviso comercial */}
+          {/* Aviso / Notícia em Destaque */}
           <a
-            className="mb-5 inline-flex animate-fade-up items-center gap-2 rounded-full border border-solid border-brand-slate/15 bg-white/60 px-4 py-2 stagger-3 backdrop-blur-sm transition-colors hover:bg-white/80 md:mb-6"
+            className="group mb-5 inline-flex animate-fade-up items-center gap-2.5 rounded-full border border-solid border-brand-slate/20 bg-white/75 px-3.5 py-1.5 stagger-3 shadow-sm backdrop-blur-md transition-all hover:border-brand-petrol/40 hover:bg-white md:mb-6"
             href={abertura.pillHref}
+            title="Plaswill no EVINCO 2026: 18 a 22 de Novembro em Panambi/RS"
           >
-            {/* `whitespace-nowrap`: o aviso é curto de propósito, e quebrar em
-                duas linhas dentro de uma cápsula desalinha a seta. */}
-            <span className="whitespace-nowrap font-mono text-[0.6875rem] uppercase tracking-[0.12em] text-brand-slate">
+            <span className="relative flex h-2 w-2 shrink-0">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500"></span>
+            </span>
+            <span className="whitespace-nowrap font-mono text-[0.6875rem] font-medium uppercase tracking-[0.12em] text-brand-slate">
               {abertura.pill}
             </span>
-            <ArrowRight className="h-3.5 w-3.5 text-brand-slate" />
+            <ArrowRight className="h-3.5 w-3.5 text-brand-slate transition-transform group-hover:translate-x-0.5" />
           </a>
 
           {/* Título — uma frase inteira para o leitor de tela, quebras só visuais.

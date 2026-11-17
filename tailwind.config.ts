@@ -33,6 +33,7 @@ const config = {
     "./src/app/page.tsx",
     "./src/app/abertura/**/*.{ts,tsx}",
     "./src/components/abertura/**/*.{ts,tsx}",
+    "./src/components/**/*.{ts,tsx}",
   ],
 
   /**
